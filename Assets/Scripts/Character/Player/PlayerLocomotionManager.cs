@@ -27,9 +27,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     {
         base.Update();
 
-        // if (player.IsOwner) {
-        //     player.characterNetworkManager.animatorVerticalParameter
-        // }
+        // He added a bunch here after the "do it yourself" in episode 6, but mine is in the PlayerManager and CharacterManager
     }
 
     public void HandleAllMovement() {

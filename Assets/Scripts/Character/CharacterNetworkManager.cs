@@ -23,6 +23,7 @@ public class CharacterNetworkManager : NetworkBehaviour
         );
     public float networkRotationSmoothTime = 0.1f;
 
+    // I added this in the "do it yourself" in episode 6
     [Header("Animator")]
     public NetworkVariable<float> animatorHorizontalParameter =
         new NetworkVariable<float>(

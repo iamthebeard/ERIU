@@ -26,6 +26,7 @@ public class CharacterManager : NetworkBehaviour
         if (IsOwner) {
             characterNetworkManager.networkPosition.Value = transform.position;
             characterNetworkManager.networkRotation.Value = transform.rotation;
+            // I added this in the "do it yourself" in episode 6
             if(animator != null) {
                 characterNetworkManager.animatorHorizontalParameter.Value = animator.GetFloat("Horizontal");
                 characterNetworkManager.animatorVerticalParameter.Value = animator.GetFloat("Vertical");
@@ -46,6 +47,7 @@ public class CharacterManager : NetworkBehaviour
                     characterNetworkManager.networkRotation.Value,
                     characterNetworkManager.networkRotationSmoothTime
                 );
+            // I added this in the "do it yourself" in episode 6
             characterAnimatorManager.UpdateAnimatorMovement(
                 characterNetworkManager.animatorHorizontalParameter.Value,
                 characterNetworkManager.animatorVerticalParameter.Value

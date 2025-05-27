@@ -111,6 +111,7 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
 
+        // This code was in the tutorial up until the "do it yourself" in episode 6
         // // Only animate if a player has been loaded
         // if (player == null) return;
 

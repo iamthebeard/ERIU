@@ -24,6 +24,7 @@ public class PlayerManager : CharacterManager
         if (IsOwner) {
             // Handle movement
             playerLocomotionManager.HandleAllMovement();
+            // I added this in the "do it yourself" in episode 6
             // Handle animations
             playerAnimatorManager.UpdateAnimatorMovement(0, playerLocomotionManager.moveAmount);
         }
