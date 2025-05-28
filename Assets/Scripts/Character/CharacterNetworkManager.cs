@@ -5,6 +5,8 @@ using Unity.Netcode;
 
 public class CharacterNetworkManager : NetworkBehaviour
 {
+    [HideInInspector] CharacterManager character;
+
     [Header("Position")]
     public NetworkVariable<Vector3> networkPosition =
         new NetworkVariable<Vector3>(
@@ -23,7 +25,7 @@ public class CharacterNetworkManager : NetworkBehaviour
         );
     public float networkRotationSmoothTime = 0.1f;
 
-    // I added this in the "do it yourself" in episode 6
+    // I added this in the "do it yourself" in episode 5
     [Header("Animator")]
     public NetworkVariable<float> animatorHorizontalParameter =
         new NetworkVariable<float>(
@@ -37,4 +39,33 @@ public class CharacterNetworkManager : NetworkBehaviour
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
+    
+    protected virtual void Awake() {
+        character = GetComponent<CharacterManager>();
+    }
+
+    // A server RPC is a function called from a client to a server/host
+    [ServerRpc]
+    public void NotifyOfActionAnimationServerRpc(ulong clientID, string animationID, bool applyRootMotion, bool isRolling, bool isBackstepping) {
+        if (IsServer) {
+            PlayActionAnimationForAllClientsClientRpc(clientID, animationID, applyRootMotion, isRolling, isBackstepping);
+        }
+    }
+
+    // A client RPC is a function called from the server/host to all clients present
+    [ClientRpc]
+    public void PlayActionAnimationForAllClientsClientRpc(ulong clientID, string animationID, bool applyRootMotion, bool isRolling, bool isBackstepping) {
+        // Make sure not to run the function on the character who sent it.
+        if (clientID != NetworkManager.Singleton.LocalClientId) {
+            PerformActionAnimationFromServer(animationID, applyRootMotion, isRolling, isBackstepping);
+        }
+    }
+
+    // Question: Why can't I just call PlayTargetActionAnimation?
+    private void PerformActionAnimationFromServer(string animationID, bool applyRootMotion, bool isRolling, bool isBackstepping) {
+        character.applyRootMotion = applyRootMotion;
+        character.isRolling = isRolling;
+        character.isBackstepping = isBackstepping;
+        character.animator.CrossFade(animationID, 0.2f);
+    }
 }

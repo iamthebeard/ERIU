@@ -22,6 +22,9 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public float verticalInput;
     [SerializeField] public float moveAmount;
 
+    [Header("Action Inputs")]
+    [SerializeField] private bool dodgeInput = false;
+
     [Header("Camera Inputs")]
     [SerializeField] Vector2 cameraInput;
     [SerializeField] public float cameraHorizontalInput;
@@ -68,6 +71,7 @@ public class PlayerInputManager : MonoBehaviour
             playerControls = new PlayerControls();
 
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+            playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
         }
 
@@ -92,6 +96,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update() {
         HandleMovementInput();
+        HandleDodgeInput();
         HandleCameraMovementInput();
     }
 
@@ -111,7 +116,7 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
 
-        // This code was in the tutorial up until the "do it yourself" in episode 6
+        // This code was in the tutorial up until the "do it yourself" in episode 5
         // // Only animate if a player has been loaded
         // if (player == null) return;
 
@@ -122,5 +127,15 @@ public class PlayerInputManager : MonoBehaviour
     private void HandleCameraMovementInput() {
         cameraHorizontalInput = cameraInput.x;
         cameraVerticalInput = cameraInput.y;
+    }
+
+    private void HandleDodgeInput() {
+        if(dodgeInput) {
+            dodgeInput = false;
+
+            // Perform a dodge
+            player.playerLocomotionManager.AttemptToPerformDodge();
+            // Future note: don't perform a dodge if menu or UI is open
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class CharacterAnimatorManager : MonoBehaviour
 {
@@ -18,5 +19,32 @@ public class CharacterAnimatorManager : MonoBehaviour
         // Option 2: Snapped (not used because our movement is already snapped, and our animation looks fine blended)
         float snappedHorizontal = Mathf.Round(Mathf.Clamp(horizontalMovement, -1, 1) * 2) / 2;
         float snappedVertical = Mathf.Round(Mathf.Clamp(verticalMovement, -1, 1) * 2) / 2;
+    }
+
+    public virtual void PlayTargetActionAnimation(
+        string targetAnimation,
+        bool isPerformingAction,
+        bool applyRootMotion = true,
+        bool canRotate = false,
+        bool canMove = false
+    ) {
+        character.applyRootMotion = applyRootMotion;
+        character.animator.CrossFade(targetAnimation, 0.2f);
+        // Can be used to stop character from attempting new actions
+        // For example, if you get damaged, and begin performing a damage animation,
+        //  this flag will turn true if you are stunned.
+        //  We can then check for this before attmepting new actions.
+        character.isPerformingAction = isPerformingAction;
+        character.canRotate = canRotate;
+        character.canMove = canMove;
+
+        // Tell the server/host about this animation action.
+        character.characterNetworkManager.NotifyOfActionAnimationServerRpc(
+            NetworkManager.Singleton.LocalClientId,
+            targetAnimation,
+            applyRootMotion,
+            character.isRolling,
+            character.isBackstepping
+        );
     }
 }

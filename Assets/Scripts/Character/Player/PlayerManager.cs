@@ -24,9 +24,21 @@ public class PlayerManager : CharacterManager
         if (IsOwner) {
             // Handle movement
             playerLocomotionManager.HandleAllMovement();
-            // I added this in the "do it yourself" in episode 6
+            // I added this in the "do it yourself" in episode 5
             // Handle animations
             playerAnimatorManager.UpdateAnimatorMovement(0, playerLocomotionManager.moveAmount);
+        }
+        // Handle movement during animations for *ALL* characters
+
+        if(isRolling) { // I had to add this because my animation doesn't have built in motion
+            // Keep moving in the direction we started rolling
+            characterController.Move(transform.forward * playerLocomotionManager.rollingSpeed * Time.deltaTime);
+            return;
+        }
+        if(isBackstepping) { // I had to add this because my animation doesn't have built in motion
+            // Keep moving in the direction we started rolling
+            characterController.Move((-transform.forward) * playerLocomotionManager.backstepSpeed * Time.deltaTime);
+            return;
         }
     }
 

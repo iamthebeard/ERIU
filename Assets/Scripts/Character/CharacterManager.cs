@@ -10,6 +10,14 @@ public class CharacterManager : NetworkBehaviour
     [HideInInspector] public CharacterAnimatorManager characterAnimatorManager;
     [HideInInspector] public CharacterNetworkManager characterNetworkManager;
 
+    [Header("Flags")]
+    public bool isPerformingAction = false;
+    public bool applyRootMotion = false;
+    public bool isRolling = false;
+    public bool isBackstepping = false;
+    public bool canRotate = true;
+    public bool canMove = true;
+
     protected virtual void Awake()
     {
         DontDestroyOnLoad(this);
@@ -26,7 +34,7 @@ public class CharacterManager : NetworkBehaviour
         if (IsOwner) {
             characterNetworkManager.networkPosition.Value = transform.position;
             characterNetworkManager.networkRotation.Value = transform.rotation;
-            // I added this in the "do it yourself" in episode 6
+            // I added this in the "do it yourself" in episode 5
             if(animator != null) {
                 characterNetworkManager.animatorHorizontalParameter.Value = animator.GetFloat("Horizontal");
                 characterNetworkManager.animatorVerticalParameter.Value = animator.GetFloat("Vertical");
@@ -47,7 +55,7 @@ public class CharacterManager : NetworkBehaviour
                     characterNetworkManager.networkRotation.Value,
                     characterNetworkManager.networkRotationSmoothTime
                 );
-            // I added this in the "do it yourself" in episode 6
+            // I added this in the "do it yourself" in episode 5
             characterAnimatorManager.UpdateAnimatorMovement(
                 characterNetworkManager.animatorHorizontalParameter.Value,
                 characterNetworkManager.animatorVerticalParameter.Value
