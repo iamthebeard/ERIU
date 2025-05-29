@@ -21,6 +21,10 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [SerializeField] public float rollingSpeed = 7;
     [SerializeField] public float backstepSpeed = 6;
 
+    [Header("Stamina Values")]
+    [SerializeField] public float sprintingStaminaCost = 10; // Per second?
+    [SerializeField] public float dodgeStaminaCost = 25;
+
     [Header("Player Actions")]
     private Vector3 rollDirection;
     private Vector3 backstepDirection;
@@ -99,9 +103,11 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     }
 
     public void AttemptToPerformDodge() {
-        if (player.isPerformingAction) {
+        if (player.isPerformingAction)
             return;
-        }
+        
+        if (player.playerNetworkManager.currentStamina.Value <= 0)
+            return; // No dodging when out of stamina
 
         if (moveAmount > 0) {
             // Dodge while moving is a roll
@@ -125,6 +131,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             player.isBackstepping = true;
             player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
         }
+
+        player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
     }
 
     public void HandleSprinting() {
@@ -134,6 +142,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         }
 
         // If we are out of stamina, set sprinting to false and return
+        else if (player.playerNetworkManager.currentStamina.Value <= 0) {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
 
         // If we are stationary/walking slowly, set sprinting to false and return
         else if (moveAmount <= 0.5) {
@@ -142,6 +153,10 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         // If we are moving, set sprinting to true
         else {
             player.playerNetworkManager.isSprinting.Value = true;
+        }
+
+        if (player.playerNetworkManager.isSprinting.Value) {
+            player.playerNetworkManager.currentStamina.Value -= sprintingStaminaCost * Time.deltaTime;
         }
     }
 

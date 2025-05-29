@@ -7,6 +7,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public PlayerNetworkManager playerNetworkManager;
+    [HideInInspector] public PlayerStatsManager playerStatsManager;
 
     protected override void Awake()
     {
@@ -16,6 +17,7 @@ public class PlayerManager : CharacterManager
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>(); // It's a component on the same object, so we can fetch it.
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         playerNetworkManager = GetComponent<PlayerNetworkManager>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
     }
 
     protected override void Update()
@@ -29,6 +31,9 @@ public class PlayerManager : CharacterManager
             // I added this in the "do it yourself" in episode 5
             // Handle animations
             playerAnimatorManager.UpdateAnimatorMovement(0, playerLocomotionManager.moveAmount, characterNetworkManager.isSprinting.Value);
+
+            // Regen stamina
+            playerStatsManager.RegenerateStamina();
         }
         // Handle movement during animations for *ALL* characters
 
@@ -60,6 +65,19 @@ public class PlayerManager : CharacterManager
         if(IsOwner) {
             PlayerCamera.instance.player = this;
             PlayerInputManager.instance.player = this;
+
+            playerNetworkManager.currentStamina.OnValueChanged += PlayerUIManager.instance.playerUIHUDManager.SetNewStaminaValue;
+            playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenerationTimer;
+
+            // This will be moved when saving and loading is added
+            int maxStamina = playerStatsManager.CalculateStaminaBasedOnEnduranceLevel(
+                playerNetworkManager.endurance.Value
+            );
+            PlayerUIManager.instance.playerUIHUDManager.SetMaxStaminaValue(
+                maxStamina
+            );
+            playerNetworkManager.maxStamina.Value = maxStamina;
+            playerNetworkManager.currentStamina.Value = maxStamina;
         }
         playerAnimatorManager.character = this;
     }

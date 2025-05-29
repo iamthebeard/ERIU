@@ -1878,6 +1878,7 @@ GameObject:
   - component: {fileID: 3735588607312321138}
   - component: {fileID: -3273676974946476584}
   - component: {fileID: -5967782446029854813}
+  - component: {fileID: -781727131940977839}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2026,6 +2027,14 @@ MonoBehaviour:
     m_InternalValue: 0
   animatorVerticalParameter:
     m_InternalValue: 0
+  isSprinting:
+    m_InternalValue: 0
+  endurance:
+    m_InternalValue: 10
+  maxStamina:
+    m_InternalValue: 0
+  currentStamina:
+    m_InternalValue: 0
 --- !u!114 &3735588607312321137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2045,9 +2054,11 @@ MonoBehaviour:
   targetRotationDirection: {x: 0, y: 0, z: 0}
   walkingSpeed: 1.5
   runningSpeed: 4.5
+  sprintingSpeed: 6.5
   rotationSpeed: 15
   rollingSpeed: 7
   backstepSpeed: 6
+  sprintingStaminaCost: 10
 --- !u!114 &3735588607312321138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2072,6 +2083,8 @@ MonoBehaviour:
   canMove: 1
   playerLocomotionManager: {fileID: 0}
   playerAnimatorManager: {fileID: 0}
+  playerNetworkManager: {fileID: 0}
+  playerStatsManager: {fileID: 0}
 --- !u!82 &-3273676974946476584
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2178,6 +2191,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbbd781667fa5574da9410605e989e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-781727131940977839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735588607312354621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b689ddd30dcae97438a1e7f6ceab5a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3735588607312354623
