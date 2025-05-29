@@ -58,7 +58,8 @@ public class CharacterManager : NetworkBehaviour
             // I added this in the "do it yourself" in episode 5
             characterAnimatorManager.UpdateAnimatorMovement(
                 characterNetworkManager.animatorHorizontalParameter.Value,
-                characterNetworkManager.animatorVerticalParameter.Value
+                characterNetworkManager.animatorVerticalParameter.Value,
+                characterNetworkManager.isSprinting.Value
             );
         }
     }

@@ -24,6 +24,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Action Inputs")]
     [SerializeField] private bool dodgeInput = false;
+    [SerializeField] private bool sprintInput = false;
 
     [Header("Camera Inputs")]
     [SerializeField] Vector2 cameraInput;
@@ -72,6 +73,8 @@ public class PlayerInputManager : MonoBehaviour
 
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+            playerControls.PlayerActions.Sprint.performed += i => sprintInput = true; // Holding activates
+            playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false; // Releasing deactivates
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
         }
 
@@ -97,6 +100,7 @@ public class PlayerInputManager : MonoBehaviour
     private void Update() {
         HandleMovementInput();
         HandleDodgeInput();
+        HandleSprintInput();
         HandleCameraMovementInput();
     }
 
@@ -136,6 +140,14 @@ public class PlayerInputManager : MonoBehaviour
             // Perform a dodge
             player.playerLocomotionManager.AttemptToPerformDodge();
             // Future note: don't perform a dodge if menu or UI is open
+        }
+    }
+
+    private void HandleSprintInput() {
+        if(sprintInput) {
+            player.playerLocomotionManager.HandleSprinting();
+        } else {
+            player.playerLocomotionManager.HandleStopSprinting();
         }
     }
 }

@@ -14,8 +14,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     public Vector3 moveDirection;
     public Vector3 targetRotationDirection;
 
-    [SerializeField] public float walkingSpeed = 1.5;
-    [SerializeField] public float runningSpeed = 4.5;
+    [SerializeField] public float walkingSpeed = 1.5f;
+    [SerializeField] public float runningSpeed = 4.5f;
+    [SerializeField] public float sprintingSpeed = 6.5f;
     [SerializeField] public float rotationSpeed = 15;
     [SerializeField] public float rollingSpeed = 7;
     [SerializeField] public float backstepSpeed = 6;
@@ -67,7 +68,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        if (PlayerInputManager.instance.moveAmount > 0.5f) {
+        if (player.playerNetworkManager.isSprinting.Value) {
+            player.characterController.Move(moveDirection * sprintingSpeed * Time.deltaTime);
+        } else if (PlayerInputManager.instance.moveAmount > 0.5f) {
             // Move at a running speed
             player.characterController.Move(moveDirection * runningSpeed * Time.deltaTime);
 
@@ -122,5 +125,27 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             player.isBackstepping = true;
             player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
         }
+    }
+
+    public void HandleSprinting() {
+        if(player.isPerformingAction) {
+            // Set sprinting to false and return (don't sprint)
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+
+        // If we are out of stamina, set sprinting to false and return
+
+        // If we are stationary/walking slowly, set sprinting to false and return
+        else if (moveAmount <= 0.5) {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+        // If we are moving, set sprinting to true
+        else {
+            player.playerNetworkManager.isSprinting.Value = true;
+        }
+    }
+
+    public void HandleStopSprinting() {
+        player.playerNetworkManager.isSprinting.Value = false;
     }
 }

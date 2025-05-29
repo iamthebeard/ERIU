@@ -7,18 +7,31 @@ public class CharacterAnimatorManager : MonoBehaviour
 {
     public CharacterManager character;
 
-    protected virtual void Awake() {
+    // int horizontal;
+    // int vertical;
 
+    protected virtual void Awake() {
+        character = GetComponent<CharacterManager>();
+
+        // Could pass these hash values instead of strings as the first argument to "SetFloat" below.
+        // horizontal = Animator.StringToHash("Horizontal");
+        // vertical = Animator.StringToHash("Vertical");
     }
 
-    public void UpdateAnimatorMovement(float horizontalMovement, float verticalMovement){
+    public void UpdateAnimatorMovement(float horizontalMovement, float verticalMovement, bool isSprinting){
+        float horizontal = horizontalMovement;
+        float vertical = verticalMovement;
+        
+        if (isSprinting) 
+            vertical = 2;
+
         // Option 1
-        character.animator.SetFloat("Horizontal", horizontalMovement, 0.1f, Time.deltaTime);
-        character.animator.SetFloat("Vertical", verticalMovement, 0.1f, Time.deltaTime);
+        character.animator.SetFloat("Horizontal", horizontal, 0.1f, Time.deltaTime);
+        character.animator.SetFloat("Vertical", vertical, 0.1f, Time.deltaTime);
 
         // Option 2: Snapped (not used because our movement is already snapped, and our animation looks fine blended)
-        float snappedHorizontal = Mathf.Round(Mathf.Clamp(horizontalMovement, -1, 1) * 2) / 2;
-        float snappedVertical = Mathf.Round(Mathf.Clamp(verticalMovement, -1, 1) * 2) / 2;
+        // float snappedHorizontal = Mathf.Round(Mathf.Clamp(horizontalMovement, -1, 1) * 2) / 2;
+        // float snappedVertical = Mathf.Round(Mathf.Clamp(verticalMovement, -1, 1) * 2) / 2;
     }
 
     public virtual void PlayTargetActionAnimation(

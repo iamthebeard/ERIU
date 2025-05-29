@@ -6,6 +6,7 @@ public class PlayerManager : CharacterManager
 {
     [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
+    [HideInInspector] public PlayerNetworkManager playerNetworkManager;
 
     protected override void Awake()
     {
@@ -14,6 +15,7 @@ public class PlayerManager : CharacterManager
         // Do more, only for the player character
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>(); // It's a component on the same object, so we can fetch it.
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+        playerNetworkManager = GetComponent<PlayerNetworkManager>();
     }
 
     protected override void Update()
@@ -26,7 +28,7 @@ public class PlayerManager : CharacterManager
             playerLocomotionManager.HandleAllMovement();
             // I added this in the "do it yourself" in episode 5
             // Handle animations
-            playerAnimatorManager.UpdateAnimatorMovement(0, playerLocomotionManager.moveAmount);
+            playerAnimatorManager.UpdateAnimatorMovement(0, playerLocomotionManager.moveAmount, characterNetworkManager.isSprinting.Value);
         }
         // Handle movement during animations for *ALL* characters
 
