@@ -26,7 +26,7 @@ public class UICharacterSaveSlot : MonoBehaviour
         saveFileDataWriter.saveFileName = WorldSaveGameManager.DecideCharacterFileNameBasedOnCharacterSlot(slot);
         if (saveFileDataWriter.CheckIfFileExists())
         {
-            CharacterSaveData characterSaveData = WorldSaveGameManager.instance.CharacterSaveDataBySlot(slot);
+            CharacterSaveData characterSaveData = WorldSaveGameManager.instance.characterSlotsDict[slot];
             characterName.text = characterSaveData.characterName;
             timePlayed.text = characterSaveData.timePlayed;
         }
@@ -34,5 +34,11 @@ public class UICharacterSaveSlot : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void LoadGameFromCharacterSlot()
+    {
+        WorldSaveGameManager.instance.currentCharacterSlot = slot;
+        WorldSaveGameManager.instance.LoadGame();
     }
 }
