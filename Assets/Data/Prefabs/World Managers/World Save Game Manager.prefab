@@ -45,3 +45,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSceneIndex: 1
+  saveGame: 0
+  loadGame: 0
+  player: {fileID: 3735588607312321138, guid: 4a2693eaf653c8a45a58c18a80fd0fe7, type: 3}
+  currentCharacterSlot: 0
+  saveFileName: 
+  currentCharacterSaveData:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot01:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot02:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot03:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot04:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot05:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot06:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot07:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot08:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot09:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0
+  characterSlot10:
+    characterName: 
+    timePlayed: 
+    xPosition: 0
+    yPosition: 0
+    zPosition: 0

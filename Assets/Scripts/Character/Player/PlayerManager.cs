@@ -84,6 +84,7 @@ public class PlayerManager : CharacterManager
 
     public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData) {
         currentCharacterSaveData.characterName = playerNetworkManager.characterName.Value.ToString();
+        currentCharacterSaveData.timePlayed = playerNetworkManager.timePlayed.Value.ToString();
         currentCharacterSaveData.xPosition = transform.position.x;
         currentCharacterSaveData.yPosition = transform.position.y;
         currentCharacterSaveData.zPosition = transform.position.z;
@@ -91,6 +92,7 @@ public class PlayerManager : CharacterManager
 
     public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData) {
         playerNetworkManager.characterName.Value = currentCharacterSaveData.characterName;
+        playerNetworkManager.timePlayed.Value = currentCharacterSaveData.timePlayed;
         Vector3 savedPosition = new Vector3(currentCharacterSaveData.xPosition, currentCharacterSaveData.yPosition, currentCharacterSaveData.zPosition);
         transform.position = savedPosition;
     }

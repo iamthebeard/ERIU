@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Collections;
+using System;
+using System.Linq;
 
 public class WorldSaveGameManager : MonoBehaviour
 {
@@ -22,15 +25,15 @@ public class WorldSaveGameManager : MonoBehaviour
 
     [Header("Character Slots")]
     public CharacterSaveData characterSlot01;
-    // public CharacterSaveData characterSlot02;
-    // public CharacterSaveData characterSlot03;
-    // public CharacterSaveData characterSlot04;
-    // public CharacterSaveData characterSlot05;
-    // public CharacterSaveData characterSlot06;
-    // public CharacterSaveData characterSlot07;
-    // public CharacterSaveData characterSlot08;
-    // public CharacterSaveData characterSlot09;
-    // public CharacterSaveData characterSlot10;
+    public CharacterSaveData characterSlot02;
+    public CharacterSaveData characterSlot03;
+    public CharacterSaveData characterSlot04;
+    public CharacterSaveData characterSlot05;
+    public CharacterSaveData characterSlot06;
+    public CharacterSaveData characterSlot07;
+    public CharacterSaveData characterSlot08;
+    public CharacterSaveData characterSlot09;
+    public CharacterSaveData characterSlot10;
 
     [Header("Save Data Writer")]
     private SaveFileDataWriter saveFileDataWriter;
@@ -51,18 +54,46 @@ public class WorldSaveGameManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject); // Stays with us through scene transitions
-
+        LoadAllCharacterSlots();
     }
 
     private void Update() {
         if (saveGame) SaveGame();
         if (loadGame) LoadGame();
-        saveGame = false;
-        loadGame = false;
     }
 
-    private void DecideCharacterFileNameBasedOnCharacterSlot() {
-        saveFileName = currentCharacterSlot.ToString() + ".sav";
+    public ref CharacterSaveData CharacterSaveDataBySlot(CharacterSlot slot)
+    {
+        CharacterSaveData[] characterSlots = new CharacterSaveData[] {
+            characterSlot01,
+            characterSlot02,
+            characterSlot03,
+            characterSlot04,
+            characterSlot05,
+            characterSlot06,
+            characterSlot07,
+            characterSlot08,
+            characterSlot09,
+            characterSlot10,
+        };
+        CharacterSlot[] characterSlotNames = new CharacterSlot[] {
+            CharacterSlot.CharacterSlot01,
+            CharacterSlot.CharacterSlot02,
+            CharacterSlot.CharacterSlot03,
+            CharacterSlot.CharacterSlot04,
+            CharacterSlot.CharacterSlot05,
+            CharacterSlot.CharacterSlot06,
+            CharacterSlot.CharacterSlot07,
+            CharacterSlot.CharacterSlot08,
+            CharacterSlot.CharacterSlot09,
+            CharacterSlot.CharacterSlot10,
+        };
+        return ref characterSlots[Array.FindIndex(characterSlotNames, x => x == slot)];
+    }
+
+    public static string DecideCharacterFileNameBasedOnCharacterSlot(CharacterSlot characterSlot)
+    {
+        return characterSlot.ToString() + ".sav";
         // switch (currentCharacterSaveSlot) {
         //     case CharacterSaveSlot.CharacterSlot01:
         //         fileName = "characterSlot01"
@@ -89,13 +120,14 @@ public class WorldSaveGameManager : MonoBehaviour
     }
 
     public void NewGame() {
-        DecideCharacterFileNameBasedOnCharacterSlot();
+        saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(currentCharacterSlot);
 
         currentCharacterSaveData = new CharacterSaveData();
     }
 
     public void LoadGame() {
-        DecideCharacterFileNameBasedOnCharacterSlot();
+        loadGame = false; // Don't keep trying to load.
+        saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(currentCharacterSlot);
 
         saveFileDataWriter = new SaveFileDataWriter();
         // Generally works on multiple machine types
@@ -109,7 +141,8 @@ public class WorldSaveGameManager : MonoBehaviour
     }
 
     public void SaveGame() {
-        DecideCharacterFileNameBasedOnCharacterSlot();
+        saveGame = false; // Don't keep trying to save.
+        saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(currentCharacterSlot);
 
         saveFileDataWriter = new SaveFileDataWriter();
         // Generally works on multiple machine types
@@ -119,6 +152,21 @@ public class WorldSaveGameManager : MonoBehaviour
         player.SaveGameDataToCurrentCharacterData(ref currentCharacterSaveData);
 
         saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterSaveData);
+    }
+
+    private void LoadAllCharacterSlots()
+    {
+        saveFileDataWriter = new SaveFileDataWriter();
+        saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+
+        Debug.Log("In LoadAllCharacterSlots");
+
+        foreach (CharacterSlot slot in Enum.GetValues(typeof(CharacterSlot)))
+        {
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(slot);
+            CharacterSaveDataBySlot(slot) = saveFileDataWriter.LoadSaveFile();
+            Debug.Log("Slot: " + slot.ToString() + "  Character: " + CharacterSaveDataBySlot(slot).characterName);
+        }
     }
 
     public IEnumerator LoadWorldScene() // co-routine

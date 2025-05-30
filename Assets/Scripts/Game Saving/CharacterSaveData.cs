@@ -10,7 +10,7 @@ public class CharacterSaveData
     [Header("Character Name")]
     public string characterName;
     [Header("Time Played")]
-    public float secondsPlayed;
+    public string timePlayed;
     [Header("World Coordinates")]
     public float xPosition;
     public float yPosition;
