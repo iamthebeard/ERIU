@@ -325,6 +325,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fb0ef35b-7ed3-44c0-a27a-5d09b1845a2f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e7647d5b-4041-4f09-955e-7dc1afd55e31",
                     "path": "<XInputController>/buttonEast",
                     "interactions": "",
@@ -342,6 +353,56 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ecf84a81-05a7-4025-926a-2dc0d6eec93d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "bfa1ceb2-9b84-428a-bf66-cef837ebe143",
+            "actions": [
+                {
+                    "name": "X",
+                    "type": "Button",
+                    "id": "9e07c3f8-d4eb-417f-aaa4-8ab79dc1f245",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aba6828c-1460-4e64-92fe-a069a3588d2d",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92e71ae7-fcfb-4d4d-b5bf-d66ace088cb8",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "X",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

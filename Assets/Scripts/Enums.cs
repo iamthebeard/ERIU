@@ -7,7 +7,8 @@ public class Enums : MonoBehaviour
 
 }
 
-public enum CharacterSlot {
+public enum CharacterSlot
+{
     CharacterSlot01,
     CharacterSlot02,
     CharacterSlot03,
@@ -18,4 +19,5 @@ public enum CharacterSlot {
     CharacterSlot08,
     CharacterSlot09,
     CharacterSlot10,
+    NoSlot,
 }

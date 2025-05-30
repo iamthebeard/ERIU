@@ -9,8 +9,12 @@ public class CharacterSaveData
 {
     [Header("Character Name")]
     public string characterName;
+    [Header("Character Slot")]
+    public CharacterSlot characterSlot;
     [Header("Time Played")]
     public string timePlayed;
+    [Header("Scene Index")]
+    public int sceneIndex = 1;
     [Header("World Coordinates")]
     public float xPosition;
     public float yPosition;

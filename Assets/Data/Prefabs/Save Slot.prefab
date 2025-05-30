@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 9164808573895046135}
   - component: {fileID: 8825542045911722298}
   - component: {fileID: -7347744150717450516}
+  - component: {fileID: 636936091808883551}
   m_Layer: 5
   m_Name: Save Slot
   m_TagString: Untagged
@@ -427,6 +428,35 @@ MonoBehaviour:
   slot: 0
   characterName: {fileID: 9164808573310069348}
   timePlayed: {fileID: 9164808574749959040}
+--- !u!114 &636936091808883551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164808573895046133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -7347744150717450516}
+          m_TargetAssemblyTypeName: UICharacterSaveSlot, Assembly-CSharp
+          m_MethodName: SelectCurrentSlot
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &9164808574749959102
 GameObject:
   m_ObjectHideFlags: 0

@@ -141,6 +141,7 @@ public class WorldSaveGameManager : MonoBehaviour
         {
             // CharacterSlot slot = tuple.Item1;
             CharacterSlot slot = characterSlot;
+            if (slot == CharacterSlot.NoSlot) continue;
             // CharacterSaveData data = tuple.Item2;
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(slot);
             if (!saveFileDataWriter.CheckIfFileExists())
@@ -175,7 +176,8 @@ public class WorldSaveGameManager : MonoBehaviour
         StartCoroutine(LoadWorldScene());
     }
 
-    public void SaveGame() {
+    public void SaveGame()
+    {
         saveGame = false; // Don't keep trying to save.
         saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(currentCharacterSlot);
 
@@ -187,6 +189,18 @@ public class WorldSaveGameManager : MonoBehaviour
         player.SaveGameDataToCurrentCharacterData(ref currentCharacterSaveData);
 
         saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterSaveData);
+        characterSlotsDict[currentCharacterSlot] = currentCharacterSaveData;
+        RefreshCharacterSlotsInInspector();
+    }
+
+    public void DeleteGame(CharacterSlot slotToDelete)
+    {
+        saveFileDataWriter = new SaveFileDataWriter();
+        saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(slotToDelete);
+        saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+        saveFileDataWriter.DeleteSaveFile();
+        characterSlotsDict.Remove(slotToDelete);
+        RefreshCharacterSlotsInInspector();
     }
 
     private void LoadAllCharacterSlots()
@@ -196,18 +210,28 @@ public class WorldSaveGameManager : MonoBehaviour
 
         foreach (CharacterSlot slot in Enum.GetValues(typeof(CharacterSlot)))
         {
+            if (slot == CharacterSlot.NoSlot) continue;
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(slot);
             if (!saveFileDataWriter.CheckIfFileExists()) break;
             // CharacterSaveDataBySlot(slot) = saveFileDataWriter.LoadSaveFile();
             characterSlotsDict[slot] = saveFileDataWriter.LoadSaveFile();
             Debug.Log("Slot: " + slot.ToString() + "  Character: " + characterSlotsDict[slot].characterName + characterSlotsDict[slot].xPosition);
         }
+        RefreshCharacterSlotsInInspector();
+    }
+
+    private void RefreshCharacterSlotsInInspector()
+    {
         characterSlots = characterSlotsDict.Values.ToArray();
     }
 
     public IEnumerator LoadWorldScene() // co-routine
     {
+        // If you will use a universal game scene
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldSceneIndex);
+
+        // If you have different scenes for different areas/levels (must have a default for new games)
+        // AsyncOperation loadOperation = SceneManager.LoadSceneAsync(currentCharacterSaveData.sceneIndex);
 
         yield return null;
     }

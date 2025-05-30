@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : CharacterManager
 {
@@ -86,6 +87,7 @@ public class PlayerManager : CharacterManager
     public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData) {
         currentCharacterSaveData.characterName = playerNetworkManager.characterName.Value.ToString();
         currentCharacterSaveData.timePlayed = playerNetworkManager.timePlayed.Value.ToString();
+        currentCharacterSaveData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
         currentCharacterSaveData.xPosition = transform.position.x;
         currentCharacterSaveData.yPosition = transform.position.y;
         currentCharacterSaveData.zPosition = transform.position.z;
