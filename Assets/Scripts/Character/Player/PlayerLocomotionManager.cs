@@ -18,8 +18,17 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [SerializeField] public float runningSpeed = 4.5f;
     [SerializeField] public float sprintingSpeed = 6.5f;
     [SerializeField] public float rotationSpeed = 15;
+
+    [Header("Dodging")]
+
     [SerializeField] public float rollingSpeed = 7;
     [SerializeField] public float backstepSpeed = 6;
+
+    [Header("Jumping")]
+    [SerializeField] public float jumpHeight = 2;
+    private Vector3 jumpDirection;
+    [SerializeField] public float jumpingMomentumSpeed = 3;
+    [SerializeField] public float freeFallControlledMovementSpeed = 1.5f;
 
     [Header("Stamina Values")]
     [SerializeField] public float sprintingStaminaCost = 10; // Per second?
@@ -50,6 +59,9 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         HandleGroundedMovement();
 
         // Aerial/Jumping Movement
+        HandleJumpingMovement();
+        HandleFreeFallMovement();
+
         // Gravity
         // Rotation
         HandleRotation();
@@ -91,6 +103,30 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         {
             // Move at a walking speed
             player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+        }
+    }
+
+    private void HandleJumpingMovement()
+    {
+        if (player.isJumping)
+        {
+            // "Momentum" from the jump
+            player.characterController.Move(jumpDirection * jumpingMomentumSpeed * Time.deltaTime);
+            // Slight movement control during free-fall is handled in HandleFreeFallMovement
+        }
+    }
+
+    // Give the player slight movement control during a jump or a fall to increase the feel of handling
+    private void HandleFreeFallMovement()
+    {
+        if (!player.isGrounded)
+        {
+            Vector3 freeFallDirection = PlayerCamera.instance.transform.forward * verticalMovement;
+            freeFallDirection += PlayerCamera.instance.transform.right * horizontalMovement;
+            freeFallDirection.y = 0;
+            freeFallDirection.Normalize();
+
+            player.characterController.Move(freeFallDirection * freeFallControlledMovementSpeed * Time.deltaTime);
         }
     }
 
@@ -201,38 +237,35 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (!player.isGrounded)
             return;
 
-        // if (moveAmount > 0) {
-        //     // Dodge while moving is a roll
-        //     rollDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
-        //     // Right now we shouldn't take horizontal movement into account, maybe?
-        //     rollDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
-        //     rollDirection.y = 0;
-        //     rollDirection.Normalize();
-
-        //     Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
-        //     player.transform.rotation = playerRotation;
-
-        //     // Perform a roll animation
-        //     player.isRolling = true;
-        //     player.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true);
-        // } else {
-        //     // Dodge while still is a backstep
-        //     backstepDirection = -player.transform.forward;
-
-        //     // Perform a backstep animation
-        //     player.isBackstepping = true;
-        //     player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
-        // }
-
         // Play jumping animation (1H or 2H)
-        player.playerAnimatorManager.PlayTargetActionAnimation("Jump", false, false, false, true);
+        if (moveAmount > 0.5f) // Running jump
+            player.playerAnimatorManager.PlayTargetActionAnimation("JumpMove", false, false, false, false);
+        else player.playerAnimatorManager.PlayTargetActionAnimation("OneHand_Up_Jump_B_InPlace", false, false, false, false);
         player.isJumping = true;
 
+        // Stamina cost
         player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
+
+        // Forward movement during jump due to starting momentum
+        jumpDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;// PlayerInputManager.instance.verticalInput;
+        jumpDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement; // PlayerInputManager.instance.horizontalInput;
+        jumpDirection.y = 0;
+        jumpDirection.Normalize();
+
+        if (player.playerNetworkManager.isSprinting.Value)
+            jumpDirection *= 1.25f;
+        else if (moveAmount > 0.5f)
+            jumpDirection *= 1;
+        else if (moveAmount > 0)
+            jumpDirection *= 0.5f;
+        // else // Not moving
+        //     jumpDirection *= 0;
+        // Should be fine because jumpDirection will equal Vector3.zero
     }
 
     public void ApplyJumpingVelocity()
     {
         // Apply an upward velocity depending on forces from our game (from the animator)
+        yVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
     }
 }
