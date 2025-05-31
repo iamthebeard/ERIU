@@ -15,6 +15,8 @@ public class CharacterManager : NetworkBehaviour
     public bool applyRootMotion = false;
     public bool isRolling = false;
     public bool isBackstepping = false;
+    public bool isJumping = false;
+    public bool isGrounded = true;
     public bool canRotate = true;
     public bool canMove = true;
 
@@ -29,17 +31,23 @@ public class CharacterManager : NetworkBehaviour
     }
     protected virtual void Update()
     {
+        animator.SetBool("IsGrounded", isGrounded);
+        
         // If this character is being controlled from our side,
         //  set the network position and rotation to our position and rotation.
-        if (IsOwner) {
+        if (IsOwner)
+        {
             characterNetworkManager.networkPosition.Value = transform.position;
             characterNetworkManager.networkRotation.Value = transform.rotation;
             // I added this in the "do it yourself" in episode 5
-            if(animator != null) {
+            if (animator != null)
+            {
                 characterNetworkManager.animatorHorizontalParameter.Value = animator.GetFloat("Horizontal");
                 characterNetworkManager.animatorVerticalParameter.Value = animator.GetFloat("Vertical");
             }
-        } else {
+        }
+        else
+        {
             // If this character is being controlled elsewhere,
             //  set our position and rotation to the network values.
             transform.position =

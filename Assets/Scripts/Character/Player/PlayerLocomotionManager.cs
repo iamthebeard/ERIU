@@ -24,12 +24,14 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     [Header("Stamina Values")]
     [SerializeField] public float sprintingStaminaCost = 10; // Per second?
     [SerializeField] public float dodgeStaminaCost = 25;
+    [SerializeField] public float jumpStaminaCost = 25;
 
     [Header("Player Actions")]
     private Vector3 rollDirection;
     private Vector3 backstepDirection;
 
-    protected override void Awake() {
+    protected override void Awake()
+    {
         base.Awake();
 
         player = GetComponent<PlayerManager>();
@@ -42,7 +44,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         // He added a bunch here after the "do it yourself" in episode 5, but mine is in the PlayerManager and CharacterManager
     }
 
-    public void HandleAllMovement() {
+    public void HandleAllMovement()
+    {
         // Grounded Movement
         HandleGroundedMovement();
 
@@ -52,7 +55,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         HandleRotation();
     }
 
-    private void GetHorizontalAndVerticalInputs() {
+    private void GetHorizontalAndVerticalInputs()
+    {
         // These are being brought in from the PlayerInputManager and can be used interchangeably,
         //  so long as GetHorizontalAndVerticalInputs is called.
         horizontalMovement = PlayerInputManager.instance.horizontalInput;
@@ -62,9 +66,10 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         // Clamp the movements (for animations)
     }
 
-    private void HandleGroundedMovement() {
+    private void HandleGroundedMovement()
+    {
         GetHorizontalAndVerticalInputs();
-        if(!player.canMove) return;
+        if (!player.canMove) return;
 
         // Movement direction is based on camera perspective and inputs
         moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
@@ -72,20 +77,26 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        if (player.playerNetworkManager.isSprinting.Value) {
+        if (player.playerNetworkManager.isSprinting.Value)
+        {
             player.characterController.Move(moveDirection * sprintingSpeed * Time.deltaTime);
-        } else if (PlayerInputManager.instance.moveAmount > 0.5f) {
+        }
+        else if (PlayerInputManager.instance.moveAmount > 0.5f)
+        {
             // Move at a running speed
             player.characterController.Move(moveDirection * runningSpeed * Time.deltaTime);
 
-        } else if (PlayerInputManager.instance.moveAmount <= 0.5f) {
+        }
+        else if (PlayerInputManager.instance.moveAmount <= 0.5f)
+        {
             // Move at a walking speed
             player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
         }
     }
 
-    private void HandleRotation() {
-        if(!player.canRotate) return;
+    private void HandleRotation()
+    {
+        if (!player.canRotate) return;
 
         targetRotationDirection = Vector3.zero;
         targetRotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
@@ -93,7 +104,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         targetRotationDirection.Normalize();
         targetRotationDirection.y = 0;
 
-        if (targetRotationDirection == Vector3.zero) {
+        if (targetRotationDirection == Vector3.zero)
+        {
             targetRotationDirection = transform.forward;
         }
 
@@ -102,28 +114,32 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         transform.rotation = targetRotation;
     }
 
-    public void AttemptToPerformDodge() {
+    public void AttemptToPerformDodge()
+    {
         if (player.isPerformingAction)
             return;
-        
+
         if (player.playerNetworkManager.currentStamina.Value <= 0)
             return; // No dodging when out of stamina
 
-        if (moveAmount > 0) {
+        if (moveAmount > 0)
+        {
             // Dodge while moving is a roll
             rollDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
             // Right now we shouldn't take horizontal movement into account, maybe?
             rollDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
             rollDirection.y = 0;
             rollDirection.Normalize();
-            
+
             Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
             player.transform.rotation = playerRotation;
 
             // Perform a roll animation
             player.isRolling = true;
             player.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true);
-        } else {
+        }
+        else
+        {
             // Dodge while still is a backstep
             backstepDirection = -player.transform.forward;
 
@@ -135,32 +151,88 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         player.playerNetworkManager.currentStamina.Value -= dodgeStaminaCost;
     }
 
-    public void HandleSprinting() {
-        if(player.isPerformingAction) {
+    public void HandleSprinting()
+    {
+        if (player.isPerformingAction)
+        {
             // Set sprinting to false and return (don't sprint)
             player.playerNetworkManager.isSprinting.Value = false;
         }
 
         // If we are out of stamina, set sprinting to false and return
-        else if (player.playerNetworkManager.currentStamina.Value <= 0) {
+        else if (player.playerNetworkManager.currentStamina.Value <= 0)
+        {
             player.playerNetworkManager.isSprinting.Value = false;
         }
 
         // If we are stationary/walking slowly, set sprinting to false and return
-        else if (moveAmount <= 0.5) {
+        else if (moveAmount <= 0.5)
+        {
             player.playerNetworkManager.isSprinting.Value = false;
         }
         // If we are moving, set sprinting to true
-        else {
+        else
+        {
             player.playerNetworkManager.isSprinting.Value = true;
         }
 
-        if (player.playerNetworkManager.isSprinting.Value) {
+        if (player.playerNetworkManager.isSprinting.Value)
+        {
             player.playerNetworkManager.currentStamina.Value -= sprintingStaminaCost * Time.deltaTime;
         }
     }
 
-    public void HandleStopSprinting() {
+    public void HandleStopSprinting()
+    {
         player.playerNetworkManager.isSprinting.Value = false;
+    }
+
+    public void AttemptToPerformJump()
+    {
+        if (player.isPerformingAction) // Will need some expansion when combat is added
+            return;
+
+        if (player.playerNetworkManager.currentStamina.Value <= 0)
+            return; // No jumping when out of stamina
+
+        if (player.isJumping)
+            return;
+
+        if (!player.isGrounded)
+            return;
+
+        // if (moveAmount > 0) {
+        //     // Dodge while moving is a roll
+        //     rollDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+        //     // Right now we shouldn't take horizontal movement into account, maybe?
+        //     rollDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+        //     rollDirection.y = 0;
+        //     rollDirection.Normalize();
+
+        //     Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
+        //     player.transform.rotation = playerRotation;
+
+        //     // Perform a roll animation
+        //     player.isRolling = true;
+        //     player.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true);
+        // } else {
+        //     // Dodge while still is a backstep
+        //     backstepDirection = -player.transform.forward;
+
+        //     // Perform a backstep animation
+        //     player.isBackstepping = true;
+        //     player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
+        // }
+
+        // Play jumping animation (1H or 2H)
+        player.playerAnimatorManager.PlayTargetActionAnimation("Jump", false, false, false, true);
+        player.isJumping = true;
+
+        player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
+    }
+
+    public void ApplyJumpingVelocity()
+    {
+        // Apply an upward velocity depending on forces from our game (from the animator)
     }
 }

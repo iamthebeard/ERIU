@@ -25,6 +25,8 @@ public class PlayerInputManager : MonoBehaviour
     [Header("Action Inputs")]
     [SerializeField] private bool dodgeInput = false;
     [SerializeField] private bool sprintInput = false;
+    [SerializeField] private bool jumpInput = false;
+
 
     [Header("Camera Inputs")]
     [SerializeField] Vector2 cameraInput;
@@ -32,19 +34,21 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public float cameraVerticalInput;
     // [SerializeField] public float moveAmount;
 
-    private void Awake() {
+    private void Awake()
+    {
         if (instance == null)
         {
             instance = this;
         }
-        else 
+        else
         {
             Destroy(gameObject);
         }
     }
 
     // Start is called before the first frame update
-    private void Start() {
+    private void Start()
+    {
         DontDestroyOnLoad(gameObject);
 
         // Subscribe to the 'activeSceneChanged' event
@@ -54,7 +58,8 @@ public class PlayerInputManager : MonoBehaviour
         instance.enabled = false;
     }
 
-    private void OnSceneChange(Scene oldScene, Scene newScene) {
+    private void OnSceneChange(Scene oldScene, Scene newScene)
+    {
         if (newScene.buildIndex == WorldSaveGameManager.instance.GetWorldSceneIndex())
         {
             // Make this script active only when we are on the World Scene
@@ -66,7 +71,8 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         if (playerControls == null)
         {
             playerControls = new PlayerControls();
@@ -75,47 +81,59 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
             playerControls.PlayerActions.Sprint.performed += i => sprintInput = true; // Holding activates
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false; // Releasing deactivates
+            playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
         }
 
         playerControls.Enable();
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         SceneManager.activeSceneChanged -= OnSceneChange;
     }
 
-    private void OnApplicationFocus(bool focus) {
-        if (enabled) {
+    private void OnApplicationFocus(bool focus)
+    {
+        if (enabled)
+        {
             // Disable player controls when switching windows,
             //  so we can have two windows open to test multiplayer.
-            if (focus) {
+            if (focus)
+            {
                 playerControls.Enable();
-            } else {
+            }
+            else
+            {
                 playerControls.Disable();
             }
         }
     }
 
-    private void Update() {
+    private void Update()
+    {
         HandleMovementInput();
         HandleDodgeInput();
         HandleSprintInput();
         HandleCameraMovementInput();
     }
 
-    private void HandleMovementInput() {
+    private void HandleMovementInput()
+    {
         horizontalInput = movementInput.x;
         verticalInput = movementInput.y;
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
 
-        if (snapMovement) {
+        if (snapMovement)
+        {
             // Clamp movement to only allow half speed or full speed (for a souls-like feel)
-            if (moveAmount <= 0.5 && moveAmount > 0) {
+            if (moveAmount <= 0.5 && moveAmount > 0)
+            {
                 moveAmount = 0.5f;
             }
-            else if (moveAmount > 0.5 && moveAmount <= 1) {
+            else if (moveAmount > 0.5 && moveAmount <= 1)
+            {
                 moveAmount = 1.0f;
             }
         }
@@ -128,13 +146,16 @@ public class PlayerInputManager : MonoBehaviour
         // player.playerAnimatorManager.UpdateAnimatorMovement(0, moveAmount);
     }
 
-    private void HandleCameraMovementInput() {
+    private void HandleCameraMovementInput()
+    {
         cameraHorizontalInput = cameraInput.x;
         cameraVerticalInput = cameraInput.y;
     }
 
-    private void HandleDodgeInput() {
-        if(dodgeInput) {
+    private void HandleDodgeInput()
+    {
+        if (dodgeInput)
+        {
             dodgeInput = false;
 
             // Perform a dodge
@@ -143,11 +164,28 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    private void HandleSprintInput() {
-        if(sprintInput) {
+    private void HandleSprintInput()
+    {
+        if (sprintInput)
+        {
             player.playerLocomotionManager.HandleSprinting();
-        } else {
+        }
+        else
+        {
             player.playerLocomotionManager.HandleStopSprinting();
+        }
+    }
+
+    private void HandleJumpInput()
+    {
+        if (jumpInput)
+        {
+            jumpInput = false;
+
+            // If we have a UI window open, exit without doing anything
+
+            // Attempt to perform a jump
+            player.playerLocomotionManager.AttemptToPerformJump();
         }
     }
 }
