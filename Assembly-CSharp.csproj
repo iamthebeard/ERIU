@@ -1134,6 +1134,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-Editor.csproj" />
     <ProjectReference Include="ParrelSync.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
@@ -1146,5 +1147,8 @@
     <ProjectCapability Remove="ReferenceManagerCOM" />
     <ProjectCapability Remove="AssemblyReferences" />
     <ProjectCapability Remove="ReferenceManagerAssemblies" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Scripts\Character\Effects\" />
   </ItemGroup>
 </Project>
