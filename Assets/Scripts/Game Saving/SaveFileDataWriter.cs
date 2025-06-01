@@ -59,7 +59,7 @@ public class SaveFileDataWriter
                         dataToLoad = reader.ReadToEnd();
                     }
                 }
-                Debug.Log("Loading save game " + loadPath + " with json: " + dataToLoad);
+                // Debug.Log("Loading save game " + loadPath + " with json: " + dataToLoad);
 
                 // Deserialize the data
                 characterSaveData = JsonUtility.FromJson<CharacterSaveData>(dataToLoad);

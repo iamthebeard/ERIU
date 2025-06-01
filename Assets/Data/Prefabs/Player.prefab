@@ -1871,6 +1871,7 @@ GameObject:
   - component: {fileID: 3735588607302840091}
   - component: {fileID: 3735588607312321137}
   - component: {fileID: 3735588607312321138}
+  - component: {fileID: -4697310233458906598}
   - component: {fileID: 3735588607296017499}
   - component: {fileID: 3735588607312321143}
   - component: {fileID: 3735588607312321141}
@@ -1959,6 +1960,9 @@ MonoBehaviour:
   rotationSpeed: 15
   rollingSpeed: 7
   backstepSpeed: 6
+  jumpHeight: 2
+  jumpingMomentumSpeed: 3
+  freeFallControlledMovementSpeed: 1.5
   sprintingStaminaCost: 10
   dodgeStaminaCost: 25
   jumpStaminaCost: 25
@@ -1990,6 +1994,20 @@ MonoBehaviour:
   playerAnimatorManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
   playerStatsManager: {fileID: 0}
+--- !u!114 &-4697310233458906598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735588607312354621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365513029a642fd44876003077f46cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testInstantEffect: {fileID: 11400000, guid: f6e8e29d626fe1a41b2088cef666e2d3, type: 2}
+  processTestInstantEffect: 0
 --- !u!205 &3735588607296017499
 LODGroup:
   m_ObjectHideFlags: 0

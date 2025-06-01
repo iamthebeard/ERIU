@@ -240,7 +240,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         // Play jumping animation (1H or 2H)
         if (moveAmount > 0.5f) // Running jump
             player.playerAnimatorManager.PlayTargetActionAnimation("JumpMove", false, false, false, false);
-        else player.playerAnimatorManager.PlayTargetActionAnimation("OneHand_Up_Jump_B_InPlace", false, false, false, false);
+        else player.playerAnimatorManager.PlayTargetActionAnimation("JumpWithLaunch", false, false, false, false);
         player.isJumping = true;
 
         // Stamina cost

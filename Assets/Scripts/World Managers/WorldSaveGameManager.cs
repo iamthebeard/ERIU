@@ -215,7 +215,7 @@ public class WorldSaveGameManager : MonoBehaviour
             if (!saveFileDataWriter.CheckIfFileExists()) break;
             // CharacterSaveDataBySlot(slot) = saveFileDataWriter.LoadSaveFile();
             characterSlotsDict[slot] = saveFileDataWriter.LoadSaveFile();
-            Debug.Log("Slot: " + slot.ToString() + "  Character: " + characterSlotsDict[slot].characterName + characterSlotsDict[slot].xPosition);
+            // Debug.Log("Slot: " + slot.ToString() + "  Character: " + characterSlotsDict[slot].characterName + characterSlotsDict[slot].xPosition);
         }
         RefreshCharacterSlotsInInspector();
     }

@@ -91,7 +91,7 @@ namespace Invector.vCharacterController
         {
             if (!cameraMain)
             {
-                if (!Camera.main) Debug.Log("Missing a Camera with the tag MainCamera, please add one.");
+                if (!Camera.main) Debug.LogError("Missing a Camera with the tag MainCamera, please add one.");
                 else
                 {
                     cameraMain = Camera.main;
