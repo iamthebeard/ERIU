@@ -16,12 +16,41 @@ public class CharacterStatsManager : MonoBehaviour
     protected virtual void Awake() {
         character = GetComponent<CharacterManager>();
     }
+    protected virtual void Start() {}
 
-    public int CalculateStaminaBasedOnEnduranceLevel(int endurance) {
-        float stamina = 0;
+    // Stats
+    public void SetVitality(int oldValue, int newValue)
+    {
+        Debug.Log("Changing vitality from " + oldValue + " to " + newValue);
+        character.characterNetworkManager.vitality.Value = newValue;
+        character.characterNetworkManager.maxHealth.Value =
+            CalculateMaxHealthBasedOnVitalityLevel(newValue);
+        PlayerUIManager.instance.playerUIHUDManager.SetMaxHealthValue(character.characterNetworkManager.maxHealth.Value);
+    }
+    public void SetEndurance(int oldValue, int newValue)
+    {
+        Debug.Log("Changing endurance from " + oldValue + " to " + newValue);
+        character.characterNetworkManager.endurance.Value = newValue;
+        character.characterNetworkManager.maxStamina.Value =
+            CalculateMaxStaminaBasedOnEnduranceLevel(newValue);
+        PlayerUIManager.instance.playerUIHUDManager.SetMaxStaminaValue(character.characterNetworkManager.maxStamina.Value);
+    }
 
+    // Health
+    public int CalculateMaxHealthBasedOnVitalityLevel(int vitality)
+    {
         // Create an equation for how to calculate stamina based on endurance stat
-        stamina = endurance * 10;
+        float health = vitality * 30;
+
+        return Mathf.RoundToInt(health);
+    }
+
+    // Stamina
+    
+    public int CalculateMaxStaminaBasedOnEnduranceLevel(int endurance)
+    {
+        // Create an equation for how to calculate stamina based on endurance stat
+        float stamina = endurance * 10;
 
         return Mathf.RoundToInt(stamina);
     }

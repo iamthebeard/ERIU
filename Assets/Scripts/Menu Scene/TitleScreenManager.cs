@@ -42,7 +42,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        WorldSaveGameManager.instance.NewGame();
+        WorldSaveGameManager.instance.AttemptToCreateNewGame();
         // StartCoroutine(WorldSaveGameManager.instance.LoadWorldScene());
     }
 

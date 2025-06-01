@@ -132,7 +132,7 @@ public class WorldSaveGameManager : MonoBehaviour
     //     }
     // }
 
-    public void NewGame()
+    public void AttemptToCreateNewGame()
     {
         // Check to see if we have character slots open
         saveFileDataWriter = new SaveFileDataWriter();
@@ -152,7 +152,7 @@ public class WorldSaveGameManager : MonoBehaviour
                 currentCharacterSaveData = new CharacterSaveData();
 
                 // Start game
-                StartCoroutine(LoadWorldScene());
+                NewGame();
                 return;
             }
         }
@@ -161,7 +161,14 @@ public class WorldSaveGameManager : MonoBehaviour
         TitleScreenManager.instance.DisplayNoFreeCharacterSlotsPopUp();
     }
 
-    public void LoadGame() {
+    private void NewGame()
+    {
+        SaveGame(); // Save the newly created character
+        StartCoroutine(LoadWorldScene());
+    }
+
+    public void LoadGame()
+    {
         loadGame = false; // Don't keep trying to load.
         saveFileName = DecideCharacterFileNameBasedOnCharacterSlot(currentCharacterSlot);
 

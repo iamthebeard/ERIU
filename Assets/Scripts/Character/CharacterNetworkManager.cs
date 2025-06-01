@@ -47,24 +47,42 @@ public class CharacterNetworkManager : NetworkBehaviour
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
-    
+
     [Header("Base Stats")]
+    public NetworkVariable<int> vitality =
+        new NetworkVariable<int>(
+            10,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
     public NetworkVariable<int> endurance =
         new NetworkVariable<int>(
             10,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
-    
+
     [Header("Derived Stats")]
+    public NetworkVariable<int> maxHealth =
+        new NetworkVariable<int>(
+            0,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
     public NetworkVariable<int> maxStamina =
         new NetworkVariable<int>(
             0,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
-    
-    [Header("Dynamic Stats (Bars)")]
+
+    [Header("Resources (Bars)")]
+    public NetworkVariable<float> currentHealth =
+        new NetworkVariable<float>(
+            0,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
     public NetworkVariable<float> currentStamina =
         new NetworkVariable<float>(
             0,
