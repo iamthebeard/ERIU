@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonMotor.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterEffectsManager.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldSoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerCamera.cs" />
     <Compile Include="Assets\Scripts\Game Saving\SaveFileDataWriter.cs" />
@@ -56,44 +57,32 @@
     <Compile Include="Assets\Scripts\Character\CharacterLocomotionManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonInput.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerSoundFXManager.cs" />
-    <Compile Include="Assets\Scripts\Character\Effects\InstantCharacterEffect.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\UI_StatBar.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vPickupItem.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerLocomotionManager.cs" />
-    <Compile Include="Assets\Scripts\Animations\ResetIsJumping.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\TitleScreenManager.cs" />
     <Compile Include="Assets\DoubleL\Demo\DemoCameraController.cs" />
-    <Compile Include="Assets\Scripts\Character\Effects\BaseCharacterEffect.cs" />
-    <Compile Include="Assets\Scripts\Menu Scene\UIMatchScrollWheelToSelectedButton.cs" />
-    <Compile Include="Assets\Scripts\Game Saving\UICharacterSaveSlot.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Camera\vThirdPersonCamera.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerStatsManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
-    <Compile Include="Assets\Scripts\World Managers\WorldCharacterEffectsManager.cs" />
     <Compile Include="Assets\PlayerControls.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\3D Models\Others\HealthItem\vAnimateUV.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vComment.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonAnimator.cs" />
-    <Compile Include="Assets\Scripts\Character\Player\PlayerEffectsManager.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldSaveGameManager.cs" />
-    <Compile Include="Assets\Scripts\Menu Scene\TitleScreenLoadMenuInputManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PlayerUIHUDManager.cs" />
     <Compile Include="Assets\Scripts\Game Saving\CharacterSaveData.cs" />
-    <Compile Include="Assets\Scripts\Animations\ManuallyInvokeJumpVelocity.cs" />
-    <Compile Include="Assets\Scripts\Character\Effects\TakeStaminaDamageEffect.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterSoundFXManager.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PlayerUIManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonController.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vExtensions.cs" />
-    <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
+    <Compile Include="Assets\Scripts\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
-    <Compile Include="Assets\Scripts\Character\Effects\TakeDamageEffect.cs" />
-    <Compile Include="Assets\Scripts\Colliders\DamageCollider.cs" />
-    <Compile Include="Assets\Scripts\Character\CharacterEffectsManager.cs" />
+    <Compile Include="Assets\Scripts\Game Saving\UICharacterSaveSlot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1146,6 +1135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-Editor.csproj" />
     <ProjectReference Include="ParrelSync.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
@@ -1158,5 +1148,8 @@
     <ProjectCapability Remove="ReferenceManagerCOM" />
     <ProjectCapability Remove="AssemblyReferences" />
     <ProjectCapability Remove="ReferenceManagerAssemblies" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Scripts\Character\Effects\" />
   </ItemGroup>
 </Project>

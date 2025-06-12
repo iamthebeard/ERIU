@@ -17,7 +17,7 @@ public class TakeDamageEffect : InstantCharacterEffect
     public float lightningDamage = 0;
     public float holyDamage = 0;
 
-    private float finalDamageDealt = 0; // Combined damage after all calculations have been made.
+    private int finalDamageDealt = 0; // Combined damage after all calculations have been made.
 
     // Effect build-ups (to be added later)
 

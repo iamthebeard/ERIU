@@ -59,11 +59,13 @@ public class PlayerManager : CharacterManager
         PlayerCamera.instance.HandleAllCameraActions();
     }
 
-    public override void OnNetworkSpawn() {
+    public override void OnNetworkSpawn()
+    {
         base.OnNetworkSpawn();
 
         // If this is the local player, assign the camera to us.
-        if(IsOwner) {
+        if (IsOwner)
+        {
             PlayerCamera.instance.player = this;
             PlayerInputManager.instance.player = this;
             WorldSaveGameManager.instance.player = this;
@@ -79,7 +81,10 @@ public class PlayerManager : CharacterManager
             playerNetworkManager.currentStamina.OnValueChanged += PlayerUIManager.instance.playerUIHUDManager.SetNewStaminaValue;
             playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenerationTimer;
         }
+        // Why did I do this?
         playerAnimatorManager.character = this;
+
+        playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.CheckHP;
     }
 
     public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData)

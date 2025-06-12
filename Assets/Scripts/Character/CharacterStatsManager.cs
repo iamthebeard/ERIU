@@ -40,9 +40,9 @@ public class CharacterStatsManager : MonoBehaviour
     public int CalculateMaxHealthBasedOnVitalityLevel(int vitality)
     {
         // Create an equation for how to calculate stamina based on endurance stat
-        float health = vitality * 30;
+        int health = vitality * 30;
 
-        return Mathf.RoundToInt(health);
+        return health;
     }
 
     // Stamina

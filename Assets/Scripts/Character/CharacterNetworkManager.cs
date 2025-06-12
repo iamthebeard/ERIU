@@ -77,8 +77,8 @@ public class CharacterNetworkManager : NetworkBehaviour
         );
 
     [Header("Resources (Bars)")]
-    public NetworkVariable<float> currentHealth =
-        new NetworkVariable<float>(
+    public NetworkVariable<int> currentHealth =
+        new NetworkVariable<int>(
             0,
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
@@ -92,6 +92,22 @@ public class CharacterNetworkManager : NetworkBehaviour
     
     protected virtual void Awake() {
         character = GetComponent<CharacterManager>();
+    }
+
+    public void CheckHP(int oldValue = 0, int newValue = 0) // Defaults for overloading purposes
+    {
+        if (currentHealth.Value <= 0)
+        {
+            StartCoroutine(character.ProcessDeathEvent());
+        }
+
+        if (character.IsOwner)
+        {
+            if (currentHealth.Value > maxHealth.Value)
+            {
+                currentHealth.Value = maxHealth.Value;
+            }
+        }
     }
 
     // A server RPC is a function called from a client to a server/host

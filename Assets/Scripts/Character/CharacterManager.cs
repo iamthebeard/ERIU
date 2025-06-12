@@ -11,6 +11,7 @@ public class CharacterManager : NetworkBehaviour
     [HideInInspector] public CharacterNetworkManager characterNetworkManager;
     [HideInInspector] public CharacterEffectsManager characterEffectsManager;
 
+
     [Header("Status")]
     public NetworkVariable<bool> isDead = new NetworkVariable<bool>(
         false,
@@ -41,7 +42,7 @@ public class CharacterManager : NetworkBehaviour
     protected virtual void Update()
     {
         animator.SetBool("IsGrounded", isGrounded);
-        
+
         // If this character is being controlled from our side,
         //  set the network position and rotation to our position and rotation.
         if (IsOwner)
@@ -81,8 +82,36 @@ public class CharacterManager : NetworkBehaviour
         }
     }
 
-    protected virtual void LateUpdate() {
-        
+    protected virtual void LateUpdate()
+    {
+
     }
 
+    public virtual IEnumerator ProcessDeathEvent(bool overrideDeathAnimation = false)
+    {
+        if (IsOwner)
+        {
+            characterNetworkManager.currentHealth.Value = 0;
+            isDead.Value = true;
+
+            // Reset any flags that need to be reset
+            // Nothing yet
+
+            // If we are not grounded, play aerial death animation.
+
+            if (!overrideDeathAnimation)
+            {
+                // Play regular death animation (or select randomly from the standard set)
+                characterAnimatorManager.PlayTargetActionAnimation("Standing React Death Forward", true);
+            }
+        }
+
+        // Play death SFX (to all players, not just owner)
+
+        yield return new WaitForSeconds(5);
+
+        // Award player with runes and other after-death effecets
+
+        // Disable character
+    }
 }

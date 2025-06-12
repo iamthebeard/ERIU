@@ -25,7 +25,7 @@ public class PlayerUIHUDManager : MonoBehaviour
         staminaBar.SetMaxStat(maxStamina);
     }
     
-    public void SetNewHealthValue(float oldValue, float newValue)
+    public void SetNewHealthValue(int oldValue, int newValue)
     {
         healthBar.SetStat(newValue);
     }

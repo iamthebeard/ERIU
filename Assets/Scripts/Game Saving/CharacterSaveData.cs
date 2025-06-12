@@ -24,6 +24,6 @@ public class CharacterSaveData
     public int endurance = 10;
 
     [Header("Resources")]
-    public float currentHealth;
+    public int currentHealth;
     public float currentStamina;
 }
