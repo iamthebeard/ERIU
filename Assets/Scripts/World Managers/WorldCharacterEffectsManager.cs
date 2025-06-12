@@ -6,6 +6,7 @@ public class WorldCharacterEffectsManager : MonoBehaviour
 {
     public static WorldCharacterEffectsManager instance;
 
+    [SerializeField] public TakeDamageEffect takeDamageEffect;
     [SerializeField] List<InstantCharacterEffect> instantEffects;
     [SerializeField] List<BaseCharacterEffect> otherEffects; // Temporary
 

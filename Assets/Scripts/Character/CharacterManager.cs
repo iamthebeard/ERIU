@@ -9,6 +9,14 @@ public class CharacterManager : NetworkBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public CharacterAnimatorManager characterAnimatorManager;
     [HideInInspector] public CharacterNetworkManager characterNetworkManager;
+    [HideInInspector] public CharacterEffectsManager characterEffectsManager;
+
+    [Header("Status")]
+    public NetworkVariable<bool> isDead = new NetworkVariable<bool>(
+        false,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner
+    );
 
     [Header("Flags")]
     public bool isPerformingAction = false;
@@ -28,6 +36,7 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager = GetComponent<CharacterNetworkManager>();
         animator = GetComponent<Animator>();
         characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
+        characterEffectsManager = GetComponent<CharacterEffectsManager>();
     }
     protected virtual void Update()
     {
