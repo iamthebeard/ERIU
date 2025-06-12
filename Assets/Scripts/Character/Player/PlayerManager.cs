@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : CharacterManager
 {
+    [Header("Debug Menu")]
+    [SerializeField] bool debugRespawnCharacter = false;
+    [SerializeField] bool debugKillCharacter = false;
+
     [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public PlayerNetworkManager playerNetworkManager;
@@ -26,7 +30,8 @@ public class PlayerManager : CharacterManager
         base.Update();
 
         // If we are not the owner of this player, we do not control its movement
-        if (IsOwner) {
+        if (IsOwner)
+        {
             // Handle movement
             playerLocomotionManager.HandleAllMovement();
             // I added this in the "do it yourself" in episode 5
@@ -38,21 +43,26 @@ public class PlayerManager : CharacterManager
         }
         // Handle movement during animations for *ALL* characters
 
-        if(isRolling) { // I had to add this because my animation doesn't have built in motion
+        if (isRolling)
+        { // I had to add this because my animation doesn't have built in motion
             // Keep moving in the direction we started rolling
             characterController.Move(transform.forward * playerLocomotionManager.rollingSpeed * Time.deltaTime);
             return;
         }
-        if(isBackstepping) { // I had to add this because my animation doesn't have built in motion
+        if (isBackstepping)
+        { // I had to add this because my animation doesn't have built in motion
             // Keep moving in the direction we started rolling
             characterController.Move((-transform.forward) * playerLocomotionManager.backstepSpeed * Time.deltaTime);
             return;
         }
+
+        DebugMenu();
     }
 
     // In Unity, all camera actions should happen in LateUpdate
-    protected override void LateUpdate() {
-        if(!IsOwner) return;
+    protected override void LateUpdate()
+    {
+        if (!IsOwner) return;
 
         base.LateUpdate();
 
@@ -85,6 +95,21 @@ public class PlayerManager : CharacterManager
         playerAnimatorManager.character = this;
 
         playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.CheckHP;
+    }
+
+    public override IEnumerator ProcessDeathEvent(bool overrideDeathAnimation = false)
+    {
+        // For now, we'll do some different behaviour *before* the Character death event.
+        // But most likely we'll need to segment the Character death event into functions so we can
+        //  control the order.
+        if (IsOwner)
+        {
+            PlayerUIManager.instance.popupManager.SendYouDiedPopup();
+        }
+
+        // Check for players that are alive (on the current team). Respawn if all are dead.
+
+        return base.ProcessDeathEvent(overrideDeathAnimation);
     }
 
     public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterSaveData)
@@ -134,6 +159,39 @@ public class PlayerManager : CharacterManager
         playerNetworkManager.maxStamina.Value = maxStamina;
         playerNetworkManager.currentStamina.Value = currentCharacterSaveData.currentStamina;
 
-        
+
+    }
+
+    public override void ReviveCharacter()
+    {
+        base.ReviveCharacter();
+
+        if (IsOwner)
+        {
+            playerNetworkManager.currentHealth.Value = playerNetworkManager.maxHealth.Value;
+            playerNetworkManager.currentStamina.Value = playerNetworkManager.maxStamina.Value;
+            // TODO: Restore focus points
+
+            // Play rebirth effects
+            playerAnimatorManager.PlayTargetActionAnimation("Empty", false);
+
+
+        }
+    }
+
+    // DEBUG, delete later
+    private void DebugMenu()
+    {
+        if (debugRespawnCharacter)
+        {
+            debugRespawnCharacter = false;
+            ReviveCharacter();
+
+        }
+        if (debugKillCharacter)
+        {
+            debugKillCharacter = false;
+            playerNetworkManager.currentHealth.Value = 0;
+        }
     }
 }

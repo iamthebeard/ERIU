@@ -1982,6 +1982,9 @@ MonoBehaviour:
   animator: {fileID: 0}
   characterAnimatorManager: {fileID: 0}
   characterNetworkManager: {fileID: 0}
+  characterEffectsManager: {fileID: 0}
+  isDead:
+    m_InternalValue: 0
   isPerformingAction: 0
   applyRootMotion: 0
   isRolling: 1
@@ -1990,6 +1993,8 @@ MonoBehaviour:
   isGrounded: 1
   canRotate: 1
   canMove: 1
+  debugRespawnCharacter: 0
+  debugKillCharacter: 0
   playerLocomotionManager: {fileID: 0}
   playerAnimatorManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
@@ -2111,9 +2116,15 @@ MonoBehaviour:
     m_InternalValue: 0
   isSprinting:
     m_InternalValue: 0
+  vitality:
+    m_InternalValue: 10
   endurance:
     m_InternalValue: 10
+  maxHealth:
+    m_InternalValue: 0
   maxStamina:
+    m_InternalValue: 0
+  currentHealth:
     m_InternalValue: 0
   currentStamina:
     m_InternalValue: 0

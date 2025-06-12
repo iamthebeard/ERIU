@@ -15,7 +15,7 @@ public class CharacterNetworkManager : NetworkBehaviour
             NetworkVariableWritePermission.Owner
         );
     public Vector3 networkPositionVelocity;
-    public float networkPositionSmoothTime = 0.1f;
+    [SerializeField] public float networkPositionSmoothTime = 0.1f;
 
     public NetworkVariable<Quaternion> networkRotation =
         new NetworkVariable<Quaternion>(
@@ -23,7 +23,7 @@ public class CharacterNetworkManager : NetworkBehaviour
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
-    public float networkRotationSmoothTime = 0.1f;
+    [SerializeField] public float networkRotationSmoothTime = 0.1f;
 
     // I added this in the "do it yourself" in episode 5
     [Header("Animator")]

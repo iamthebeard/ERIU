@@ -103,6 +103,8 @@ public class CharacterManager : NetworkBehaviour
             {
                 // Play regular death animation (or select randomly from the standard set)
                 characterAnimatorManager.PlayTargetActionAnimation("Standing React Death Forward", true);
+                // Would this work better?
+                // animator.CrossFade("Standing React Death Forward", 0.5f);
             }
         }
 
@@ -113,5 +115,10 @@ public class CharacterManager : NetworkBehaviour
         // Award player with runes and other after-death effecets
 
         // Disable character
+    }
+
+    public virtual void ReviveCharacter()
+    {
+        isDead.Value = false;
     }
 }

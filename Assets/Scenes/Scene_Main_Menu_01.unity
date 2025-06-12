@@ -6026,6 +6026,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player UI Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 6075561917875489868, guid: 037bb9343cb497b479a90dcd6b0365cc,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6075561917875489868, guid: 037bb9343cb497b479a90dcd6b0365cc,
+        type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6939736670566376209, guid: 037bb9343cb497b479a90dcd6b0365cc,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6034,6 +6044,11 @@ PrefabInstance:
     - target: {fileID: 6939736670566376209, guid: 037bb9343cb497b479a90dcd6b0365cc,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8859557429070647938, guid: 037bb9343cb497b479a90dcd6b0365cc,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
