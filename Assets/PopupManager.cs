@@ -42,6 +42,8 @@ public class PopupManager : MonoBehaviour
         if (duration > 0)
         {
             text.characterSpacing = 0; // Resets our character spacing
+
+            float startValue = text.characterSpacing;
             float timer = 0;
             yield return null;
 
@@ -49,7 +51,7 @@ public class PopupManager : MonoBehaviour
             {
                 timer += Time.deltaTime;
                 float delta = stretchSpeed * timer / duration;
-                text.characterSpacing = Mathf.Lerp(text.characterSpacing, stretchAmount, delta * Time.deltaTime);
+                text.characterSpacing = Mathf.Lerp(startValue, stretchAmount, delta);
                 yield return null;
             }
         }
@@ -69,8 +71,9 @@ public class PopupManager : MonoBehaviour
         {
             // If we are currently faded out, fade in. And visa versa.
             float endAlpha = Mathf.Round(Mathf.Clamp01(1 - canvas.alpha));
-
             // canvas.alpha = 0; // Resets our fade
+
+            float initial = Mathf.Round(canvas.alpha);
             float timer = 0;
             yield return null;
 
@@ -78,7 +81,7 @@ public class PopupManager : MonoBehaviour
             {
                 timer += Time.deltaTime;
                 float delta = timer / duration;
-                canvas.alpha = Mathf.Lerp(canvas.alpha, endAlpha, delta * Time.deltaTime);
+                canvas.alpha = Mathf.Lerp(initial, endAlpha, delta);
                 yield return null;
             }
 
