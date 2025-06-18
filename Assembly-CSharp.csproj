@@ -94,7 +94,10 @@
     <Compile Include="Assets\Scripts\Character\Effects\TakeDamageEffect.cs" />
     <Compile Include="Assets\Scripts\Colliders\DamageCollider.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterEffectsManager.cs" />
-    <Compile Include="Assets\PopupManager.cs" />
+    <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PopupManager.cs" />
+    <Compile Include="Assets\Scripts\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Items\WeaponItem.cs" />
+    <Compile Include="Assets\Scripts\Items\MeleeWeaponItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
