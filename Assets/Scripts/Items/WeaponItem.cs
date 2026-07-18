@@ -42,4 +42,15 @@ public class WeaponItem : Item
     // Ash of war
 
     // SFX
+
+    [Header("Transformation to Wield")]
+    public float xPosition;
+    public float yPosition;
+    public float zPosition;
+    public float xRotation;
+    public float yRotation;
+    public float zRotation;
+    public float xScale;
+    public float yScale;
+    public float zScale;
 }

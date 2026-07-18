@@ -10,31 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 363f064e9f721384faea07536bb414aa, type: 3}
-  m_Name: Straight Sword
+  m_Name: Shield
   m_EditorClassIdentifier: 
-  itemName: Straight Sword
+  itemName: Shield
   itemIcon: {fileID: 0}
   itemDescription: A basic straight sword
   itemID: 0
-  weaponModel: {fileID: 7525589154881829682, guid: 2ac658e13f3dda8459d655a5c4969e3d,
+  weaponModel: {fileID: 919132149155446097, guid: f229ace6d610ac64d9d5c35e555ddd14,
     type: 3}
   strReq: 10
   dexReq: 10
   intReq: 0
   faiReq: 0
-  physicalDamage: 45
+  physicalDamage: 20
   mageDamage: 0
   fireDamage: 0
   holyDamage: 0
   lightningDamage: 0
   basePoiseDamage: 25
   baseStaminaCost: 30
-  xPosition: 20
+  xPosition: 0
   yPosition: 10
   zPosition: 0
-  xRotation: 0
+  xRotation: 210
   yRotation: 0
-  zRotation: 90
+  zRotation: 0
   xScale: 100
   yScale: 100
   zScale: 100
