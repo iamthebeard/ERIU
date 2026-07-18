@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponModelInstantiationSlot : MonoBehaviour
 {
-    public WeaponModelInstantiationSlotType slotType; // Left hand, right hand, hip, back, etc.
+    public WeaponModelSlotType slotType; // Left hand, right hand, hip, back, etc.
     public GameObject currentWeaponModel;
 
     public void UnloadWeapon()

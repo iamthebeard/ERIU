@@ -33,13 +33,13 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     {
         WeaponModelInstantiationSlot[] weaponSlots = GetComponentsInChildren<WeaponModelInstantiationSlot>();
 
-        foreach (WeaponModelInstantiationSlot weaponSlot in weaponSlots)
+        foreach (var weaponSlot in weaponSlots)
         {
-            if (weaponSlot.slotType == WeaponModelInstantiationSlotType.RightHand)
+            if (weaponSlot.slotType == WeaponModelSlotType.RightHand)
             {
                 rightHandSlot = weaponSlot;
             }
-            else if (weaponSlot.slotType == WeaponModelInstantiationSlotType.LeftHand)
+            else if (weaponSlot.slotType == WeaponModelSlotType.LeftHand)
             {
                 leftHandSlot = weaponSlot;
             }
@@ -57,8 +57,8 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     {
         if (player.playerInventoryManager.currentRightHandWeapon != null)
         {
-            // ToDo: Instantiate a copy
             rightHandWeaponModel = Instantiate(player.playerInventoryManager.currentRightHandWeapon.weaponModel);
+            // I send in the uninstantiated object. Why? Is it because those values don't get edited? 
             rightHandSlot.LoadWeapon(rightHandWeaponModel, player.playerInventoryManager.currentRightHandWeapon);
         }
     }
@@ -67,7 +67,6 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     {
         if (player.playerInventoryManager.currentLeftHandWeapon != null)
         {
-            // ToDo: Instantiate a copy
             leftHandWeaponModel = Instantiate(player.playerInventoryManager.currentLeftHandWeapon.weaponModel);
             leftHandSlot.LoadWeapon(leftHandWeaponModel, player.playerInventoryManager.currentLeftHandWeapon, true);
         }

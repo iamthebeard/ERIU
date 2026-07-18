@@ -22,7 +22,7 @@ public enum CharacterSlot
     NoSlot,
 }
 
-public enum WeaponModelInstantiationSlotType
+public enum WeaponModelSlotType
 {
     RightHand,
     LeftHand,

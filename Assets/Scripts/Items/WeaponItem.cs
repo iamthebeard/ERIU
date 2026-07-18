@@ -18,7 +18,7 @@ public class WeaponItem : Item
 
     [Header("Weapon Base Damage")]
     public int physicalDamage = 0;
-    public int mageDamage = 0;
+    public int magicDamage = 0;
     public int fireDamage = 0;
     public int holyDamage = 0;
     public int lightningDamage = 0;
@@ -26,7 +26,7 @@ public class WeaponItem : Item
     // Weapon modifiers:
     //  Light attack, heavy attack, critical damage, etc.
 
-    [Header("Poise DAmage")]
+    [Header("Poise Damage")]
     public float basePoiseDamage = 10;
     // Poise bonus while attacking
     // Poise modifiers, etc.
