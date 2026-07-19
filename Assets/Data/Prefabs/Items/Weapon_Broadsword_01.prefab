@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 7150471399318167944}
   - component: {fileID: 1400442334643830360}
   m_Layer: 0
-  m_Name: Weapon_Straight_Sword_01
+  m_Name: Weapon_Broadsword_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

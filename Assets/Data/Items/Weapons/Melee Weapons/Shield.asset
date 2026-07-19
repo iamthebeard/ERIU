@@ -16,14 +16,14 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemDescription: A basic straight sword
   itemID: 0
-  weaponModel: {fileID: 919132149155446097, guid: f229ace6d610ac64d9d5c35e555ddd14,
+  weaponModel: {fileID: 7525589154881829682, guid: fd4e41cd7ba50854e87b225357aadd8a,
     type: 3}
   strReq: 10
   dexReq: 10
   intReq: 0
   faiReq: 0
   physicalDamage: 20
-  mageDamage: 0
+  magicDamage: 0
   fireDamage: 0
   holyDamage: 0
   lightningDamage: 0

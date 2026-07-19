@@ -12,6 +12,9 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     public GameObject rightHandWeaponModel;
     public GameObject leftHandWeaponModel;
 
+    [SerializeField] WeaponManager rightHandWeaponManager;
+    [SerializeField] WeaponManager leftHandWeaponManager;
+
     protected override void Awake()
     {
         base.Awake();
@@ -50,16 +53,22 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     {
         LoadRightWeapon();
         LoadLeftWeapon();
-        // LoadWeapon(WeaponModelInstantiationSlot.LeftHand);
     }
 
     public void LoadRightWeapon()
     {
         if (player.playerInventoryManager.currentRightHandWeapon != null)
         {
+            // Instantiate a copy of the model.
             rightHandWeaponModel = Instantiate(player.playerInventoryManager.currentRightHandWeapon.weaponModel);
+
+            // Assign the model to the right hand slot on our player model.
             // I send in the uninstantiated object. Why? Is it because those values don't get edited? 
             rightHandSlot.LoadWeapon(rightHandWeaponModel, player.playerInventoryManager.currentRightHandWeapon);
+
+            // Assign the damage to the weapon collider.
+            rightHandWeaponManager = rightHandWeaponModel.GetComponent<WeaponManager>();
+            rightHandWeaponManager.SetWeaponDamage(player, player.playerInventoryManager.currentRightHandWeapon);
         }
     }
 
@@ -69,6 +78,8 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         {
             leftHandWeaponModel = Instantiate(player.playerInventoryManager.currentLeftHandWeapon.weaponModel);
             leftHandSlot.LoadWeapon(leftHandWeaponModel, player.playerInventoryManager.currentLeftHandWeapon, true);
+            leftHandWeaponManager = leftHandWeaponModel.GetComponent<WeaponManager>();
+            leftHandWeaponManager.SetWeaponDamage(player, player.playerInventoryManager.currentLeftHandWeapon);
         }
     }
 }
