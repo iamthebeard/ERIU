@@ -38,6 +38,12 @@ public class WorldItemDatabase : MonoBehaviour
 
     public WeaponItem GetWeaponByID(int id)
     {
-        return weapons.FirstOrDefault(weapon => weapon.itemID == id);
+        // Unarmed isn't in 'weapons', so make it the fallback
+        var foundWeapon = weapons.FirstOrDefault(weapon => weapon.itemID == id);
+        if (foundWeapon == null)
+        {
+            return unarmedWeapon;
+        }
+        return foundWeapon;
     }
 }

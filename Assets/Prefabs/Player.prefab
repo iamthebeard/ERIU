@@ -2413,13 +2413,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 377406164e69b9d4e81582ed3fa3b81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRightHandWeapon: {fileID: 11400000, guid: 581e26b5e8c04ce4198b370ae57475b2,
+  currentRightHandWeapon: {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842,
     type: 2}
-  currentLeftHandWeapon: {fileID: 11400000, guid: 9c3ddd331904b42418cc57f203a70625,
+  currentLeftHandWeapon: {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842,
     type: 2}
   weaponsInRightHandSlots:
-  - {fileID: 11400000, guid: 581e26b5e8c04ce4198b370ae57475b2, type: 2}
-  - {fileID: 11400000, guid: c70d104e88e68cf4c9c02581d84d1e1e, type: 2}
+  - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
+  - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
   - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
   rightHandWeaponIndex: 0
   weaponsInLeftHandSlots:

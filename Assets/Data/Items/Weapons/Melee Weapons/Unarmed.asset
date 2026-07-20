@@ -16,7 +16,8 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemDescription: 
   itemID: 0
-  weaponModel: {fileID: 0}
+  weaponModel: {fileID: 9184734901546565224, guid: 496f74cd2ac48b749a8c4d233aea0bf3,
+    type: 3}
   strReq: 0
   dexReq: 0
   intReq: 0
