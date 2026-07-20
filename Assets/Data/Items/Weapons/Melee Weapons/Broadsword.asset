@@ -15,8 +15,8 @@ MonoBehaviour:
   itemName: Straight Sword
   itemIcon: {fileID: 0}
   itemDescription: A basic straight sword
-  itemID: 0
-  weaponModel: {fileID: 7525589154881829682, guid: 2ac658e13f3dda8459d655a5c4969e3d,
+  itemID: 2
+  weaponModel: {fileID: 7593547688720477601, guid: 970054b814ada544ba0fa9f8005319f5,
     type: 3}
   strReq: 10
   dexReq: 10

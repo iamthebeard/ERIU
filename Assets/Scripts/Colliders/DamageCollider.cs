@@ -26,7 +26,7 @@ public class DamageCollider : MonoBehaviour
         // But we will instead make sure this collidor only interacts with the character layer.
         // Go to Edit --> Project Settings... --> Physics and use the interaction checkbox grid (at the bottom of the page)
 
-        CharacterManager damageTarget = other.GetComponent<CharacterManager>();
+        CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
         if (damageTarget == null)
             return;
 
