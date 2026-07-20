@@ -8,12 +8,15 @@ public class PlayerManager : CharacterManager
     [Header("Debug Menu")]
     [SerializeField] bool debugRespawnCharacter = false;
     [SerializeField] bool debugKillCharacter = false;
+    [SerializeField] bool switchRightWeapon = false;
+    [SerializeField] bool switchLeftWeapon = false;
 
     [HideInInspector] public PlayerLocomotionManager playerLocomotionManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public PlayerNetworkManager playerNetworkManager;
     [HideInInspector] public PlayerStatsManager playerStatsManager;
     [HideInInspector] public PlayerInventoryManager playerInventoryManager;
+    [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
 
     protected override void Awake()
     {
@@ -25,6 +28,7 @@ public class PlayerManager : CharacterManager
         playerNetworkManager = GetComponent<PlayerNetworkManager>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
+        playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
     }
 
     protected override void Update()
@@ -96,7 +100,12 @@ public class PlayerManager : CharacterManager
         // Why did I do this?
         playerAnimatorManager.character = this;
 
+        // Stats
         playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.CheckHP;
+
+        // Equipment
+        playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+        playerNetworkManager.currentLeftHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
     }
 
     public override IEnumerator ProcessDeathEvent(bool overrideDeathAnimation = false)
@@ -194,6 +203,17 @@ public class PlayerManager : CharacterManager
         {
             debugKillCharacter = false;
             playerNetworkManager.currentHealth.Value = 0;
+        }
+
+        if (switchRightWeapon)
+        {
+            switchRightWeapon = false;
+            playerEquipmentManager.SwitchRightWeapon();
+        }
+        if (switchLeftWeapon)
+        {
+            switchLeftWeapon = false;
+            playerEquipmentManager.SwitchLeftWeapon();
         }
     }
 }

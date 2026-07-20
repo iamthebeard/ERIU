@@ -1999,11 +1999,14 @@ MonoBehaviour:
   canMove: 1
   debugRespawnCharacter: 0
   debugKillCharacter: 0
+  switchRightWeapon: 0
+  switchLeftWeapon: 0
   playerLocomotionManager: {fileID: 0}
   playerAnimatorManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
   playerStatsManager: {fileID: 0}
   playerInventoryManager: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
 --- !u!114 &-4697310233458906598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2271,6 +2274,10 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
+  currentRightHandWeaponID:
+    m_InternalValue: 0
+  currentLeftHandWeaponID:
+    m_InternalValue: 0
 --- !u!82 &-3273676974946476584
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2410,6 +2417,16 @@ MonoBehaviour:
     type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: 9c3ddd331904b42418cc57f203a70625,
     type: 2}
+  weaponsInRightHandSlots:
+  - {fileID: 11400000, guid: 581e26b5e8c04ce4198b370ae57475b2, type: 2}
+  - {fileID: 11400000, guid: c70d104e88e68cf4c9c02581d84d1e1e, type: 2}
+  - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
+  rightHandWeaponIndex: 0
+  weaponsInLeftHandSlots:
+  - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
+  - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
+  - {fileID: 11400000, guid: bc862cf14f3e6684599a1e2dc2e9d842, type: 2}
+  leftHandWeaponIndex: 0
 --- !u!114 &-8419785345350214049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2426,6 +2443,8 @@ MonoBehaviour:
   leftHandSlot: {fileID: 0}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
+  rightHandWeaponManager: {fileID: 0}
+  leftHandWeaponManager: {fileID: 0}
 --- !u!1 &3735588607312354623
 GameObject:
   m_ObjectHideFlags: 0

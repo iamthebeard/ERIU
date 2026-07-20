@@ -55,6 +55,8 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         LoadLeftWeapon();
     }
 
+    // Right Weapon
+
     public void LoadRightWeapon()
     {
         if (player.playerInventoryManager.currentRightHandWeapon != null)
@@ -72,6 +74,88 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         }
     }
 
+    public void SwitchRightWeapon()
+    {
+        if(!player.IsOwner)
+        {
+            return;
+        }
+
+        player.playerAnimatorManager.PlayTargetActionAnimation("Swap_Right_Weapon_01", false /*Not interacting*/);
+        // If we have at least one other weapon, swap to next -- never to unarmed.
+        // Otherwise, swap between unarmed and our single weapon
+
+        WeaponItem selectedWeapon = null;
+
+        // Disable two handing if we are two handing
+        // Check our weapon index (we have 3 slots)
+
+        // Increment within range 0-2
+        player.playerInventoryManager.rightHandWeaponIndex = (player.playerInventoryManager.rightHandWeaponIndex + 1);// % 3;
+
+        foreach (WeaponItem weapon in player.playerInventoryManager.weaponsInRightHandSlots)
+        {
+            // Check to see if this is the unarmed weapon
+            if (player.playerInventoryManager.weaponsInRightHandSlots[
+                    player.playerInventoryManager.rightHandWeaponIndex
+                ].itemID != WorldItemDatabase.Instance.unarmedWeapon.itemID )
+            {
+                selectedWeapon =
+                    player.playerInventoryManager.weaponsInRightHandSlots[
+                        player.playerInventoryManager.rightHandWeaponIndex
+                    ];
+                // Assign network weapon ID so it switches for all connected clients
+                player.playerNetworkManager.currentRightHandWeaponID.Value =
+                    player.playerInventoryManager.weaponsInRightHandSlots[
+                        player.playerInventoryManager.rightHandWeaponIndex
+                    ].itemID;
+
+            }
+        }
+
+        if (selectedWeapon == null && player.playerInventoryManager.rightHandWeaponIndex < 2)
+        {
+            SwitchRightWeapon(); // If this slot is empty, try next slot.
+        }
+        else
+        {
+            // Check if we are holding more than one weapon
+            int weaponCount = 0;
+            WeaponItem firstWeapon = null;
+            int firstWeaponPosition = 0;
+
+            for (int i = 0; i < player.playerInventoryManager.weaponsInRightHandSlots.Length; i++)
+            {
+                if (player.playerInventoryManager.weaponsInRightHandSlots[i].itemID != WorldItemDatabase.Instance.unarmedWeapon.itemID)
+                {
+                    weaponCount += 1;
+
+                    if (firstWeapon == null)
+                    {
+                        firstWeapon = player.playerInventoryManager.weaponsInRightHandSlots[i];
+                        firstWeaponPosition = i;
+                    }
+                }
+            }
+
+            if (weaponCount <= 1)
+            {
+                // If we only have one weapon equipped, switching to a weapon means going to unarmed
+                player.playerInventoryManager.rightHandWeaponIndex = -1;
+                selectedWeapon = Instantiate(WorldItemDatabase.Instance.unarmedWeapon);
+                player.playerNetworkManager.currentRightHandWeaponID.Value = selectedWeapon.itemID;
+            }
+            else
+            {
+                // Otherwise, switch to the next weapon
+                player.playerInventoryManager.rightHandWeaponIndex = firstWeaponPosition;
+                player.playerNetworkManager.currentRightHandWeaponID.Value = firstWeapon.itemID;
+            }
+        }
+    }
+
+    // Left Weapon
+
     public void LoadLeftWeapon()
     {
         if (player.playerInventoryManager.currentLeftHandWeapon != null)
@@ -80,6 +164,86 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
             leftHandSlot.LoadWeapon(leftHandWeaponModel, player.playerInventoryManager.currentLeftHandWeapon, true);
             leftHandWeaponManager = leftHandWeaponModel.GetComponent<WeaponManager>();
             leftHandWeaponManager.SetWeaponDamage(player, player.playerInventoryManager.currentLeftHandWeapon);
+        }
+    }
+
+    public void SwitchLeftWeapon()
+    {
+        if(!player.IsOwner)
+        {
+            return;
+        }
+
+        player.playerAnimatorManager.PlayTargetActionAnimation("Swap_Right_Weapon_01", false /*Not interacting*/);
+        // If we have at least one other weapon, swap to next -- never to unarmed.
+        // Otherwise, swap between unarmed and our single weapon
+
+        WeaponItem selectedWeapon = null;
+
+        // Disable two handing if we are two handing
+        // Check our weapon index (we have 3 slots)
+
+        // Increment within range 0-2
+        player.playerInventoryManager.rightHandWeaponIndex = (player.playerInventoryManager.rightHandWeaponIndex + 1);// % 3;
+
+        foreach (WeaponItem weapon in player.playerInventoryManager.weaponsInRightHandSlots)
+        {
+            // Check to see if this is the unarmed weapon
+            if (player.playerInventoryManager.weaponsInRightHandSlots[
+                    player.playerInventoryManager.rightHandWeaponIndex
+                ].itemID != WorldItemDatabase.Instance.unarmedWeapon.itemID )
+            {
+                selectedWeapon =
+                    player.playerInventoryManager.weaponsInRightHandSlots[
+                        player.playerInventoryManager.rightHandWeaponIndex
+                    ];
+                // Assign network weapon ID so it switches for all connected clients
+                player.playerNetworkManager.currentRightHandWeaponID.Value =
+                    player.playerInventoryManager.weaponsInRightHandSlots[
+                        player.playerInventoryManager.rightHandWeaponIndex
+                    ].itemID;
+
+            }
+        }
+
+        if (selectedWeapon == null && player.playerInventoryManager.rightHandWeaponIndex < 2)
+        {
+            SwitchRightWeapon(); // If this slot is empty, try next slot.
+        }
+        else
+        {
+            // Check if we are holding more than one weapon
+            int weaponCount = 0;
+            WeaponItem firstWeapon = null;
+            int firstWeaponPosition = 0;
+
+            for (int i = 0; i < player.playerInventoryManager.weaponsInRightHandSlots.Length; i++)
+            {
+                if (player.playerInventoryManager.weaponsInRightHandSlots[i].itemID != WorldItemDatabase.Instance.unarmedWeapon.itemID)
+                {
+                    weaponCount += 1;
+
+                    if (firstWeapon == null)
+                    {
+                        firstWeapon = player.playerInventoryManager.weaponsInRightHandSlots[i];
+                        firstWeaponPosition = i;
+                    }
+                }
+            }
+
+            if (weaponCount <= 1)
+            {
+                // If we only have one weapon equipped, switching to a weapon means going to unarmed
+                player.playerInventoryManager.rightHandWeaponIndex = -1;
+                selectedWeapon = Instantiate(WorldItemDatabase.Instance.unarmedWeapon);
+                player.playerNetworkManager.currentRightHandWeaponID.Value = selectedWeapon.itemID;
+            }
+            else
+            {
+                // Otherwise, switch to the next weapon
+                player.playerInventoryManager.rightHandWeaponIndex = firstWeaponPosition;
+                player.playerNetworkManager.currentRightHandWeaponID.Value = firstWeapon.itemID;
+            }
         }
     }
 }
