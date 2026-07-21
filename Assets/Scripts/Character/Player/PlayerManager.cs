@@ -106,6 +106,12 @@ public class PlayerManager : CharacterManager
         // Equipment
         playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
         playerNetworkManager.currentLeftHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+
+        if (IsOwner && !IsServer) // On connecting as a client
+        {
+            // We need to load this again in the client, because the game object was deleted and re-created.
+            LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterSaveData);
+        }
     }
 
     public override IEnumerator ProcessDeathEvent(bool overrideDeathAnimation = false)
