@@ -2045,6 +2045,7 @@ GameObject:
   - component: {fileID: -781727131940977839}
   - component: {fileID: -8999042402318304011}
   - component: {fileID: -8419785345350214049}
+  - component: {fileID: 6670700353876759575}
   - component: {fileID: 3735588607302840091}
   - component: {fileID: 3735588607296017499}
   - component: {fileID: 3735588607312321143}
@@ -2139,7 +2140,6 @@ MonoBehaviour:
   applyRootMotion: 0
   isRolling: 1
   isBackstepping: 0
-  isJumping: 0
   isGrounded: 1
   canRotate: 1
   canMove: 1
@@ -2153,6 +2153,7 @@ MonoBehaviour:
   playerStatsManager: {fileID: 0}
   playerInventoryManager: {fileID: 0}
   playerEquipmentManager: {fileID: 0}
+  playerCombatManager: {fileID: 0}
 --- !u!114 &-4697310233458906598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,6 +2221,8 @@ MonoBehaviour:
   animatorVerticalParameter:
     m_InternalValue: 0
   isSprinting:
+    m_InternalValue: 0
+  isJumping:
     m_InternalValue: 0
   vitality:
     m_InternalValue: 10
@@ -2375,6 +2378,12 @@ MonoBehaviour:
     m_InternalValue: 0
   currentLeftHandWeaponID:
     m_InternalValue: 0
+  currentWeaponBeingUsedID:
+    m_InternalValue: 0
+  isUsingRightHand:
+    m_InternalValue: 0
+  isUsingLeftHand:
+    m_InternalValue: 0
 --- !u!114 &-5967782446029854813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,6 +2455,19 @@ MonoBehaviour:
   leftHandWeaponModel: {fileID: 0}
   rightHandWeaponManager: {fileID: 0}
   leftHandWeaponManager: {fileID: 0}
+--- !u!114 &6670700353876759575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735588607312354621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce9d17ad5d86bd43a0dbee7fa8c4716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponBeingUsed: {fileID: 0}
 --- !u!95 &3735588607302840091
 Animator:
   serializedVersion: 4

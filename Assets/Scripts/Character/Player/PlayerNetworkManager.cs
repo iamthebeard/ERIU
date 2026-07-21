@@ -9,7 +9,7 @@ public class PlayerNetworkManager : CharacterNetworkManager
 {
     PlayerManager player;
 
-    [Header("Player Name")]
+    [Header("Player")]
     public NetworkVariable<FixedString64Bytes> characterName =
         new NetworkVariable<FixedString64Bytes>(
             "Character",
@@ -22,6 +22,8 @@ public class PlayerNetworkManager : CharacterNetworkManager
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
+
+    [Header("Equipment")]
     public NetworkVariable<int> currentRightHandWeaponID = 
         new NetworkVariable<int>(
             0,
@@ -34,11 +36,43 @@ public class PlayerNetworkManager : CharacterNetworkManager
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
+    public NetworkVariable<int> currentWeaponBeingUsedID = 
+        new NetworkVariable<int>(
+            0,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
+    public NetworkVariable<bool> isUsingRightHand = 
+        new NetworkVariable<bool>(
+            false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
+    public NetworkVariable<bool> isUsingLeftHand = 
+        new NetworkVariable<bool>(
+            false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
 
     protected override void Awake()
     {
         base.Awake();
         player = GetComponent<PlayerManager>();
+    }
+
+    public void SetCharacterActionHand(bool rightHandedAction)
+    {
+        if(rightHandedAction)
+        {
+            isUsingRightHand.Value = true;
+            isUsingLeftHand.Value = false;
+        }
+        else
+        {
+            isUsingRightHand.Value = false;
+            isUsingLeftHand.Value = true;
+        }
     }
     
     public void OnCurrentRightHandWeaponIDChange(int oldID, int newID)
@@ -53,5 +87,11 @@ public class PlayerNetworkManager : CharacterNetworkManager
         WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
         player.playerInventoryManager.currentLeftHandWeapon = newWeapon;
         player.playerEquipmentManager.LoadLeftWeapon();
+    }
+
+    public void OnCurrentWeaponBeingUsedIDChange(int oldID, int newID)
+    {
+        WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
+        player.playerCombatManager.currentWeaponBeingUsed = newWeapon;
     }
 }

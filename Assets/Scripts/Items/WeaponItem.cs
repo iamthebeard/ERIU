@@ -38,6 +38,8 @@ public class WeaponItem : Item
     // Modifiers: light attack, heavy, running, etc.
 
     // Item based actions (RB, RT, LB, LT)
+    [Header("Actions")]
+    public WeaponItemAction rb_Action_OneHanded; // One hand right bumper/button action
 
     // Ash of war
 

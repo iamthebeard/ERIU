@@ -26,6 +26,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private bool dodgeInput = false;
     [SerializeField] private bool sprintInput = false;
     [SerializeField] private bool jumpInput = false;
+    [SerializeField] private bool rbInput = false;
 
 
     [Header("Camera Inputs")]
@@ -82,6 +83,7 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintInput = true; // Holding activates
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false; // Releasing deactivates
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            playerControls.PlayerActions.RB.performed += i => rbInput = true;
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
         }
 
@@ -112,10 +114,19 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
+        if (player == null) // Not sure if I need this, but it seems to fail to load the client without it.
+        {
+            return;
+        }
+
         HandleMovementInput();
+
         HandleDodgeInput();
         HandleSprintInput();
         HandleJumpInput();
+
+        HandleRBInput();
+
         HandleCameraMovementInput();
     }
 
@@ -167,11 +178,6 @@ public class PlayerInputManager : MonoBehaviour
 
     private void HandleSprintInput()
     {
-        if (player == null)
-        {
-            return;
-        }
-
         if (sprintInput)
         {
             player.playerLocomotionManager.HandleSprinting();
@@ -184,11 +190,6 @@ public class PlayerInputManager : MonoBehaviour
 
     private void HandleJumpInput()
     {
-        if (player == null)
-        {
-            return;
-        }
-
         if (jumpInput)
         {
             jumpInput = false;
@@ -197,6 +198,23 @@ public class PlayerInputManager : MonoBehaviour
 
             // Attempt to perform a jump
             player.playerLocomotionManager.AttemptToPerformJump();
+        }
+    }
+
+    private void HandleRBInput ()
+    {
+        if (rbInput)
+        {
+            rbInput = false; // Only trigger once
+
+            // TODO: If we have a UI window open, exit
+
+            player.playerNetworkManager.SetCharacterActionHand(true /*Right*/);
+
+            // TODO: If we are two-handed, run the two-handed action
+
+            // If we are one-handing, run the one-handed action
+            player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightHandWeapon.rb_Action_OneHanded, player.playerInventoryManager.currentRightHandWeapon);
         }
     }
 }
