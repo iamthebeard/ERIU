@@ -24,7 +24,6 @@ public class CharacterManager : NetworkBehaviour
     public bool applyRootMotion = false;
     public bool isRolling = false;
     public bool isBackstepping = false;
-    public bool isJumping = false;
     public bool isGrounded = true;
     public bool canRotate = true;
     public bool canMove = true;

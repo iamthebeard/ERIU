@@ -47,6 +47,12 @@ public class CharacterNetworkManager : NetworkBehaviour
             NetworkVariableReadPermission.Everyone,
             NetworkVariableWritePermission.Owner
         );
+    public NetworkVariable<bool> isJumping =
+        new NetworkVariable<bool>(
+            false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Owner
+        );
 
     [Header("Base Stats")]
     public NetworkVariable<int> vitality =

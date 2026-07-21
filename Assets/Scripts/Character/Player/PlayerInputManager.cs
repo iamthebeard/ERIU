@@ -167,6 +167,11 @@ public class PlayerInputManager : MonoBehaviour
 
     private void HandleSprintInput()
     {
+        if (player == null)
+        {
+            return;
+        }
+
         if (sprintInput)
         {
             player.playerLocomotionManager.HandleSprinting();
@@ -179,6 +184,11 @@ public class PlayerInputManager : MonoBehaviour
 
     private void HandleJumpInput()
     {
+        if (player == null)
+        {
+            return;
+        }
+
         if (jumpInput)
         {
             jumpInput = false;

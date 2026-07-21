@@ -108,7 +108,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleJumpingMovement()
     {
-        if (player.isJumping)
+        if (player.playerNetworkManager.isJumping.Value)
         {
             // "Momentum" from the jump
             player.characterController.Move(jumpDirection * jumpingMomentumSpeed * Time.deltaTime);
@@ -231,7 +231,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (player.playerNetworkManager.currentStamina.Value <= 0)
             return; // No jumping when out of stamina
 
-        if (player.isJumping)
+        if (player.playerNetworkManager.isJumping.Value)
             return;
 
         if (!player.isGrounded)
@@ -241,7 +241,10 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (moveAmount > 0.5f) // Running jump
             player.playerAnimatorManager.PlayTargetActionAnimation("JumpMove", false, false, false, false);
         else player.playerAnimatorManager.PlayTargetActionAnimation("JumpWithLaunch", false, false, false, false);
-        player.isJumping = true;
+        if (player.IsOwner) // Setting a network variable from an animation state, so check IsOwner
+        {
+            player.playerNetworkManager.isJumping.Value = true;
+        }
 
         // Stamina cost
         player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
