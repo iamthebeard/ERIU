@@ -62,6 +62,7 @@ public class CharacterAnimatorManager : MonoBehaviour
     }
 
     public virtual void PlayTargetAttackActionAnimation(
+        AttackType attackType,
         string targetAnimation,
         bool isPerformingAction,
         bool applyRootMotion = true,
@@ -71,6 +72,7 @@ public class CharacterAnimatorManager : MonoBehaviour
         // New to attacks
         // Keep track of last attack performed (for combos)
         // Keep track of current attack type (light, heavy, etc. for parries, bounces, etc.)
+        character.characterCombatManager.currentAttackType = attackType;
         // Update animation set to current weapon's animations
         // Decide if our attack can be parried
         // Tell the network our "isAttacking" flag (for counter damage, etc.)

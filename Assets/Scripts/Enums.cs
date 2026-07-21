@@ -28,3 +28,8 @@ public enum WeaponModelSlotType
     LeftHand,
     // Hips, back, etc.
 }
+
+public enum AttackType
+{
+    LightAttack01
+}

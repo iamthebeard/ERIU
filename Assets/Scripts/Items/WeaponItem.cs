@@ -23,8 +23,10 @@ public class WeaponItem : Item
     public int holyDamage = 0;
     public int lightningDamage = 0;
 
-    // Weapon modifiers:
+    [Header("Weapon modifiers")]
     //  Light attack, heavy attack, critical damage, etc.
+    public float lightAttack01Modifier = 1;
+
 
     [Header("Poise Damage")]
     public float basePoiseDamage = 10;
@@ -35,6 +37,7 @@ public class WeaponItem : Item
 
     [Header("Stamina Costs")]
     public int baseStaminaCost = 20;
+    public float lightAttack01StaminaCostModifier = 1;
     // Modifiers: light attack, heavy, running, etc.
 
     // Item based actions (RB, RT, LB, LT)

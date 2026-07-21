@@ -33,11 +33,11 @@ public class LightAttackWeaponItemAction : WeaponItemAction
     {
         if (playerPerformingAction.playerNetworkManager.isUsingRightHand.Value)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(lightAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, lightAttackAnimation, true);
         }
         else if (playerPerformingAction.playerNetworkManager.isUsingLeftHand.Value)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(lightAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, lightAttackAnimation, true);
         }
     }
 }
