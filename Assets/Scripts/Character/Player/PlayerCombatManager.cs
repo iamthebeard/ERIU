@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class PlayerCombatManager : CharacterCombatManager
 {
@@ -16,9 +17,13 @@ public class PlayerCombatManager : CharacterCombatManager
 
     public void PerformWeaponBasedAction(WeaponItemAction weaponAction, WeaponItem weaponPerformingAction)
     {
-        // Perform the action on acting player
-        weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
+        if (player.IsOwner)
+        {
+            // Perform the action on acting player
+            weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
 
-        // Notify the server to perform the action on connected clients
+            // Notify the server to perform the action on connected clients
+            player.playerNetworkManager.NotifyServerOfWeaponActionServerRpc(NetworkManager.Singleton.LocalClientId, weaponAction.actionID, weaponPerformingAction.itemID);
+        }
     }
 }

@@ -60,4 +60,35 @@ public class CharacterAnimatorManager : MonoBehaviour
             character.isBackstepping
         );
     }
+
+    public virtual void PlayTargetAttackActionAnimation(
+        string targetAnimation,
+        bool isPerformingAction,
+        bool applyRootMotion = true,
+        bool canRotate = false,
+        bool canMove = false
+    ) {
+        // New to attacks
+        // Keep track of last attack performed (for combos)
+        // Keep track of current attack type (light, heavy, etc. for parries, bounces, etc.)
+        // Update animation set to current weapon's animations
+        // Decide if our attack can be parried
+        // Tell the network our "isAttacking" flag (for counter damage, etc.)
+
+        // Same as PlayTargetActionAnimation
+        character.applyRootMotion = applyRootMotion;
+        character.animator.CrossFade(targetAnimation, 0.2f);
+        character.isPerformingAction = isPerformingAction;
+        character.canRotate = canRotate;
+        character.canMove = canMove;
+
+        // Tell the server/host about this animation action.
+        character.characterNetworkManager.NotifyOfAttackActionAnimationServerRpc(
+            NetworkManager.Singleton.LocalClientId,
+            targetAnimation,
+            applyRootMotion,
+            character.isRolling,
+            character.isBackstepping
+        );
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Test Action")]
+[CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Base Action")]
 public class WeaponItemAction : ScriptableObject
 {
     public int actionID;
@@ -18,6 +18,6 @@ public class WeaponItemAction : ScriptableObject
             playerPerformingAction.playerNetworkManager.currentWeaponBeingUsedID.Value = weaponPerformingAction.itemID;
         }
 
-        UnityEngine.Debug.Log("The action has fired.");
+        UnityEngine.Debug.Log("The action " + actionID + " has fired. ()" + this.GetType().ToString() + ")");
     }
 }

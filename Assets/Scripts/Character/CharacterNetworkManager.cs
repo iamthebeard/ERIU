@@ -140,4 +140,22 @@ public class CharacterNetworkManager : NetworkBehaviour
         character.isBackstepping = isBackstepping;
         character.animator.CrossFade(animationID, 0.2f);
     }
+
+    // Attacking
+    
+    [ServerRpc]
+    public void NotifyOfAttackActionAnimationServerRpc(ulong clientID, string animationID, bool applyRootMotion, bool isRolling, bool isBackstepping) {
+        if (IsServer) {
+            PlayActionAnimationForAllClientsClientRpc(clientID, animationID, applyRootMotion, isRolling, isBackstepping);
+        }
+    }
+
+    [ClientRpc]
+    public void PlayAttackActionAnimationForAllClientsClientRpc(ulong clientID, string animationID, bool applyRootMotion, bool isRolling, bool isBackstepping) {
+        // Make sure not to run the function on the character who sent it.
+        if (clientID != NetworkManager.Singleton.LocalClientId) {
+            PerformActionAnimationFromServer(animationID, applyRootMotion, isRolling, isBackstepping);
+        }
+    }
+
 }
