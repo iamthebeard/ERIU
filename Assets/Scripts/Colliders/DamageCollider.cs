@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamageCollider : MonoBehaviour
 {
     [Header("Collider")]
-    protected Collider damageCollider;
+    [SerializeField] protected Collider damageCollider;
 
     [Header("Damage")]
     public float physicalDamage = 0;
@@ -13,13 +13,21 @@ public class DamageCollider : MonoBehaviour
     public float fireDamage = 0;
     public float lightningDamage = 0;
     public float holyDamage = 0;
+    public float poiseDamage = 0;
 
     protected Vector3 contactPoint;
     // Characters damaged in the current attack
     protected List<CharacterManager> charactersDamaged = new List<CharacterManager>();
 
+    protected virtual void Awake()
+    {
+        if (damageCollider == null)
+        {
+            damageCollider = GetComponent<Collider>();
+        }
+    }
 
-    public void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         // We could check to see if the colliding entity is a character:
         // if(other.gameObject.layer == LayerMask.NameToLayer("Character")) 

@@ -17,6 +17,7 @@ public class WeaponItem : Item
     public int faiReq = 0;
 
     [Header("Weapon Base Damage")]
+    // [SerializeField] public Damage damage = new Damage();
     public int physicalDamage = 0;
     public int magicDamage = 0;
     public int fireDamage = 0;
@@ -29,7 +30,8 @@ public class WeaponItem : Item
 
 
     [Header("Poise Damage")]
-    public float basePoiseDamage = 10;
+    public float poiseDamage = 10;
+    public float lightAttack01PoiseModifier = 1;
     // Poise bonus while attacking
     // Poise modifiers, etc.
 

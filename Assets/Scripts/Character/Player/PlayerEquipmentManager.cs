@@ -56,7 +56,6 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     }
 
     // Right Weapon
-
     public void LoadRightWeapon()
     {
         if (player.playerInventoryManager.currentRightHandWeapon != null)
@@ -192,7 +191,6 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
     }
 
     // Left Weapon
-
     public void LoadLeftWeapon()
     {
         if (player.playerInventoryManager.currentLeftHandWeapon != null)
@@ -225,5 +223,30 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         }
         // Equip weapon in next slot
         player.playerNetworkManager.currentLeftHandWeaponID.Value = player.playerInventoryManager.weaponsInLeftHandSlots[player.playerInventoryManager.leftHandWeaponIndex].itemID;
+    }
+
+    // Damage Colliders
+    public void OpenDamageCollider()
+    {
+        if (player.playerNetworkManager.isUsingRightHand.Value)
+        {
+            rightHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
+        } else if (player.playerNetworkManager.isUsingLeftHand.Value)
+        {
+            leftHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
+        }
+
+        // Play whoosh SFX
+    }
+
+    public void CloseDamageCollider()
+    {
+        if (player.playerNetworkManager.isUsingRightHand.Value)
+        {
+            rightHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        } else if (player.playerNetworkManager.isUsingLeftHand.Value)
+        {
+            leftHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        }
     }
 }
