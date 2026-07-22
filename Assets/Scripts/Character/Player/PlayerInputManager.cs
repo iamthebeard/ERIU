@@ -28,6 +28,10 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private bool jumpInput = false;
     [SerializeField] private bool rbInput = false;
 
+    [Header("Item Inputs")]
+    [SerializeField] private bool switchRightWeaponInput = false;
+    [SerializeField] private bool switchLeftWeaponInput = false;
+
 
     [Header("Camera Inputs")]
     [SerializeField] Vector2 cameraInput;
@@ -84,6 +88,9 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false; // Releasing deactivates
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
             playerControls.PlayerActions.RB.performed += i => rbInput = true;
+            playerControls.PlayerActions.SwitchRightWeapon.performed += i => switchRightWeaponInput = true;
+            playerControls.PlayerActions.SwitchLeftWeapon.performed += i => switchLeftWeaponInput = true;
+
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
         }
 
@@ -126,6 +133,7 @@ public class PlayerInputManager : MonoBehaviour
         HandleJumpInput();
 
         HandleRBInput();
+        HandleWeaponSwitchingInput();
 
         HandleCameraMovementInput();
     }
@@ -215,6 +223,23 @@ public class PlayerInputManager : MonoBehaviour
 
             // If we are one-handing, run the one-handed action
             player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightHandWeapon.rb_Action_OneHanded, player.playerInventoryManager.currentRightHandWeapon);
+        }
+    }
+
+    private void HandleWeaponSwitchingInput()
+    {
+        if (switchRightWeaponInput)
+        {
+            switchRightWeaponInput = false;
+
+            player.playerEquipmentManager.SwitchRightWeapon();
+        }
+
+        if (switchLeftWeaponInput)
+        {
+            switchLeftWeaponInput = false;
+
+            player.playerEquipmentManager.SwitchLeftWeapon();
         }
     }
 }
