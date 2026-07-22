@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Netcode;
 
 public class PlayerManager : CharacterManager
 {
@@ -80,6 +81,7 @@ public class PlayerManager : CharacterManager
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
 
         // If this is the local player, assign the camera to us.
         if (IsOwner)
@@ -114,6 +116,24 @@ public class PlayerManager : CharacterManager
         {
             // We need to load this again in the client, because the game object was deleted and re-created.
             LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterSaveData);
+        }
+    }
+
+    private void OnClientConnectedCallback(ulong clientID)
+    {
+        // Keep a list of active players in the game
+        WorldGameSessionManager.instance.AddPlayerToActivePlayersList(this);
+
+        // If we are the server, we are the host, so no need to sync with already-loaded players
+        if (!IsServer && IsOwner)
+        {
+            foreach (var player in WorldGameSessionManager.instance.players)
+            {
+                if (player != this)
+                {
+                    player.LoadOtherPlayerCharacterWhenJoiningServer();
+                }
+            }
         }
     }
 
@@ -197,6 +217,19 @@ public class PlayerManager : CharacterManager
 
 
         }
+    }
+
+    private void LoadOtherPlayerCharacterWhenJoiningServer()
+    {
+        // This function makes up for the fact that other players' game worlds only update when
+        //  a network variable is CHANGED. When we load in, the network variables are correct,
+        //  but we need to run all the OnChanged actions.
+
+        // Sync weapons
+        playerNetworkManager.RunAllPersistentOnChangeEvents(
+            playerNetworkManager.currentRightHandWeaponID.Value,
+            playerNetworkManager.currentLeftHandWeaponID.Value
+        );
     }
 
     // DEBUG, delete later

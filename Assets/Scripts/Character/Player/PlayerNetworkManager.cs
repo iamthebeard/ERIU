@@ -61,6 +61,13 @@ public class PlayerNetworkManager : CharacterNetworkManager
         player = GetComponent<PlayerManager>();
     }
 
+    // Called when joining a server to update everything
+    public void RunAllPersistentOnChangeEvents(int rightHandWeaponID, int leftHandWeaponID)
+    {
+        OnCurrentRightHandWeaponIDChange(0, rightHandWeaponID);
+        OnCurrentLeftHandWeaponIDChange(0, leftHandWeaponID);
+    }
+
     public void SetCharacterActionHand(bool rightHandedAction)
     {
         if(rightHandedAction)
