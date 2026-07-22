@@ -8,12 +8,7 @@ public class DamageCollider : MonoBehaviour
     [SerializeField] protected Collider damageCollider;
 
     [Header("Damage")]
-    public float physicalDamage = 0;
-    public float magicDamage = 0;
-    public float fireDamage = 0;
-    public float lightningDamage = 0;
-    public float holyDamage = 0;
-    public float poiseDamage = 0;
+    [SerializeField] public Damage damage = new Damage();
 
     protected Vector3 contactPoint;
     // Characters damaged in the current attack
@@ -62,11 +57,7 @@ public class DamageCollider : MonoBehaviour
 
         // Build a copy of the TakeDamageEffect instant character effect and populate values
         TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
-        damageEffect.physicalDamage = physicalDamage;
-        damageEffect.magicDamage = magicDamage;
-        damageEffect.fireDamage = fireDamage;
-        damageEffect.lightningDamage = lightningDamage;
-        damageEffect.holyDamage = holyDamage;
+        damageEffect.damage = damage;
 
         damageTarget.characterEffectsManager.ProcessInstantEffect(damageEffect);
     }

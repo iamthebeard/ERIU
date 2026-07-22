@@ -22,13 +22,17 @@ MonoBehaviour:
   dexReq: 10
   intReq: 0
   faiReq: 0
-  physicalDamage: 45
-  magicDamage: 0
-  fireDamage: 0
-  holyDamage: 0
-  lightningDamage: 0
-  basePoiseDamage: 25
+  damage:
+    physical: 40
+    magic: 0
+    fire: 0
+    holy: 0
+    lightning: 0
+    poise: 15
+  lightAttack01Modifier: 1
+  lightAttack01PoiseModifier: 1
   baseStaminaCost: 30
+  lightAttack01StaminaCostModifier: 1
   rb_Action_OneHanded: {fileID: 11400000, guid: 8083fdb864bd5cd448e0e307134594a7,
     type: 2}
   xPosition: 20

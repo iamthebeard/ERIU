@@ -17,20 +17,11 @@ public class WeaponItem : Item
     public int faiReq = 0;
 
     [Header("Weapon Base Damage")]
-    // [SerializeField] public Damage damage = new Damage();
-    public int physicalDamage = 0;
-    public int magicDamage = 0;
-    public int fireDamage = 0;
-    public int holyDamage = 0;
-    public int lightningDamage = 0;
+    [SerializeField] public Damage damage = new Damage();
 
     [Header("Weapon modifiers")]
     //  Light attack, heavy attack, critical damage, etc.
     public float lightAttack01Modifier = 1;
-
-
-    [Header("Poise Damage")]
-    public float poiseDamage = 10;
     public float lightAttack01PoiseModifier = 1;
     // Poise bonus while attacking
     // Poise modifiers, etc.

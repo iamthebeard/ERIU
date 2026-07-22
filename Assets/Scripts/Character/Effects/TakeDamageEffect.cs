@@ -11,18 +11,13 @@ public class TakeDamageEffect : InstantCharacterEffect
     public CharacterManager characterCausingDamage;
 
     [Header("Damage Amounts")]
-    public float physicalDamage = 0;
-    public float magicDamage = 0;
-    public float fireDamage = 0;
-    public float lightningDamage = 0;
-    public float holyDamage = 0;
+    [SerializeField] public Damage damage = new Damage();
 
     private int finalDamageDealt = 0; // Combined damage after all calculations have been made.
 
     // Effect build-ups (to be added later)
 
     [Header("Poise")]
-    public float poiseDamage = 0;
     public bool poiseBroken = false;
     // If character's poise is broken, play the stun animation instead of the damage animation.
 
@@ -77,9 +72,7 @@ public class TakeDamageEffect : InstantCharacterEffect
         // Check character for armor absorptions
 
         // Add remaining damage of each type to determine final damage
-        finalDamageDealt = Mathf.RoundToInt(
-            physicalDamage + magicDamage + fireDamage + lightningDamage + holyDamage
-        );
+        finalDamageDealt = Mathf.RoundToInt(damage.TotalDamage);
         if (finalDamageDealt <= 1) finalDamageDealt = 1; // Minimum of 1 damage
 
         // Apply final damage to character health

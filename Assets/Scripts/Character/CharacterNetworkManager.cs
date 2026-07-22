@@ -163,12 +163,7 @@ public class CharacterNetworkManager : NetworkBehaviour
     public void NotifyOfCharacterDamageServerRpc(
         ulong damagedCharacterID,
         ulong characterCausingDamageID,
-        float physicalDamage,
-        float magicDamage,
-        float fireDamage,
-        float lightningDamage,
-        float holyDamage,
-        float poiseDamage,
+        Damage damage,
         float angleHitFrom,
         float contactPointX,
         float contactPointY,
@@ -180,12 +175,7 @@ public class CharacterNetworkManager : NetworkBehaviour
         NotifyOfCharacterDamageClientRpc(
             damagedCharacterID,
             characterCausingDamageID,
-            physicalDamage,
-            magicDamage,
-            fireDamage,
-            lightningDamage,
-            holyDamage,
-            poiseDamage,
+            damage,
             angleHitFrom,
             contactPointX,
             contactPointY,
@@ -197,12 +187,7 @@ public class CharacterNetworkManager : NetworkBehaviour
     public void NotifyOfCharacterDamageClientRpc(
         ulong damagedCharacterID,
         ulong characterCausingDamageID,
-        float physicalDamage,
-        float magicDamage,
-        float fireDamage,
-        float lightningDamage,
-        float holyDamage,
-        float poiseDamage,
+        Damage damage,
         float angleHitFrom,
         float contactPointX,
         float contactPointY,
@@ -212,12 +197,7 @@ public class CharacterNetworkManager : NetworkBehaviour
         ProcessCharacterDamageFromServer(
             damagedCharacterID,
             characterCausingDamageID,
-            physicalDamage,
-            magicDamage,
-            fireDamage,
-            lightningDamage,
-            holyDamage,
-            poiseDamage,
+            damage,
             angleHitFrom,
             contactPointX,
             contactPointY,
@@ -228,12 +208,7 @@ public class CharacterNetworkManager : NetworkBehaviour
     public void ProcessCharacterDamageFromServer(
         ulong damagedCharacterID,
         ulong characterCausingDamageID,
-        float physicalDamage,
-        float magicDamage,
-        float fireDamage,
-        float lightningDamage,
-        float holyDamage,
-        float poiseDamage,
+        Damage damage,
         float angleHitFrom,
         float contactPointX,
         float contactPointY,
@@ -247,12 +222,7 @@ public class CharacterNetworkManager : NetworkBehaviour
                                                 SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
 
         TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
-        damageEffect.physicalDamage = physicalDamage;
-        damageEffect.magicDamage = magicDamage;
-        damageEffect.fireDamage = fireDamage;
-        damageEffect.lightningDamage = lightningDamage;
-        damageEffect.holyDamage = holyDamage;
-        damageEffect.poiseDamage = poiseDamage;
+        damageEffect.damage = damage;
 
         damageEffect.angleHitFrom = angleHitFrom;
         damageEffect.contactPoint = new Vector3(contactPointX, contactPointY, contactPointZ);

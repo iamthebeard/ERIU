@@ -59,18 +59,13 @@ public class MeleeWeaponDamageCollider : DamageCollider
 
         // Build a copy of the TakeDamageEffect instant character effect and populate values
         TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
-        damageEffect.physicalDamage = physicalDamage;
-        damageEffect.magicDamage = magicDamage;
-        damageEffect.fireDamage = fireDamage;
-        damageEffect.lightningDamage = lightningDamage;
-        damageEffect.holyDamage = holyDamage;
-        damageEffect.poiseDamage = poiseDamage;
+        damageEffect.damage = damage;
 
         switch (characterCausingDamage.characterCombatManager.currentAttackType)
         {
             case AttackType.LightAttack01:
-                ApplyAttackDamageModifiers(lightAttack01Modifier, damageEffect);
-                damageEffect.poiseDamage *= lightAttack01PoiseModifier;
+                damageEffect.damage *= lightAttack01Modifier;
+                damageEffect.damage.poise = damage.poise * lightAttack01PoiseModifier; // Set poise modifier separately
                 break;
             default:
                 break;
@@ -83,37 +78,16 @@ public class MeleeWeaponDamageCollider : DamageCollider
             damageTarget.characterNetworkManager.NotifyOfCharacterDamageServerRpc(
                 damageTarget.NetworkObjectId,
                 characterCausingDamage.NetworkObjectId,
-                damageEffect.physicalDamage,
-                damageEffect.fireDamage,
-                damageEffect.magicDamage,
-                damageEffect.fireDamage,
-                damageEffect.lightningDamage,
-                damageEffect.holyDamage,
-                damageEffect.poiseDamage,
+                damageEffect.damage,
+                damageEffect.angleHitFrom,
                 damageEffect.contactPoint.x,
                 damageEffect.contactPoint.y,
                 damageEffect.contactPoint.z
             );
         }
-        float totalDamage = damageEffect.physicalDamage
-            + damageEffect.fireDamage
-            + damageEffect.magicDamage
-            + damageEffect.fireDamage
-            + damageEffect.lightningDamage
-            + damageEffect.holyDamage;
+        float totalDamage = damageEffect.damage.TotalDamage;
 
         Debug.Log("Weapon strike on character " + damageTarget.NetworkObjectId + " by character " + characterCausingDamage.NetworkObjectId + " for "
-            + totalDamage + " and " + damageEffect.poiseDamage + " poise damage.");
+            + totalDamage + " and " + damageEffect.damage.poise + " poise damage.");
     }
-
-    private void ApplyAttackDamageModifiers(float modifier, TakeDamageEffect damage)
-    {
-        damage.physicalDamage *= modifier;
-        damage.magicDamage *= modifier;
-        damage.fireDamage *= modifier;
-        damage.lightningDamage *= modifier;
-        damage.holyDamage *= modifier;
-    }
-
-
 }
