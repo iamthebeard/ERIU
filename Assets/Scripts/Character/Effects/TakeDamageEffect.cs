@@ -51,6 +51,7 @@ public class TakeDamageEffect : InstantCharacterEffect
         // Determine direction of damage
         // Play damage animaiton
         // Play damage SFX
+        PlayDamageSFX(character);
         // Play damage VFX
         PlayDamageVFX(character);
 
@@ -89,5 +90,17 @@ public class TakeDamageEffect : InstantCharacterEffect
         // Etc.
 
         character.characterEffectsManager.PlayBloodSpatterVFX(contactPoint, angleHitFrom);
+    }
+
+    private void PlayDamageSFX(CharacterManager character)
+    {
+        // If fire damage, play burn SFX
+        // Etc.
+
+        // TODO: Determine sound by damage type
+
+        AudioClip damageSFX = WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.bladeHitSFX);
+
+        character.characterSoundFXManager.PlaySoundFX(damageSFX);
     }
 } 

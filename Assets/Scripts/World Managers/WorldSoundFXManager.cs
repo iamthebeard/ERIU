@@ -9,6 +9,9 @@ public class WorldSoundFXManager : MonoBehaviour
     [Header("Action Sounds")]
     public AudioClip rollSFX;
 
+    [Header("Weapon Sounds")]
+    public AudioClip[] bladeHitSFX;
+
     private void Awake() {
         if (instance == null) {
             instance = this;
@@ -19,5 +22,11 @@ public class WorldSoundFXManager : MonoBehaviour
 
     private void Start() {
         DontDestroyOnLoad(gameObject);
+    }
+
+    public AudioClip ChooseRandomSFXFromArray(AudioClip[] array)
+    {
+        int index = Random.Range(0, array.Length);
+        return array[index];
     }
 }
