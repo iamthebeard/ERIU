@@ -22,11 +22,7 @@ public class MeleeWeaponDamageCollider : DamageCollider
 
         if (characterCausingDamage == null)
         {
-<<<<<<< Updated upstream
-            characterCausingDamage = GetComponentInParent<CharacterManager>();
-=======
             characterCausingDamage = damageCollider.GetComponentInParent<CharacterManager>();
->>>>>>> Stashed changes
         }
     }
 
@@ -36,11 +32,7 @@ public class MeleeWeaponDamageCollider : DamageCollider
 
         CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
         if (damageTarget == null) return;
-<<<<<<< Updated upstream
-        if (damageTarget != characterCausingDamage) return; // Don't damage ourselves
-=======
         if (damageTarget == characterCausingDamage) return; // Don't damage ourselves
->>>>>>> Stashed changes
 
 
         // Is it necessary to get the collider from `other`? It's already a collider.
