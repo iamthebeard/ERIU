@@ -52,6 +52,7 @@ public class TakeDamageEffect : InstantCharacterEffect
         // Play damage animaiton
         // Play damage SFX
         // Play damage VFX
+        PlayDamageVFX(character);
 
         // If character is AI controlled...
         //  - Possibly switch targets
@@ -80,7 +81,13 @@ public class TakeDamageEffect : InstantCharacterEffect
 
         // Calculate poise damage
         // Determine whether poise is broken
+    }
 
+    private void PlayDamageVFX(CharacterManager character)
+    {
+        // If we have fire damage, play fire particles
+        // Etc.
 
+        character.characterEffectsManager.PlayBloodSpatterVFX(contactPoint, angleHitFrom);
     }
 } 

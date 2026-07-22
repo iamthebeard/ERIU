@@ -36,8 +36,11 @@ public class MeleeWeaponDamageCollider : DamageCollider
 
 
         // Is it necessary to get the collider from `other`? It's already a collider.
-        // contactPoint = other.gameObject.GetComponent<Collidor>().ClosestPointOnBounds(transform.position);
+        // contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
         contactPoint = other.ClosestPointOnBounds(transform.position);
+        // Experimenting with angleHitFrom
+        // var lastFrameVelocity = damageCollider.attachedRigidbody.velocity
+        // angleHitFrom = Vector3.Reflect(lastFrameVelocity.normalized, contactPoint - other.bounds.center);
 
         // Check if we can damage this target
         //  For coop, summons, mobs within a group, etc.
@@ -60,6 +63,8 @@ public class MeleeWeaponDamageCollider : DamageCollider
         // Build a copy of the TakeDamageEffect instant character effect and populate values
         TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
         damageEffect.damage = damage;
+        damageEffect.angleHitFrom = angleHitFrom;
+        damageEffect.contactPoint = contactPoint;
 
         switch (characterCausingDamage.characterCombatManager.currentAttackType)
         {
@@ -87,7 +92,8 @@ public class MeleeWeaponDamageCollider : DamageCollider
         }
         float totalDamage = damageEffect.damage.TotalDamage;
 
-        Debug.Log("Weapon strike on character " + damageTarget.NetworkObjectId + " by character " + characterCausingDamage.NetworkObjectId + " for "
+        Debug.Log("Weapon strike on character " + damageTarget.NetworkObjectId
+            + " by character " + characterCausingDamage.NetworkObjectId + " for "
             + totalDamage + " and " + damageEffect.damage.poise + " poise damage.");
     }
 }

@@ -11,6 +11,7 @@ public class DamageCollider : MonoBehaviour
     [SerializeField] public Damage damage = new Damage();
 
     protected Vector3 contactPoint;
+    protected float angleHitFrom;
     // Characters damaged in the current attack
     protected List<CharacterManager> charactersDamaged = new List<CharacterManager>();
 

@@ -2134,6 +2134,7 @@ MonoBehaviour:
   characterAnimatorManager: {fileID: 0}
   characterNetworkManager: {fileID: 0}
   characterEffectsManager: {fileID: 0}
+  characterCombatManager: {fileID: 0}
   isDead:
     m_InternalValue: 0
   isPerformingAction: 0
@@ -2166,6 +2167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365513029a642fd44876003077f46cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSpatterVFX: {fileID: 0}
   testInstantEffect: {fileID: 11400000, guid: f6e8e29d626fe1a41b2088cef666e2d3, type: 2}
   processTestInstantEffect: 0
 --- !u!114 &3735588607312321141
@@ -2409,7 +2411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staminaRegenerationDelay: 1
-  staminaRegenerationPerSecond: 10
+  staminaRegenerationPerSecond: 50
   staminaTickLength: 0.1
 --- !u!114 &-8999042402318304011
 MonoBehaviour:
@@ -2467,6 +2469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce9d17ad5d86bd43a0dbee7fa8c4716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAttackType: 0
   currentWeaponBeingUsed: {fileID: 0}
 --- !u!95 &3735588607302840091
 Animator:

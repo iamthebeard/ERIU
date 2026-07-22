@@ -10,6 +10,9 @@ public class WorldCharacterEffectsManager : MonoBehaviour
     [SerializeField] List<InstantCharacterEffect> instantEffects;
     [SerializeField] List<BaseCharacterEffect> otherEffects; // Temporary
 
+    [Header("VFX")]
+    [SerializeField] public GameObject bloodSpatterVFX;
+
     private void Awake()
     {
         if (instance == null) instance = this;
