@@ -57,6 +57,7 @@ public class DamageCollider : MonoBehaviour
     protected virtual void DealDamageToTarget(CharacterManager damageTarget)
     {
         // Make sure we only damage the target once per attack
+        if (charactersDamaged.Contains(damageTarget)) return;
         charactersDamaged.Add(damageTarget);
 
         // Build a copy of the TakeDamageEffect instant character effect and populate values

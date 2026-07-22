@@ -112,7 +112,7 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerCombatManager.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldActionManager.cs" />
     <Compile Include="Assets\Scripts\Actions, Item Based\LightAttackWeaponItemAction.cs" />
-    <Compile Include="Assets\Scripts\Types.cs" />
+    <Compile Include="Assets\Scripts\Damage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
