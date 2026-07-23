@@ -22,6 +22,7 @@ public class CharacterSoundFXManager : MonoBehaviour
     }
 
     public void PlayRollSoundFX() {
-        audioSource.PlayOneShot(WorldSoundFXManager.instance.rollSFX);
+        // audioSource.PlayOneShot(WorldSoundFXManager.instance.rollSFX);
+        PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.rollSFX));
     }
 }

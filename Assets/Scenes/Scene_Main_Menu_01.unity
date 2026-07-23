@@ -6022,6 +6022,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Sound FX Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4683409867467364294, guid: b660acd81b35f6945b5dac3ffc9838d9,
+        type: 3}
+      propertyPath: rollSFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683409867467364294, guid: b660acd81b35f6945b5dac3ffc9838d9,
+        type: 3}
+      propertyPath: rollSFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3ed7ea0de90c5734f84536850d2c0e93, type: 3}
+    - target: {fileID: 4683409867467364294, guid: b660acd81b35f6945b5dac3ffc9838d9,
+        type: 3}
+      propertyPath: rollSFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0a3114889b8fe854dbb92b0dca0cc1e4, type: 3}
+    - target: {fileID: 4683409867467364294, guid: b660acd81b35f6945b5dac3ffc9838d9,
+        type: 3}
+      propertyPath: bladeHitSFX.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683409867467364294, guid: b660acd81b35f6945b5dac3ffc9838d9,
+        type: 3}
+      propertyPath: bladeHitSFX.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7cbd6cd765888ff418d01d98bd1ce9c2, type: 3}
+    - target: {fileID: 4683409867467364294, guid: b660acd81b35f6945b5dac3ffc9838d9,
+        type: 3}
+      propertyPath: bladeHitSFX.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3df9bbbc130ccb344af5f3fc793a630f, type: 3}
     - target: {fileID: 7336483568693218990, guid: b660acd81b35f6945b5dac3ffc9838d9,
         type: 3}
       propertyPath: m_RootOrder
