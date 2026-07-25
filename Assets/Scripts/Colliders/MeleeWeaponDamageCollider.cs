@@ -38,6 +38,7 @@ public class MeleeWeaponDamageCollider : DamageCollider
         // Is it necessary to get the collider from `other`? It's already a collider.
         // contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
         contactPoint = other.ClosestPointOnBounds(transform.position);
+        angleHitFrom = Vector3.SignedAngle(characterCausingDamage.transform.forward, damageTarget.transform.forward, Vector3.up);
         // Experimenting with angleHitFrom
         // var lastFrameVelocity = damageCollider.attachedRigidbody.velocity
         // angleHitFrom = Vector3.Reflect(lastFrameVelocity.normalized, contactPoint - other.bounds.center);

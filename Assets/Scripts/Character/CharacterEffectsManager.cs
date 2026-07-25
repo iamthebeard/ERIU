@@ -37,7 +37,7 @@ public class CharacterEffectsManager : MonoBehaviour
         }
         else // Use default VFX
         {
-            GameObject bloodSpatter = Instantiate(WorldCharacterEffectsManager.instance.bloodSpatterVFX, contactPoint, Quaternion.identity);
+            GameObject bloodSpatter = Instantiate(WorldCharacterEffectsManager.instance.bloodSpatterVFX, contactPoint, Quaternion.Euler(0, angleHitFrom, 0));
         }
 
     }

@@ -2135,6 +2135,7 @@ MonoBehaviour:
   characterNetworkManager: {fileID: 0}
   characterEffectsManager: {fileID: 0}
   characterCombatManager: {fileID: 0}
+  characterSoundFXManager: {fileID: 0}
   isDead:
     m_InternalValue: 0
   isPerformingAction: 0
@@ -2199,6 +2200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  hitForwardMedium01: Hit_F_1
+  hitBackwardMedium01: Hit_F_1
+  hitLeftMedium01: Hit_F_1
+  hitRightMedium01: Hit_F_1
 --- !u!114 &3735588607312321136
 MonoBehaviour:
   m_ObjectHideFlags: 0

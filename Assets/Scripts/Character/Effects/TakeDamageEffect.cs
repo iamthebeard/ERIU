@@ -49,7 +49,8 @@ public class TakeDamageEffect : InstantCharacterEffect
         // Check for status build-ups
 
         // Determine direction of damage
-        // Play damage animaiton
+        // Play damage animation
+        PlayDirectionalBasedDamageAnimation(character);
         // Play damage SFX
         PlayDamageSFX(character);
         // Play damage VFX
@@ -102,5 +103,45 @@ public class TakeDamageEffect : InstantCharacterEffect
         AudioClip damageSFX = WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.bladeHitSFX);
 
         character.characterSoundFXManager.PlaySoundFX(damageSFX);
+    }
+
+    private void PlayDirectionalBasedDamageAnimation(CharacterManager character)
+    {
+        if (!character.IsOwner) return;
+        if (character.isDead.Value) return;
+
+        // Calculate if poise is broken
+        poiseBroken = true;
+
+        if (angleHitFrom >= 145 && angleHitFrom <= 180)
+        {
+            // Play front animation
+            damageAnimation = character.characterAnimatorManager.hitForwardMedium01;
+        }
+        else if (angleHitFrom <= -145 && angleHitFrom >= -180)
+        {
+            // Still play front animation
+            damageAnimation = character.characterAnimatorManager.hitForwardMedium01;
+        }
+        else if (angleHitFrom >= -45 && angleHitFrom <= 45)
+        {
+            // Play back animation
+            damageAnimation = character.characterAnimatorManager.hitBackwardMedium01;
+        }
+        else if (angleHitFrom >= -144 && angleHitFrom <= -45)
+        {
+            // Play Left animation
+            damageAnimation = character.characterAnimatorManager.hitLeftMedium01;
+        }
+        else if (angleHitFrom >= 45 && angleHitFrom <= 144)
+        {
+            // Play right animation
+            damageAnimation = character.characterAnimatorManager.hitRightMedium01;
+        }
+
+        if (poiseBroken)
+        {
+            character.characterAnimatorManager.PlayTargetActionAnimation(damageAnimation, true);
+        }
     }
 } 

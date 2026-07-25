@@ -10,6 +10,12 @@ public class CharacterAnimatorManager : MonoBehaviour
     // int horizontal;
     // int vertical;
 
+    [Header("Damage Animations")]
+    public string hitForwardMedium01 = "Hit_F_1";  // "hit_Forward_Medium_01";
+    public string hitBackwardMedium01 = "Hit_F_1";  // "hit_Backward_Medium_01";
+    public string hitLeftMedium01 = "Hit_F_1";  // "hit_Left_Medium_01";
+    public string hitRightMedium01 = "Hit_F_1";  // "hit_Right_Medium_01";
+
     protected virtual void Awake() {
         character = GetComponent<CharacterManager>();
 
@@ -41,6 +47,7 @@ public class CharacterAnimatorManager : MonoBehaviour
         bool canRotate = false,
         bool canMove = false
     ) {
+        Debug.Log("Playing " + targetAnimation + " on " + character.NetworkObjectId + ".");
         character.applyRootMotion = applyRootMotion;
         character.animator.CrossFade(targetAnimation, 0.2f);
         // Can be used to stop character from attempting new actions
