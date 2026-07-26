@@ -11,10 +11,21 @@ public class CharacterAnimatorManager : MonoBehaviour
     // int vertical;
 
     [Header("Damage Animations")]
-    public string hitForwardMedium01 = "Hit_F_1";  // "hit_Forward_Medium_01";
-    public string hitBackwardMedium01 = "Hit_F_1";  // "hit_Backward_Medium_01";
-    public string hitLeftMedium01 = "Hit_F_1";  // "hit_Left_Medium_01";
-    public string hitRightMedium01 = "Hit_F_1";  // "hit_Right_Medium_01";
+    [SerializeField] public string hitForwardMedium01 = "Hit_F_1";  // "hit_Forward_Medium_01";
+    [SerializeField] public string hitForwardMedium02 = "Hit_F_2";
+    [SerializeField] public string hitForwardMedium03 = "";
+    [SerializeField] public string hitBackwardMedium01 = "Hit_F_1";  // "hit_Backward_Medium_01";
+    [SerializeField] public string hitBackwardMedium02 = "";
+    [SerializeField] public string hitBackwardMedium03 = "";
+    [SerializeField] public string hitLeftMedium01 = "Hit_F_1";  // "hit_Left_Medium_01";
+    [SerializeField] public string hitLeftMedium02 = "";
+    [SerializeField] public string hitLeftMedium03 = "";
+    [SerializeField] public string hitRightMedium01 = "Hit_F_1";  // "hit_Right_Medium_01";
+    [SerializeField] public string hitRightMedium02 = "";
+    [SerializeField] public string hitRightMedium03 = "";
+
+    [SerializeField] public List<string> onHitAnimations = new List<string>();
+    public string lastNonRepeatableAnimationPlayed;
 
     protected virtual void Awake() {
         character = GetComponent<CharacterManager>();
@@ -22,6 +33,35 @@ public class CharacterAnimatorManager : MonoBehaviour
         // Could pass these hash values instead of strings as the first argument to "SetFloat" below.
         // horizontal = Animator.StringToHash("Horizontal");
         // vertical = Animator.StringToHash("Vertical");
+    }
+
+    protected virtual void Start()
+    {
+        // Add all animations to their various animation sets.
+        onHitAnimations.Add(hitForwardMedium01);
+        onHitAnimations.Add(hitForwardMedium02);
+    }
+
+    public string GetRandomAnimationFromList(List<string> animationList, bool dontRepeat = false)
+    {
+        // Don't worry about nulls for now.
+        // animationList.RemoveAll(x => x == null);
+
+        int randomIndex = Random.Range(0, animationList.Count);
+    
+        // Check if we've played a recent damage animation in this list
+        if (dontRepeat && animationList.Contains(lastNonRepeatableAnimationPlayed))
+        {
+            int lastAnimationIndex = animationList.IndexOf(lastNonRepeatableAnimationPlayed);
+            if (randomIndex == lastAnimationIndex)
+            {
+                // If the randomly selected item is later on the list than the non-repeatable one,
+                //  skip the non-repeateable one, looping to the front if necessary.
+                randomIndex = (randomIndex + 1) % animationList.Count;
+            }
+        }
+
+        return animationList[randomIndex];
     }
 
     public void UpdateAnimatorMovement(float horizontalMovement, float verticalMovement, bool isSprinting){

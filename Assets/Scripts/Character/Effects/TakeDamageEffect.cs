@@ -139,9 +139,13 @@ public class TakeDamageEffect : InstantCharacterEffect
             damageAnimation = character.characterAnimatorManager.hitRightMedium01;
         }
 
+        // For demonstration, select a random damage animation, without repeating.
+        damageAnimation = character.characterAnimatorManager.GetRandomAnimationFromList(character.characterAnimatorManager.onHitAnimations, true);
+
         if (poiseBroken)
         {
             character.characterAnimatorManager.PlayTargetActionAnimation(damageAnimation, true);
+            character.characterAnimatorManager.lastNonRepeatableAnimationPlayed = damageAnimation;
         }
     }
 } 
