@@ -77,34 +77,16 @@ public class PlayerCamera : MonoBehaviour
     }
 
     private void HandleRotations() {
-        Vector3 cameraRotation;
-        Quaternion targetRotation;
 
         if (player.playerNetworkManager.isLockedOn.Value)
         {
             // If locked on, force rotation towards target.
-
-            // Rotate camera game object
-            cameraRotation = player.playerCombatManager.currentLockOnTarget.characterCombatManager.lockOnAnchor.position - transform.position; // Based on target's lockOnAnchor
-            cameraRotation.Normalize();
-            cameraRotation.y = 0;
-            targetRotation = Quaternion.LookRotation(cameraRotation);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lockOnTargetFollowSpeed);
-
-            // Rotate camera pivot object
-            cameraRotation = player.playerCombatManager.currentLockOnTarget.characterCombatManager.lockOnAnchor.position - cameraPivotTransform.position;
-            cameraRotation.Normalize();
-            targetRotation = Quaternion.LookRotation(cameraRotation);
-            cameraPivotTransform.transform.rotation = Quaternion.Slerp(cameraPivotTransform.rotation, targetRotation, lockOnTargetFollowSpeed);
-
-            // Save our rotation values (so that when you unlock, the camera doesn't suddenly move)
-            leftAndRightLookAngle = transform.eulerAngles.y;
-            upAndDownLookAngle = transform.eulerAngles.x;
-
-            return; // Skip camera controls
+            LookAt(player.playerCombatManager.currentLockOnTarget.characterCombatManager.lockOnAnchor);
         }
         else
         {
+            Vector3 cameraRotation;
+            Quaternion targetRotation;
             
             // Normal rotation based on camera movement inputs
             leftAndRightLookAngle += (PlayerInputManager.instance.cameraHorizontalInput * leftAndRightRotationSpeed) * Time.deltaTime;
@@ -124,6 +106,28 @@ public class PlayerCamera : MonoBehaviour
             targetRotation = Quaternion.Euler(cameraRotation);
             cameraPivotTransform.localRotation = targetRotation;
         }
+    }
+
+    public void LookAt(Transform target)
+    {
+        Vector3 cameraRotation;
+        Quaternion targetRotation;
+        // Rotate camera game object
+        cameraRotation = target.position - transform.position; // Based on target's lockOnAnchor
+        cameraRotation.Normalize();
+        cameraRotation.y = 0;
+        targetRotation = Quaternion.LookRotation(cameraRotation);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lockOnTargetFollowSpeed);
+
+        // Rotate camera pivot object
+        cameraRotation = target.position - cameraPivotTransform.position;
+        cameraRotation.Normalize();
+        targetRotation = Quaternion.LookRotation(cameraRotation);
+        cameraPivotTransform.transform.rotation = Quaternion.Slerp(cameraPivotTransform.rotation, targetRotation, lockOnTargetFollowSpeed);
+
+        // Save our rotation values (so that when you unlock, the camera doesn't suddenly move)
+        leftAndRightLookAngle = transform.eulerAngles.y;
+        upAndDownLookAngle = transform.eulerAngles.x;
     }
 
     private void HandleCollisions() {
