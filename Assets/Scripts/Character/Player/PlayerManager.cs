@@ -210,6 +210,7 @@ public class PlayerManager : CharacterManager
         {
             playerNetworkManager.currentHealth.Value = playerNetworkManager.maxHealth.Value;
             playerNetworkManager.currentStamina.Value = playerNetworkManager.maxStamina.Value;
+            isDead.Value = false;
             // TODO: Restore focus points
 
             // Play rebirth effects
@@ -230,6 +231,11 @@ public class PlayerManager : CharacterManager
             playerNetworkManager.currentRightHandWeaponID.Value,
             playerNetworkManager.currentLeftHandWeaponID.Value
         );
+        // Sync lockon targets
+        if (playerNetworkManager.isLockedOn.Value)
+        {
+            playerNetworkManager.OnLockOnTargetIDChanged(0, playerNetworkManager.lockOnTargetID.Value);
+        }
     }
 
     // DEBUG, delete later

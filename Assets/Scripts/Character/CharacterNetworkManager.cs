@@ -9,103 +9,56 @@ public class CharacterNetworkManager : NetworkBehaviour
 
     [Header("Position")]
     public NetworkVariable<Vector3> networkPosition =
-        new NetworkVariable<Vector3>(
-            Vector3.zero,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public Vector3 networkPositionVelocity;
     [SerializeField] public float networkPositionSmoothTime = 0.1f;
 
     public NetworkVariable<Quaternion> networkRotation =
-        new NetworkVariable<Quaternion>(
-            Quaternion.identity,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<Quaternion>(Quaternion.identity, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     [SerializeField] public float networkRotationSmoothTime = 0.1f;
 
     // I added this in the "do it yourself" in episode 5
     [Header("Animator")]
     public NetworkVariable<float> animatorHorizontalParameter =
-        new NetworkVariable<float>(
-            0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> animatorVerticalParameter =
-        new NetworkVariable<float>(
-            0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     
     [Header("Flags")]
     public NetworkVariable<bool> isSprinting =
-        new NetworkVariable<bool>(
-            false,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> isJumping =
-        new NetworkVariable<bool>(
-            false,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
-    public NetworkVariable<bool> isLockedOn = 
-        new NetworkVariable<bool>(
-            false,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Base Stats")]
     public NetworkVariable<int> vitality =
-        new NetworkVariable<int>(
-            10,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<int>(10, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> endurance =
-        new NetworkVariable<int>(
-            10,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<int>(10, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Derived Stats")]
     public NetworkVariable<int> maxHealth =
-        new NetworkVariable<int>(
-            0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> maxStamina =
-        new NetworkVariable<int>(
-            0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Resources (Bars)")]
     public NetworkVariable<int> currentHealth =
-        new NetworkVariable<int>(
-            0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> currentStamina =
-        new NetworkVariable<float>(
-            0,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner
-        );
+        new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     
+    [Header("LockOn")]
+    public NetworkVariable<bool> isLockedOn = 
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<ulong> lockOnTargetID = 
+        new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
     protected virtual void Awake() {
         character = GetComponent<CharacterManager>();
     }
 
+    // ******************** OnChange Callbacks ********************
     public void CheckHP(int oldValue = 0, int newValue = 0) // Defaults for overloading purposes
     {
         if (currentHealth.Value <= 0)
@@ -121,6 +74,16 @@ public class CharacterNetworkManager : NetworkBehaviour
             }
         }
     }
+
+    public void OnLockOnTargetIDChanged(ulong oldID, ulong newID)
+    {
+        if (!IsOwner) // Already set target locally.
+        {
+            character.characterCombatManager.currentLockOnTarget = NetworkManager.Singleton.SpawnManager.SpawnedObjects[newID].gameObject.GetComponent<CharacterManager>();
+        }
+    }
+
+    // ******************** RPCs ********************
 
     // A server RPC is a function called from a client to a server/host
     [ServerRpc]

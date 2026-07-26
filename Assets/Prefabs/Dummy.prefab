@@ -3329,7 +3329,7 @@ MonoBehaviour:
   gravityForce: -9.86
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   groundCheckSphereRadius: 0.3
   yVelocity: {x: 0, y: 0, z: 0}
   groundedYVelocity: -20
@@ -3431,8 +3431,6 @@ MonoBehaviour:
     m_InternalValue: 0
   isJumping:
     m_InternalValue: 0
-  isLockedOn:
-    m_InternalValue: 0
   vitality:
     m_InternalValue: 10
   endurance:
@@ -3444,6 +3442,10 @@ MonoBehaviour:
   currentHealth:
     m_InternalValue: 0
   currentStamina:
+    m_InternalValue: 0
+  isLockedOn:
+    m_InternalValue: 0
+  lockOnTargetID:
     m_InternalValue: 0
 --- !u!114 &3871176628575276267
 MonoBehaviour:
@@ -3508,7 +3510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89e475c58a40af4ca2b0916d9ef9ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTarget: {fileID: 0}
+  currentLockOnTarget: {fileID: 0}
   currentAttackType: 0
   lockOnAnchor: {fileID: 5828833727295080444}
 --- !u!1 &8334689683478606331

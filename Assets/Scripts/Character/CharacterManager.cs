@@ -48,6 +48,14 @@ public class CharacterManager : NetworkBehaviour
         IgnoreMyOwnColliders();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        
+        // Targets
+        characterNetworkManager.lockOnTargetID.OnValueChanged += characterNetworkManager.OnLockOnTargetIDChanged;
+    }
+
     protected virtual void Update()
     {
         animator.SetBool("IsGrounded", isGrounded);

@@ -257,12 +257,12 @@ public class PlayerInputManager : MonoBehaviour
 
     private void HandleLockOnInput()
     {
-        // Is our current target dead? If so, unlock.
+        // Is our current target dead?
         if (player.playerNetworkManager.isLockedOn.Value)
         {
-            if (player.playerCombatManager.currentTarget == null) return;
+            if (player.playerCombatManager.currentLockOnTarget == null) return;
 
-            if (player.playerCombatManager.currentTarget.isDead.Value)
+            if (player.playerCombatManager.currentLockOnTarget.isDead.Value)
             {
                 player.playerNetworkManager.isLockedOn.Value = false;
             }
@@ -278,6 +278,9 @@ public class PlayerInputManager : MonoBehaviour
             if (player.playerNetworkManager.isLockedOn.Value)
             {
                 // Disable lock on
+                player.playerNetworkManager.isLockedOn.Value = false;
+                Debug.Log("Unlocking LockOn");
+                PlayerCamera.instance.ClearLockOnTargets();
                 return;
             }
 
@@ -286,6 +289,14 @@ public class PlayerInputManager : MonoBehaviour
             // Attempt to find a target
             // Enable lock on
             PlayerCamera.instance.HandleLocatingLockOnTargets();
+
+            if (PlayerCamera.instance.nearestLockOnTarget != null)
+            {
+                // Assign as our target
+                player.playerCombatManager.SetLockOnTarget(PlayerCamera.instance.nearestLockOnTarget);
+                player.playerNetworkManager.isLockedOn.Value = true;
+                // player.playerNetworkManager.lockOnTargetID = PlayerCamera.instance.nearestLockOnTarget.
+            }
         }
         
     }

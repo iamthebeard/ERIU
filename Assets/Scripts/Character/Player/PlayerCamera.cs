@@ -32,6 +32,10 @@ public class PlayerCamera : MonoBehaviour
     [Header("Lock On")]
     [SerializeField] private float lockOnRadius = 20;
     [SerializeField] private float lockOnFieldOfView = 50; // +-, so between -50 and 50
+    // private List<CharacterManager> availableLockOnTargets = new List<CharacterManager>(); // I don't think we need this. Just keep track of the closest?
+    [SerializeField] public CharacterManager nearestLockOnTarget;
+    [SerializeField] public List<CharacterManager> potentialLockOnTargets = new List<CharacterManager>();
+    
 
     private void Awake() {
         if (instance == null)
@@ -130,6 +134,8 @@ public class PlayerCamera : MonoBehaviour
     public void HandleLocatingLockOnTargets()
     {
         float shortestDistance = Mathf.Infinity;
+        nearestLockOnTarget = null;
+        // potentialLockOnTargets.Clear();
         float shortestRightDistance = Mathf.Infinity; // Will be used to find "next" target to the right
         float shortestLeftDistance = -Mathf.Infinity; // Closest "next" target to the left along the horizontal view axis (-)
 
@@ -162,8 +168,13 @@ public class PlayerCamera : MonoBehaviour
                 // Update shortest distance
                 float distanceFromTarget = Vector3.Distance(player.transform.position, lockOnTarget.transform.position);
                 if (distanceFromTarget < shortestDistance)
+                {
                     shortestDistance = distanceFromTarget;
+                    nearestLockOnTarget = lockOnTarget;
+                }
+                // else return; // If we only want to consider the closest.
 
+                // Check if the potential target is blocked by the environment
                 RaycastHit hit;
                 // TODO: Only check the environment layers
                 if (Physics.Linecast(player.playerCombatManager.lockOnAnchor.position, lockOnTarget.characterCombatManager.lockOnAnchor.position,
@@ -174,8 +185,26 @@ public class PlayerCamera : MonoBehaviour
                     continue;
                 }
 
-                Debug.Log("Locked onto character " + lockOnTarget.NetworkObjectId + " at distance " + distanceFromTarget + ".");
+                Debug.Log("Potential lockon target: character " + lockOnTarget.NetworkObjectId + " at distance " + distanceFromTarget + " and angle " + angleBetweenLockOnTargetAndCamera + ".");
+                potentialLockOnTargets.Add(lockOnTarget);
             }
         }
+
+        if (nearestLockOnTarget != null)
+        {
+            Debug.Log("Closest LockOn target:" + nearestLockOnTarget.NetworkObjectId + " at distance " + shortestDistance + ".");
+        }
+        else
+        {
+            Debug.Log("No LockOn targets found.");
+            player.playerNetworkManager.isLockedOn.Value = false;
+            ClearLockOnTargets();
+        }
+    }
+
+    public void ClearLockOnTargets()
+    {
+        potentialLockOnTargets.Clear();
+        nearestLockOnTarget = null;
     }
 }

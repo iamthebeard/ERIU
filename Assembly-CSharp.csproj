@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldUtilityManager.cs" />
+    <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
