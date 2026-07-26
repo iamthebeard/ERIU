@@ -6,6 +6,8 @@ using Unity.Netcode;
 public class PlayerCombatManager : CharacterCombatManager
 {
     PlayerManager player;
+
+    [Header("Current Weapon")]
     public WeaponItem currentWeaponBeingUsed;
 
     protected override void Awake()

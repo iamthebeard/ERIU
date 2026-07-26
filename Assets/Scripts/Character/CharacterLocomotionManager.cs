@@ -9,7 +9,7 @@ public class CharacterLocomotionManager : MonoBehaviour
     [Header("Ground & Jumping")]
     [SerializeField] protected float gravityForce = -9.86f;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] float groundCheckSphereRadius = 1;
+    [SerializeField] float groundCheckSphereRadius = 0.3f;
     [SerializeField] protected Vector3 yVelocity; // The "force" with which our character is pulled up or down (jumping or falling)
     [SerializeField] protected float groundedYVelocity = -20; // The "force" with which our character is stuck to the ground whilst they are grounded
     [SerializeField] protected float fallStartYVelocity = -5; // The force at which our character begins to fall when they become ungrounded (rises as they fall longer)

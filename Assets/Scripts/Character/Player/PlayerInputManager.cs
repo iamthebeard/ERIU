@@ -38,6 +38,8 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public float cameraHorizontalInput;
     [SerializeField] public float cameraVerticalInput;
     // [SerializeField] public float moveAmount;
+    [SerializeField] private bool lockOnInput = false;
+
 
     private void Awake()
     {
@@ -82,21 +84,30 @@ public class PlayerInputManager : MonoBehaviour
         {
             playerControls = new PlayerControls();
 
+            // Movement
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
+
+            // Actions
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
             playerControls.PlayerActions.Sprint.performed += i => sprintInput = true; // Holding activates
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false; // Releasing deactivates
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
-            playerControls.PlayerActions.RB.performed += i => rbInput = true;
+
+            // Item Actions
             playerControls.PlayerActions.SwitchRightWeapon.performed += i => switchRightWeaponInput = true;
             playerControls.PlayerActions.SwitchLeftWeapon.performed += i => switchLeftWeaponInput = true;
 
+            // Attacks
+            playerControls.PlayerActions.RB.performed += i => rbInput = true;
+
+            // Camera
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
+            playerControls.PlayerActions.LockOn.performed += i => lockOnInput = true;
         }
 
         playerControls.Enable();
-    }
 
+    }
     private void OnDestroy()
     {
         SceneManager.activeSceneChanged -= OnSceneChange;
@@ -136,6 +147,7 @@ public class PlayerInputManager : MonoBehaviour
         HandleWeaponSwitchingInput();
 
         HandleCameraMovementInput();
+        HandleLockOnInput();
     }
 
     private void HandleMovementInput()
@@ -241,5 +253,40 @@ public class PlayerInputManager : MonoBehaviour
 
             player.playerEquipmentManager.SwitchLeftWeapon();
         }
+    }
+
+    private void HandleLockOnInput()
+    {
+        // Is our current target dead? If so, unlock.
+        if (player.playerNetworkManager.isLockedOn.Value)
+        {
+            if (player.playerCombatManager.currentTarget == null) return;
+
+            if (player.playerCombatManager.currentTarget.isDead.Value)
+            {
+                player.playerNetworkManager.isLockedOn.Value = false;
+            }
+
+            // Attempt to find new target, or unlock.
+        }
+
+        if (lockOnInput)
+        {
+            lockOnInput = false;
+
+            // Are we locked on to a target already? If so, unlock.
+            if (player.playerNetworkManager.isLockedOn.Value)
+            {
+                // Disable lock on
+                return;
+            }
+
+            // If aiming with a ranged weapon, don't allow lock on (return from function)
+            
+            // Attempt to find a target
+            // Enable lock on
+            PlayerCamera.instance.HandleLocatingLockOnTargets();
+        }
+        
     }
 }

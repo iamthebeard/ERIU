@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
@@ -27,6 +28,10 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] Vector3 cameraObjectPosition;
     [SerializeField] float cameraZPosition;
     [SerializeField] float targetCameraZPosition;
+
+    [Header("Lock On")]
+    [SerializeField] private float lockOnRadius = 20;
+    [SerializeField] private float lockOnFieldOfView = 50; // +-, so between -50 and 50
 
     private void Awake() {
         if (instance == null)
@@ -120,5 +125,57 @@ public class PlayerCamera : MonoBehaviour
         // Lerp for smooth movement (time of 0.2f)
         cameraObjectPosition.z = Mathf.Lerp(cameraObject.transform.localPosition.z, targetCameraZPosition, 0.2f);
         cameraObject.transform.localPosition = cameraObjectPosition;
+    }
+
+    public void HandleLocatingLockOnTargets()
+    {
+        float shortestDistance = Mathf.Infinity;
+        float shortestRightDistance = Mathf.Infinity; // Will be used to find "next" target to the right
+        float shortestLeftDistance = -Mathf.Infinity; // Closest "next" target to the left along the horizontal view axis (-)
+
+        Collider[] colliders = Physics.OverlapSphere(player.transform.position, lockOnRadius, WorldUtilityManager.Instance.GetCharacterLayers());
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            CharacterManager lockOnTarget = colliders[i].GetComponent<CharacterManager>(); // > Does this need to be Get InParent?
+            // Check if it the collision is with a character (object with a CharacterManager)
+            if (lockOnTarget != null)
+            {
+                if (lockOnTarget.isDead.Value)
+                    continue;
+
+                if (lockOnTarget.transform.root == player.transform.root)
+                // Try if (lockOnTarge == player)
+                    // Don't lock onto self
+                    continue;
+
+                // Check if they are within our field of view
+                Vector3 lockOnTargetDirection = lockOnTarget.transform.position - player.transform.position;
+                float angleBetweenLockOnTargetAndCamera = Vector3.Angle(lockOnTargetDirection, cameraObject.transform.forward);
+                // bool inFieldOfView = !(-lockOnFieldOfView <= angleBetweenLockOnTargetAndCamera && angleBetweenLockOnTargetAndCamera <= lockOnFieldOfView);
+                // Or 
+                bool inFieldOfView = angleBetweenLockOnTargetAndCamera < -lockOnFieldOfView || lockOnFieldOfView < angleBetweenLockOnTargetAndCamera;
+                if (inFieldOfView)
+                    // Don't lock onto targets outside of field of view
+                    continue;
+                
+                // Update shortest distance
+                float distanceFromTarget = Vector3.Distance(player.transform.position, lockOnTarget.transform.position);
+                if (distanceFromTarget < shortestDistance)
+                    shortestDistance = distanceFromTarget;
+
+                RaycastHit hit;
+                // TODO: Only check the environment layers
+                if (Physics.Linecast(player.playerCombatManager.lockOnAnchor.position, lockOnTarget.characterCombatManager.lockOnAnchor.position,
+                                        out hit, WorldUtilityManager.Instance.GetEnvironmentLayers()))
+                {
+                    // We hit something, so there is no line of sight between us and our target.
+                    // This cannot be our lockon target.
+                    continue;
+                }
+
+                Debug.Log("Locked onto character " + lockOnTarget.NetworkObjectId + " at distance " + distanceFromTarget + ".");
+            }
+        }
     }
 }

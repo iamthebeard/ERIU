@@ -1600,6 +1600,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3735588607312707839}
+  - {fileID: 3091321042620653386}
   m_Father: {fileID: 3735588607312707755}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2241,6 +2242,8 @@ MonoBehaviour:
     m_InternalValue: 0
   isJumping:
     m_InternalValue: 0
+  isLockedOn:
+    m_InternalValue: 0
   vitality:
     m_InternalValue: 10
   endurance:
@@ -2484,7 +2487,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce9d17ad5d86bd43a0dbee7fa8c4716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
   currentAttackType: 0
+  lockOnAnchor: {fileID: 1196149302724848440}
   currentWeaponBeingUsed: {fileID: 0}
 --- !u!95 &3735588607302840091
 Animator:
@@ -2886,6 +2891,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3735588607312707937}
+  - {fileID: 1196149302724848440}
   m_Father: {fileID: 3735588607312707827}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4021,6 +4027,37 @@ Transform:
   m_Father: {fileID: 3735588607312707747}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6525435713927968405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1196149302724848440}
+  m_Layer: 7
+  m_Name: LockOnAnchor (also for Linecast line of effect)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1196149302724848440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6525435713927968405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 23, z: 15.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3735588607312707939}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6701126090919337624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4113,3 +4150,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotType: 0
   currentWeaponModel: {fileID: 0}
+--- !u!1 &8320077982858360752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3091321042620653386}
+  m_Layer: 7
+  m_Name: Eyes (for Linecast line of sight)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3091321042620653386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320077982858360752}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 10, z: 13.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3735588607312707833}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
