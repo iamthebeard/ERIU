@@ -75,6 +75,15 @@ public class CharacterNetworkManager : NetworkBehaviour
         }
     }
 
+    public void OnIsLockedOnChanged(bool oldValue, bool isLockedOn)
+    {
+        if (!isLockedOn)
+        {
+            character.characterCombatManager.currentLockOnTarget = null;
+            
+        }
+    }
+
     public void OnLockOnTargetIDChanged(ulong oldID, ulong newID)
     {
         if (!IsOwner) // Already set target locally.
