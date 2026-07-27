@@ -38,9 +38,12 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public float cameraHorizontalInput;
     [SerializeField] public float cameraVerticalInput;
     // [SerializeField] public float moveAmount;
+
+    [Header("Lock On")]
     [SerializeField] private bool lockOnInput = false;
     [SerializeField] private bool lockOnSwitchLeftInput = false;
     [SerializeField] private bool lockOnSwitchRightInput = false;
+    private Coroutine lockOnCoroutine;
 
 
     private void Awake()
@@ -270,9 +273,13 @@ public class PlayerInputManager : MonoBehaviour
             if (player.playerCombatManager.currentLockOnTarget.isDead.Value)
             {
                 player.playerNetworkManager.isLockedOn.Value = false;
+
+                // Attempt to find new target, or unlock.
+                if (lockOnCoroutine != null)
+                    StopCoroutine(lockOnCoroutine); // Cancel any still waiting
+                lockOnCoroutine = StartCoroutine(PlayerCamera.instance.WaitThenFindNewTarget());
             }
 
-            // Attempt to find new target, or unlock.
         }
 
         if (lockOnInput)

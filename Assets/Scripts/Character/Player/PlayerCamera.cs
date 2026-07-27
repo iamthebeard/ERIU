@@ -280,4 +280,21 @@ public class PlayerCamera : MonoBehaviour
         leftLockOnTarget = null;
         rightLockOnTarget = null;
     }
+
+    public IEnumerator WaitThenFindNewTarget()
+    {
+        while (player.isPerformingAction)
+            yield return null;
+        
+        ClearLockOnTargets();
+        HandleLocatingLockOnTargets();
+
+        if (nearestLockOnTarget != null)
+        {
+            player.playerCombatManager.SetLockOnTarget(nearestLockOnTarget);
+            player.playerNetworkManager.isLockedOn.Value = true;
+        }
+
+        yield return null;
+    }
 }
