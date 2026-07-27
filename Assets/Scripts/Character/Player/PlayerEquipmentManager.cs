@@ -84,7 +84,7 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         }
 
         // This is a hacked together animation, not a real weapon equip/switch animation
-        player.playerAnimatorManager.PlayTargetActionAnimation("Action_A_4_1", false /*Not interacting*/, true, true, true);
+        player.playerAnimatorManager.PlayTargetActionAnimation("Action_A_4_1", false /*Not interacting*/, false /* Don't apply root motion (we don't want to add movement)*/, true, true);
         // If we have at least one other weapon, swap to next -- never to unarmed.
         // Otherwise, swap between unarmed and our single weapon
 

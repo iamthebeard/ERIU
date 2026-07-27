@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   itemName: Shield
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 4aaacd470dd1f1f4fa20532cc6a7f1e5, type: 3}
   itemDescription: A basic straight sword
   itemID: 3
   weaponModel: {fileID: 7525589154881829682, guid: fd4e41cd7ba50854e87b225357aadd8a,
@@ -31,9 +31,15 @@ MonoBehaviour:
     poise: 40
   lightAttack01Modifier: 1
   lightAttack01PoiseModifier: 1
+  heavyAttack01Modifier: 1
+  heavyAttack01PoiseModifier: 1
+  chargedHeavyAttack01Modifier: 1
+  chargedHeavyAttack01PoiseModifier: 1
   baseStaminaCost: 30
   lightAttack01StaminaCostModifier: 1
   rb_Action_OneHanded: {fileID: 0}
+  rt_Action_OneHanded: {fileID: 0}
+  rtCharged_Action_OneHanded: {fileID: 0}
   xPosition: 0
   yPosition: 10
   zPosition: 0

@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerStatsManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldItemDatabase.cs" />
+    <Compile Include="Assets\Scripts\Animations\ToggleAttackType.cs" />
     <Compile Include="Assets\Scripts\Items\WeaponManager.cs" />
     <Compile Include="Assets\Scripts\Actions, Item Based\LightAttackWeaponItemAction.cs" />
     <Compile Include="Assets\Scripts\Character\Effects\TakeDamageEffect.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Invector-3rdPersonController_LITE\3D Models\Others\HealthItem\vAnimateUV.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vComment.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterEquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\Actions, Item Based\HeavyAttackWeaponItemAction.cs" />
     <Compile Include="Assets\Scripts\Items\WeaponItem.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonAnimator.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerEffectsManager.cs" />
@@ -103,11 +105,13 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerCombatManager.cs" />
     <Compile Include="Assets\Scripts\Items\MeleeWeaponItem.cs" />
+    <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterCombatManager.cs" />
     <Compile Include="Assets\Scripts\Colliders\DamageCollider.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterSoundFXManager.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldGameSessionManager.cs" />
+    <Compile Include="Assets\Scripts\World Managers\WorldUtilityManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PlayerUIManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonController.cs" />
@@ -115,16 +119,13 @@
     <Compile Include="Assets\Scripts\Damage.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
-    <Compile Include="Assets\Scripts\World Managers\WorldUtilityManager.cs" />
-    <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
-    <Compile Include="Assets\Scripts\Actions, Item Based\HeavyAttackWeaponItemAction.cs" />
-    <Compile Include="Assets\Scripts\Animations\ToggleAttackType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\xImportedAssets\VFX\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
+    <None Include="Assets\Flat RPG Icon Pack 1 Weapons\Flat RPG Icon Pack Instructions of Use.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Medieval Weapon Pack\Shaders\BRP\BRP_MaskMap.shader" />
@@ -1001,6 +1002,10 @@
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.14f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEngineBridge.001.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
       <Private>False</Private>
@@ -1077,6 +1082,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Netcode.Editor.PackageChecker.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.2D.Common.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1107,6 +1116,14 @@
     </Reference>
     <Reference Include="Unity.Burst.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridge.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridge.001.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Runtime">
@@ -1163,6 +1180,10 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Common.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">

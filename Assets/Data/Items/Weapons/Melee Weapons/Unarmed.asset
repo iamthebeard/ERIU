@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363f064e9f721384faea07536bb414aa, type: 3}
   m_Name: Unarmed
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Unarmed
   itemIcon: {fileID: 0}
   itemDescription: 
   itemID: 0
@@ -31,10 +31,16 @@ MonoBehaviour:
     poise: 10
   lightAttack01Modifier: 1
   lightAttack01PoiseModifier: 1
+  heavyAttack01Modifier: 1
+  heavyAttack01PoiseModifier: 1
+  chargedHeavyAttack01Modifier: 1
+  chargedHeavyAttack01PoiseModifier: 1
   baseStaminaCost: 10
   lightAttack01StaminaCostModifier: 1
   rb_Action_OneHanded: {fileID: 11400000, guid: 8083fdb864bd5cd448e0e307134594a7,
     type: 2}
+  rt_Action_OneHanded: {fileID: 0}
+  rtCharged_Action_OneHanded: {fileID: 0}
   xPosition: 0
   yPosition: 0
   zPosition: 0
