@@ -35,6 +35,8 @@ public class WeaponItem : Item
     [Header("Stamina Costs")]
     public int baseStaminaCost = 20;
     public float lightAttack01StaminaCostModifier = 1;
+    public float heavyAttack01StaminaCostModifier = 1.5f;
+    public float chargedHeavyAttack01StaminaCostModifier = 2;
     // Modifiers: light attack, heavy, running, etc.
 
     // Item based actions (RB, RT, LB, LT)
