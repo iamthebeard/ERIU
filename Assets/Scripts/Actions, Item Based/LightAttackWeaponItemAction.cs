@@ -6,7 +6,7 @@ using UnityEngine;
 public class LightAttackWeaponItemAction : WeaponItemAction
 {
 
-    [SerializeField] string lightAttackAnimation = "OneHand_Up_Attack_1";
+    [SerializeField] string lightAttackAnimation = "main_hand_light_attack";
 
     public override void AttemptToPerformAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {

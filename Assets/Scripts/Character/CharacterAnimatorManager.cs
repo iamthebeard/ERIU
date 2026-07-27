@@ -116,6 +116,8 @@ public class CharacterAnimatorManager : MonoBehaviour
         bool canRotate = false,
         bool canMove = false
     ) {
+        Debug.Log("Playing " + targetAnimation + " on " + character.NetworkObjectId + ".");
+
         // New to attacks
         // Keep track of last attack performed (for combos)
         // Keep track of current attack type (light, heavy, etc. for parries, bounces, etc.)

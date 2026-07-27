@@ -6,7 +6,7 @@ using UnityEngine;
 public class HeavyAttackWeaponItemAction : WeaponItemAction
 {
 
-    [SerializeField] string heavyAttackAnimation = "OneHand_Up_Attack_B_1";
+    [SerializeField] string heavyAttackAnimation = "main_hand_heavy_attack";
 
     public override void AttemptToPerformAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {

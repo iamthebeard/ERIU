@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Light Attack Action
   m_EditorClassIdentifier: 
   actionID: 1
-  lightAttackAnimation: OneHand_Up_Attack_1
+  lightAttackAnimation: main_hand_light_attack
