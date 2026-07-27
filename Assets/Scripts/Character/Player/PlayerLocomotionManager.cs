@@ -136,8 +136,19 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (!player.canRotate) return;
 
         targetRotationDirection = Vector3.zero;
-        targetRotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
-        targetRotationDirection = targetRotationDirection + PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+        if (player.playerNetworkManager.isLockedOn.Value
+            && player.playerCombatManager.currentLockOnTarget != null
+            && !player.playerNetworkManager.isSprinting.Value
+        )
+        {
+            // Strafe
+            targetRotationDirection = player.playerCombatManager.currentLockOnTarget.transform.position - transform.position;
+        }
+        else
+        {
+            targetRotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+            targetRotationDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+        }
         targetRotationDirection.Normalize();
         targetRotationDirection.y = 0;
 
