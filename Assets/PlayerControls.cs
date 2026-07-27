@@ -340,6 +340,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""RT"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2dd1fbe-e38e-4f64-b3a4-8c08e0e8c512"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Charged RT"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2fbd13e5-3ca4-4f45-8890-99932006d8b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold(pressPoint=0.1)"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Switch Right Weapon"",
                     ""type"": ""Button"",
                     ""id"": ""2034fa9b-d1de-43e2-afe3-c3798bcedec8"",
@@ -715,6 +733,116 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Switch LockOn Target Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9074de73-4cc0-4d95-bcad-b1b83882a56a"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d7a9177-c032-4da2-b099-6051d846578b"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Shift + Right Mouse Button"",
+                    ""id"": ""a823ae0f-7387-48e6-b410-c02c3839683e"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f17ba758-6d03-4766-aa28-1f2d86628251"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""a1a63ef6-1b80-4ca8-bf2a-5cd2712c41fd"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""54aaf1f7-9769-4763-b292-969abf1233e0"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charged RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79646873-8926-4508-9682-3737d79a4462"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charged RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Shift + Right Mouse Button"",
+                    ""id"": ""e9ac65e6-fe0f-47bf-ac3c-98132ee3247e"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charged RT"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""01312439-35d7-4db5-98ca-1c9ad78127a7"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charged RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""42577720-508d-40d9-9777-e7b6b341118a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Charged RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -772,6 +900,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_Sprint = m_PlayerActions.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_RB = m_PlayerActions.FindAction("RB", throwIfNotFound: true);
+        m_PlayerActions_RT = m_PlayerActions.FindAction("RT", throwIfNotFound: true);
+        m_PlayerActions_ChargedRT = m_PlayerActions.FindAction("Charged RT", throwIfNotFound: true);
         m_PlayerActions_SwitchRightWeapon = m_PlayerActions.FindAction("Switch Right Weapon", throwIfNotFound: true);
         m_PlayerActions_SwitchLeftWeapon = m_PlayerActions.FindAction("Switch Left Weapon", throwIfNotFound: true);
         m_PlayerActions_LockOn = m_PlayerActions.FindAction("LockOn", throwIfNotFound: true);
@@ -909,6 +1039,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Sprint;
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_RB;
+    private readonly InputAction m_PlayerActions_RT;
+    private readonly InputAction m_PlayerActions_ChargedRT;
     private readonly InputAction m_PlayerActions_SwitchRightWeapon;
     private readonly InputAction m_PlayerActions_SwitchLeftWeapon;
     private readonly InputAction m_PlayerActions_LockOn;
@@ -922,6 +1054,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_PlayerActions_Sprint;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @RB => m_Wrapper.m_PlayerActions_RB;
+        public InputAction @RT => m_Wrapper.m_PlayerActions_RT;
+        public InputAction @ChargedRT => m_Wrapper.m_PlayerActions_ChargedRT;
         public InputAction @SwitchRightWeapon => m_Wrapper.m_PlayerActions_SwitchRightWeapon;
         public InputAction @SwitchLeftWeapon => m_Wrapper.m_PlayerActions_SwitchLeftWeapon;
         public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
@@ -948,6 +1082,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RB.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRB;
                 @RB.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRB;
                 @RB.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRB;
+                @RT.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRT;
+                @RT.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRT;
+                @RT.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRT;
+                @ChargedRT.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnChargedRT;
+                @ChargedRT.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnChargedRT;
+                @ChargedRT.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnChargedRT;
                 @SwitchRightWeapon.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchRightWeapon;
                 @SwitchRightWeapon.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchRightWeapon;
                 @SwitchRightWeapon.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchRightWeapon;
@@ -979,6 +1119,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RB.started += instance.OnRB;
                 @RB.performed += instance.OnRB;
                 @RB.canceled += instance.OnRB;
+                @RT.started += instance.OnRT;
+                @RT.performed += instance.OnRT;
+                @RT.canceled += instance.OnRT;
+                @ChargedRT.started += instance.OnChargedRT;
+                @ChargedRT.performed += instance.OnChargedRT;
+                @ChargedRT.canceled += instance.OnChargedRT;
                 @SwitchRightWeapon.started += instance.OnSwitchRightWeapon;
                 @SwitchRightWeapon.performed += instance.OnSwitchRightWeapon;
                 @SwitchRightWeapon.canceled += instance.OnSwitchRightWeapon;
@@ -1045,6 +1191,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRB(InputAction.CallbackContext context);
+        void OnRT(InputAction.CallbackContext context);
+        void OnChargedRT(InputAction.CallbackContext context);
         void OnSwitchRightWeapon(InputAction.CallbackContext context);
         void OnSwitchLeftWeapon(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);

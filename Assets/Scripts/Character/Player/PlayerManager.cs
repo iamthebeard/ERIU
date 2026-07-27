@@ -81,6 +81,7 @@ public class PlayerManager : CharacterManager
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
 
         // If this is the local player, assign the camera to us.
@@ -117,6 +118,35 @@ public class PlayerManager : CharacterManager
             // We need to load this again in the client, because the game object was deleted and re-created.
             LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterSaveData);
         }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+
+        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallback;
+
+        if (IsOwner)
+        {
+            // Update derived stats (and resources) when stats change
+            playerNetworkManager.vitality.OnValueChanged -= playerStatsManager.SetVitality;
+            playerNetworkManager.endurance.OnValueChanged -= playerStatsManager.SetEndurance;
+
+            // Health bar listeners
+            playerNetworkManager.currentHealth.OnValueChanged -= PlayerUIManager.instance.playerUIHUDManager.SetNewHealthValue;
+
+            // Stamina bar listeners
+            playerNetworkManager.currentStamina.OnValueChanged -= PlayerUIManager.instance.playerUIHUDManager.SetNewStaminaValue;
+            playerNetworkManager.currentStamina.OnValueChanged -= playerStatsManager.ResetStaminaRegenerationTimer;
+        }
+
+        // Stats
+        playerNetworkManager.currentHealth.OnValueChanged -= playerNetworkManager.CheckHP;
+
+        // Equipment
+        playerNetworkManager.currentRightHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentRightHandWeaponIDChange;
+        playerNetworkManager.currentLeftHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+        playerNetworkManager.currentWeaponBeingUsedID.OnValueChanged -= playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
     }
 
     private void OnClientConnectedCallback(ulong clientID)

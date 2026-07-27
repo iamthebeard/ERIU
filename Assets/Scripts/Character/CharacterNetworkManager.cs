@@ -29,6 +29,8 @@ public class CharacterNetworkManager : NetworkBehaviour
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> isJumping =
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isChargingAttack =
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Base Stats")]
     public NetworkVariable<int> vitality =
@@ -90,6 +92,11 @@ public class CharacterNetworkManager : NetworkBehaviour
         {
             character.characterCombatManager.currentLockOnTarget = NetworkManager.Singleton.SpawnManager.SpawnedObjects[newID].gameObject.GetComponent<CharacterManager>();
         }
+    }
+
+    public void OnIsChargingAttackChanged(bool oldValue, bool isChargingAttack)
+    {
+        character.animator.SetBool("IsChargingAttack", isChargingAttack);
     }
 
     // ******************** RPCs ********************

@@ -36,6 +36,8 @@ public class WeaponItem : Item
     // Item based actions (RB, RT, LB, LT)
     [Header("Actions")]
     public WeaponItemAction rb_Action_OneHanded; // One hand right bumper/button action
+    public WeaponItemAction rt_Action_OneHanded;
+    public WeaponItemAction rtCharged_Action_OneHanded;
 
     // Ash of war
 

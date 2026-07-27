@@ -26,7 +26,11 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private bool dodgeInput = false;
     [SerializeField] private bool sprintInput = false;
     [SerializeField] private bool jumpInput = false;
+
+    [Header("Attack Inputs")]
     [SerializeField] private bool rbInput = false;
+    [SerializeField] private bool rtInput = false;
+    [SerializeField] private bool rtChargedInput = false;
 
     [Header("Item Inputs")]
     [SerializeField] private bool switchRightWeaponInput = false;
@@ -104,6 +108,9 @@ public class PlayerInputManager : MonoBehaviour
 
             // Attacks
             playerControls.PlayerActions.RB.performed += i => rbInput = true;
+            playerControls.PlayerActions.RT.performed += i => rtInput = true;
+            playerControls.PlayerActions.ChargedRT.performed += i => rtChargedInput = true;
+            playerControls.PlayerActions.ChargedRT.canceled += i => rtChargedInput = false;
 
             // Camera
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
@@ -151,6 +158,8 @@ public class PlayerInputManager : MonoBehaviour
         HandleJumpInput();
 
         HandleRBInput();
+        HandleRTInput();
+        HandleChargedRTInput();
         HandleWeaponSwitchingInput();
 
         HandleCameraMovementInput();
@@ -243,6 +252,39 @@ public class PlayerInputManager : MonoBehaviour
 
             // If we are one-handing, run the one-handed action
             player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightHandWeapon.rb_Action_OneHanded, player.playerInventoryManager.currentRightHandWeapon);
+        }
+    }
+
+    private void HandleRTInput ()
+    {
+        if (rtInput)
+        {
+            rtInput = false; // Only trigger once
+
+            // TODO: If we have a UI window open, exit
+
+            player.playerNetworkManager.SetCharacterActionHand(true /*Right*/);
+
+            // TODO: If we are two-handed, run the two-handed action
+
+            // If we are one-handing, run the one-handed action
+            player.playerCombatManager.PerformWeaponBasedAction(player.playerInventoryManager.currentRightHandWeapon.rt_Action_OneHanded, player.playerInventoryManager.currentRightHandWeapon);
+        }
+    }
+
+    private void HandleChargedRTInput ()
+    {
+        if (player.isPerformingAction)
+        {
+            // We only care about charged inputs if they've already starting their attack
+            if (player.playerNetworkManager.isUsingRightHand.Value)
+            {
+                player.playerNetworkManager.isChargingAttack.Value = rtChargedInput;
+            }
+            // else if (player.playerNetworkManager.isUsingLeftHand.Value)
+            // {
+            //     player.playerNetworkManager.isChargingAttack.Value
+            // }
         }
     }
 

@@ -6015,13 +6015,19 @@ PrefabInstance:
     - target: {fileID: 8011355258276665041, guid: 87f12d19a71e62f4689c926c987e0d61,
         type: 3}
       propertyPath: weaponItemActions.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8011355258276665041, guid: 87f12d19a71e62f4689c926c987e0d61,
         type: 3}
       propertyPath: weaponItemActions.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 8083fdb864bd5cd448e0e307134594a7,
+        type: 2}
+    - target: {fileID: 8011355258276665041, guid: 87f12d19a71e62f4689c926c987e0d61,
+        type: 3}
+      propertyPath: weaponItemActions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 905e8697935a7f74799933565b59840a,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87f12d19a71e62f4689c926c987e0d61, type: 3}

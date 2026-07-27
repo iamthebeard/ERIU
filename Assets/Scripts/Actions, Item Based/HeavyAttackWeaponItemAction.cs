@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Light Attack Action")]
-public class LightAttackWeaponItemAction : WeaponItemAction
+[CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Heavy Attack Action")]
+public class HeavyAttackWeaponItemAction : WeaponItemAction
 {
 
-    [SerializeField] string lightAttackAnimation = "OneHand_Up_Attack_1";
+    [SerializeField] string heavyAttackAnimation = "OneHand_Up_Attack_B_1";
 
     public override void AttemptToPerformAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {
@@ -33,11 +33,11 @@ public class LightAttackWeaponItemAction : WeaponItemAction
     {
         if (playerPerformingAction.playerNetworkManager.isUsingRightHand.Value)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, lightAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, heavyAttackAnimation, true);
         }
         else if (playerPerformingAction.playerNetworkManager.isUsingLeftHand.Value)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, lightAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, heavyAttackAnimation, true);
         }
     }
 }
