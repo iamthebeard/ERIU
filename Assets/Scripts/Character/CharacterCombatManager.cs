@@ -27,12 +27,14 @@ public class CharacterCombatManager : NetworkBehaviour
         {
             if (newLockOnTarget != null)
             {
+                Debug.Log("Setting " + character.NetworkObjectId + "'s LockOn target to " + newLockOnTarget.NetworkObjectId + ".");
                 currentLockOnTarget = newLockOnTarget;
                 // Tell the network we have a target and what it is
                 character.characterNetworkManager.lockOnTargetID.Value = newLockOnTarget.NetworkObjectId;// > Do I need: .GetComponent<NetworkObject>().NetworkObjectId;
             }
             else
             {
+                Debug.Log("Clearing " + character.NetworkObjectId + "'s LockOn target.");
                 currentLockOnTarget = null;
             }
         }

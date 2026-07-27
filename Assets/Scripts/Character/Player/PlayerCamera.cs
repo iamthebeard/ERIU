@@ -169,6 +169,8 @@ public class PlayerCamera : MonoBehaviour
         // potentialLockOnTargets.Clear();
         float shortestRightDistance = Mathf.Infinity; // Will be used to find "next" target to the right
         float shortestLeftDistance = -Mathf.Infinity; // Closest "next" target to the left along the horizontal view axis (-)
+        leftLockOnTarget = null;
+        rightLockOnTarget = null;
 
         Collider[] colliders = Physics.OverlapSphere(player.transform.position, lockOnRadius, WorldUtilityManager.Instance.GetCharacterLayers());
 
@@ -224,29 +226,40 @@ public class PlayerCamera : MonoBehaviour
                     if (lockOnTarget == player.playerCombatManager.currentLockOnTarget)
                         continue; // Don't count the current target
 
-                    // Determine the position of the enemy in our own reference frame.
-                    Vector3 relativeEnemyPosition = player.transform.InverseTransformPoint(lockOnTarget.transform.position);
-                    float distanceFromTargetLeft = relativeEnemyPosition.x;
-                    float distanceFromTargetRight = relativeEnemyPosition.x;
+                    // // Determine the position of the enemy in our own reference frame.
+                    // Vector3 relativeEnemyPosition = player.transform.InverseTransformPoint(lockOnTarget.transform.position);
+                    // float distanceFromTargetLeft = relativeEnemyPosition.x;
+                    // float distanceFromTargetRight = relativeEnemyPosition.x;
+                    // ### Note: I had to change from his x-axis distance system to an angular system,
+                    //      because his assumes some things about the direction the model is facing.
+                    //      I'm just using the angle between the line to the current target 
+                    //      and the line to the potential target as we're looping through.
+                    Vector3 toCurrentTarget = player.playerCombatManager.currentLockOnTarget.transform.position - player.transform.position;
+                    Vector3 toPotentialTarget = lockOnTarget.transform.position - player.transform.position;
+                    float angleFromCurrentTarget = Vector3.SignedAngle(toCurrentTarget, toPotentialTarget, Vector3.up); // Find angle between two vectors on the XZ (horizontal) plane
 
                     // Keep track of the closest on the left and the right
-                    if (relativeEnemyPosition.x <= 0.0f && distanceFromTargetLeft > shortestLeftDistance) // to the left, and closest so far
+                    // if (relativeEnemyPosition.x <= 0.0f && distanceFromTargetLeft > shortestLeftDistance) // to the left, and closest so far
+                    if (angleFromCurrentTarget < 0 && angleFromCurrentTarget > shortestLeftDistance)
                     {
-                        shortestLeftDistance = distanceFromTargetLeft;
+                        // shortestLeftDistance = distanceFromTargetLeft;
+                        shortestLeftDistance = angleFromCurrentTarget;
                         leftLockOnTarget = lockOnTarget;
                     }
-                    else if (relativeEnemyPosition.x > 0.0f && distanceFromTargetRight < shortestRightDistance) // to the right, and closest so far
+                    // else if (relativeEnemyPosition.x > 0.0f && distanceFromTargetRight < shortestRightDistance) // to the right, and closest so far
+                    else if (angleFromCurrentTarget > 0 && angleFromCurrentTarget < shortestRightDistance)
                     {
-                        shortestRightDistance = distanceFromTargetRight;
+                        // shortestRightDistance = distanceFromTargetRight;
+                        shortestRightDistance = angleFromCurrentTarget;
                         rightLockOnTarget = lockOnTarget;
                     }
                 }
             }
-            if (leftLockOnTarget != null)
-                Debug.Log("Closest alternate to left: " + leftLockOnTarget.NetworkObjectId + ".");
-            if (rightLockOnTarget != null)
-                Debug.Log("Closest alternate to right: " + rightLockOnTarget.NetworkObjectId + ".");
         }
+        if (leftLockOnTarget != null)
+            Debug.Log("Closest alternate to left: " + leftLockOnTarget.NetworkObjectId + ".");
+        if (rightLockOnTarget != null)
+            Debug.Log("Closest alternate to right: " + rightLockOnTarget.NetworkObjectId + ".");
 
         if (nearestLockOnTarget != null)
         {
