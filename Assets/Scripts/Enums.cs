@@ -35,4 +35,6 @@ public enum AttackType
     LightAttack02,
     HeavyAttack01,
     HeavyAttack02,
+    ChargedHeavy01,
+    ChargedHeavy02,
 }

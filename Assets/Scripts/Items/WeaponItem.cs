@@ -23,6 +23,10 @@ public class WeaponItem : Item
     //  Light attack, heavy attack, critical damage, etc.
     public float lightAttack01Modifier = 1;
     public float lightAttack01PoiseModifier = 1;
+    public float heavyAttack01Modifier = 1.5f;
+    public float heavyAttack01PoiseModifier = 1.5f;
+    public float chargedHeavyAttack01Modifier = 2;
+    public float chargedHeavyAttack01PoiseModifier = 2;
     // Poise bonus while attacking
     // Poise modifiers, etc.
 

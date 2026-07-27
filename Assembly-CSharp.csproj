@@ -118,6 +118,7 @@
     <Compile Include="Assets\Scripts\World Managers\WorldUtilityManager.cs" />
     <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
     <Compile Include="Assets\Scripts\Actions, Item Based\HeavyAttackWeaponItemAction.cs" />
+    <Compile Include="Assets\Scripts\Animations\ToggleAttackType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

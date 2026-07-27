@@ -13,6 +13,10 @@ public class MeleeWeaponDamageCollider : DamageCollider
     [Header("Weapon Attack Modifiers")]
     public float lightAttack01Modifier;
     public float lightAttack01PoiseModifier;
+    public float heavyAttack01Modifier;
+    public float heavyAttack01PoiseModifier;
+    public float chargedHeavyAttack01Modifier;
+    public float chargedHeavyAttack01PoiseModifier;
 
     protected override void Awake()
     {
@@ -73,6 +77,14 @@ public class MeleeWeaponDamageCollider : DamageCollider
                 damageEffect.damage *= lightAttack01Modifier;
                 damageEffect.damage.poise = damage.poise * lightAttack01PoiseModifier; // Set poise modifier separately
                 break;
+            case AttackType.HeavyAttack01:
+                damageEffect.damage *= heavyAttack01Modifier;
+                damageEffect.damage.poise = damage.poise * heavyAttack01PoiseModifier;
+                break;
+            case AttackType.ChargedHeavy01:
+                damageEffect.damage *= chargedHeavyAttack01Modifier;
+                damageEffect.damage.poise = damage.poise * chargedHeavyAttack01PoiseModifier;
+                break;
             default:
                 break;
         }
@@ -93,7 +105,23 @@ public class MeleeWeaponDamageCollider : DamageCollider
         }
         float totalDamage = damageEffect.damage.TotalDamage;
 
-        Debug.Log("Weapon strike on character " + damageTarget.NetworkObjectId
+        string attackType = "";
+        switch (characterCausingDamage.characterCombatManager.currentAttackType)
+        {
+            case AttackType.LightAttack01:
+            case AttackType.LightAttack02:
+                attackType = "Light ";
+                break;
+            case AttackType.HeavyAttack01:
+            case AttackType.HeavyAttack02:
+                attackType = "Heavy ";
+                break;
+            case AttackType.ChargedHeavy01:
+            case AttackType.ChargedHeavy02:
+                attackType = "Charged heavy ";
+                break;
+        }
+        Debug.Log( attackType + "weapon strike on character " + damageTarget.NetworkObjectId
             + " by character " + characterCausingDamage.NetworkObjectId + " for "
             + totalDamage + " and " + damageEffect.damage.poise + " poise damage.");
     }

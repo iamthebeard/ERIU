@@ -33,11 +33,11 @@ public class HeavyAttackWeaponItemAction : WeaponItemAction
     {
         if (playerPerformingAction.playerNetworkManager.isUsingRightHand.Value)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, heavyAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.HeavyAttack01, heavyAttackAnimation, true);
         }
         else if (playerPerformingAction.playerNetworkManager.isUsingLeftHand.Value)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, heavyAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.HeavyAttack01, heavyAttackAnimation, true);
         }
     }
 }
