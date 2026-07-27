@@ -16,6 +16,9 @@ public class CharacterCombatManager : NetworkBehaviour
     [Header("Lock On Transform")]
     [SerializeField] public Transform lockOnAnchor;
 
+    [Header("Last Attack Animation Performed")]
+    public string lastAttackAnimationPerformed;
+
     protected virtual void Awake()
     {
         character = GetComponent<CharacterManager>();

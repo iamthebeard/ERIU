@@ -204,7 +204,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OneHand_Up_Attack_B_1 (wind up)
+  m_Name: main_hand_heavy_attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1392,7 +1392,7 @@ AnimatorStateMachine:
     m_Position: {x: 790, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1028516668078164620}
-    m_Position: {x: 420, y: -160, z: 0}
+    m_Position: {x: 300, y: -310, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1180111304777901185}
     m_Position: {x: 740, y: 30, z: 0}

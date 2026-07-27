@@ -20,6 +20,7 @@ public class ResetActionFlag : StateMachineBehaviour
         character.canMove = true;
         character.isRolling = false;
         character.isBackstepping = false;
+        character.characterAnimatorManager.DisableCanDoCombo();
 
         if (character.IsOwner) // Setting a network variable from an animation state, so check IsOwner
         {

@@ -13,6 +13,8 @@ public class MeleeWeaponDamageCollider : DamageCollider
     [Header("Weapon Attack Modifiers")]
     public float lightAttack01Modifier;
     public float lightAttack01PoiseModifier;
+    public float lightAttack02Modifier;
+    public float lightAttack02PoiseModifier;
     public float heavyAttack01Modifier;
     public float heavyAttack01PoiseModifier;
     public float chargedHeavyAttack01Modifier;
@@ -76,6 +78,10 @@ public class MeleeWeaponDamageCollider : DamageCollider
             case AttackType.LightAttack01:
                 damageEffect.damage *= lightAttack01Modifier;
                 damageEffect.damage.poise = damage.poise * lightAttack01PoiseModifier; // Set poise modifier separately
+                break;
+            case AttackType.LightAttack02:
+                damageEffect.damage *= lightAttack02Modifier;
+                damageEffect.damage.poise = damage.poise * lightAttack02PoiseModifier; // Set poise modifier separately
                 break;
             case AttackType.HeavyAttack01:
                 damageEffect.damage *= heavyAttack01Modifier;

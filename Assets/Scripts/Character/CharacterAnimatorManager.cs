@@ -120,6 +120,7 @@ public class CharacterAnimatorManager : MonoBehaviour
 
         // New to attacks
         // Keep track of last attack performed (for combos)
+        character.characterCombatManager.lastAttackAnimationPerformed = targetAnimation;
         // Keep track of current attack type (light, heavy, etc. for parries, bounces, etc.)
         character.characterCombatManager.currentAttackType = attackType;
         // Update animation set to current weapon's animations
@@ -141,5 +142,15 @@ public class CharacterAnimatorManager : MonoBehaviour
             character.isRolling,
             character.isBackstepping
         );
+    }
+
+    public virtual void EnableCanDoCombo()
+    {
+        
+    }
+
+    public virtual void DisableCanDoCombo()
+    {
+        
     }
 }

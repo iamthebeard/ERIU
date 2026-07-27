@@ -10,6 +10,10 @@ public class PlayerCombatManager : CharacterCombatManager
     [Header("Current Weapon")]
     public WeaponItem currentWeaponBeingUsed;
 
+    [Header("Flags")]
+    public bool canComboWithMainHandWeapon = false;
+    // public bool canComboWithOffHandWeapon = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -41,6 +45,9 @@ public class PlayerCombatManager : CharacterCombatManager
             case AttackType.LightAttack01:
                 staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttack01StaminaCostModifier;
                 break;
+            case AttackType.LightAttack02:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttack02StaminaCostModifier;
+                break;
             case AttackType.HeavyAttack01:
                 staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.heavyAttack01StaminaCostModifier;
                 break;
@@ -50,6 +57,7 @@ public class PlayerCombatManager : CharacterCombatManager
             default:
                 break;
         }
+        Debug.Log("Used " + staminaDeducted + " stamina.");
 
         player.playerNetworkManager.currentStamina.Value -= staminaDeducted;
     }
