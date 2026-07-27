@@ -132,6 +132,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleRotation()
     {
+        if (player.isDead.Value) return;
         if (!player.canRotate) return;
 
         targetRotationDirection = Vector3.zero;

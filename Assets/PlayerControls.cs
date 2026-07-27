@@ -365,6 +365,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch LockOn Target Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c9bac3d-4c33-4f56-9d98-551e07247df6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Switch LockOn Target Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""e567c7fa-2131-4006-b14d-2162202cc152"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -653,6 +671,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""LockOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3235851-c6de-4235-b958-062421e08944"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch LockOn Target Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""620809c9-1774-433e-b551-30e03e20a0b3"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch LockOn Target Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d71f8311-7e97-4ddc-8b91-4b93bd85a779"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch LockOn Target Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9aa71f9e-b3a2-4c88-b56e-2821e1c747f2"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Switch LockOn Target Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -713,6 +775,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_SwitchRightWeapon = m_PlayerActions.FindAction("Switch Right Weapon", throwIfNotFound: true);
         m_PlayerActions_SwitchLeftWeapon = m_PlayerActions.FindAction("Switch Left Weapon", throwIfNotFound: true);
         m_PlayerActions_LockOn = m_PlayerActions.FindAction("LockOn", throwIfNotFound: true);
+        m_PlayerActions_SwitchLockOnTargetLeft = m_PlayerActions.FindAction("Switch LockOn Target Left", throwIfNotFound: true);
+        m_PlayerActions_SwitchLockOnTargetRight = m_PlayerActions.FindAction("Switch LockOn Target Right", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_X = m_UI.FindAction("X", throwIfNotFound: true);
@@ -848,6 +912,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_SwitchRightWeapon;
     private readonly InputAction m_PlayerActions_SwitchLeftWeapon;
     private readonly InputAction m_PlayerActions_LockOn;
+    private readonly InputAction m_PlayerActions_SwitchLockOnTargetLeft;
+    private readonly InputAction m_PlayerActions_SwitchLockOnTargetRight;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -859,6 +925,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @SwitchRightWeapon => m_Wrapper.m_PlayerActions_SwitchRightWeapon;
         public InputAction @SwitchLeftWeapon => m_Wrapper.m_PlayerActions_SwitchLeftWeapon;
         public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
+        public InputAction @SwitchLockOnTargetLeft => m_Wrapper.m_PlayerActions_SwitchLockOnTargetLeft;
+        public InputAction @SwitchLockOnTargetRight => m_Wrapper.m_PlayerActions_SwitchLockOnTargetRight;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -889,6 +957,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LockOn.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOn;
                 @LockOn.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOn;
                 @LockOn.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOn;
+                @SwitchLockOnTargetLeft.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchLockOnTargetLeft;
+                @SwitchLockOnTargetLeft.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchLockOnTargetLeft;
+                @SwitchLockOnTargetLeft.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchLockOnTargetLeft;
+                @SwitchLockOnTargetRight.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchLockOnTargetRight;
+                @SwitchLockOnTargetRight.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchLockOnTargetRight;
+                @SwitchLockOnTargetRight.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnSwitchLockOnTargetRight;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -914,6 +988,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LockOn.started += instance.OnLockOn;
                 @LockOn.performed += instance.OnLockOn;
                 @LockOn.canceled += instance.OnLockOn;
+                @SwitchLockOnTargetLeft.started += instance.OnSwitchLockOnTargetLeft;
+                @SwitchLockOnTargetLeft.performed += instance.OnSwitchLockOnTargetLeft;
+                @SwitchLockOnTargetLeft.canceled += instance.OnSwitchLockOnTargetLeft;
+                @SwitchLockOnTargetRight.started += instance.OnSwitchLockOnTargetRight;
+                @SwitchLockOnTargetRight.performed += instance.OnSwitchLockOnTargetRight;
+                @SwitchLockOnTargetRight.canceled += instance.OnSwitchLockOnTargetRight;
             }
         }
     }
@@ -968,6 +1048,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSwitchRightWeapon(InputAction.CallbackContext context);
         void OnSwitchLeftWeapon(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
+        void OnSwitchLockOnTargetLeft(InputAction.CallbackContext context);
+        void OnSwitchLockOnTargetRight(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -34,8 +34,10 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float lockOnFieldOfView = 50; // +-, so between -50 and 50
     [SerializeField] private float lockOnTargetFollowSpeed = 0.2f;
     // private List<CharacterManager> availableLockOnTargets = new List<CharacterManager>(); // I don't think we need this. Just keep track of the closest?
-    [SerializeField] public CharacterManager nearestLockOnTarget;
     [SerializeField] public List<CharacterManager> potentialLockOnTargets = new List<CharacterManager>();
+    [SerializeField] public CharacterManager nearestLockOnTarget;
+    [SerializeField] public CharacterManager leftLockOnTarget;
+    [SerializeField] public CharacterManager rightLockOnTarget;
     
 
     private void Awake() {
@@ -194,15 +196,6 @@ public class PlayerCamera : MonoBehaviour
                     // Don't lock onto targets outside of field of view
                     continue;
                 
-                // Update shortest distance
-                float distanceFromTarget = Vector3.Distance(player.transform.position, lockOnTarget.transform.position);
-                if (distanceFromTarget < shortestDistance)
-                {
-                    shortestDistance = distanceFromTarget;
-                    nearestLockOnTarget = lockOnTarget;
-                }
-                // else return; // If we only want to consider the closest.
-
                 // Check if the potential target is blocked by the environment
                 RaycastHit hit;
                 // TODO: Only check the environment layers
@@ -214,9 +207,45 @@ public class PlayerCamera : MonoBehaviour
                     continue;
                 }
 
+                // Update shortest distance
+                float distanceFromTarget = Vector3.Distance(player.transform.position, lockOnTarget.transform.position);
+                if (distanceFromTarget < shortestDistance)
+                {
+                    shortestDistance = distanceFromTarget;
+                    nearestLockOnTarget = lockOnTarget;
+                }
+
                 Debug.Log("Potential lockon target: character " + lockOnTarget.NetworkObjectId + " at distance " + distanceFromTarget + " and angle " + angleBetweenLockOnTargetAndCamera + ".");
                 potentialLockOnTargets.Add(lockOnTarget);
+
+                // Additionally, keep track of closest target left and right of our current target, if we have one.
+                if (player.playerNetworkManager.isLockedOn.Value)
+                {
+                    if (lockOnTarget == player.playerCombatManager.currentLockOnTarget)
+                        continue; // Don't count the current target
+
+                    // Determine the position of the enemy in our own reference frame.
+                    Vector3 relativeEnemyPosition = player.transform.InverseTransformPoint(lockOnTarget.transform.position);
+                    float distanceFromTargetLeft = relativeEnemyPosition.x;
+                    float distanceFromTargetRight = relativeEnemyPosition.x;
+
+                    // Keep track of the closest on the left and the right
+                    if (relativeEnemyPosition.x <= 0.0f && distanceFromTargetLeft > shortestLeftDistance) // to the left, and closest so far
+                    {
+                        shortestLeftDistance = distanceFromTargetLeft;
+                        leftLockOnTarget = lockOnTarget;
+                    }
+                    else if (relativeEnemyPosition.x > 0.0f && distanceFromTargetRight < shortestRightDistance) // to the right, and closest so far
+                    {
+                        shortestRightDistance = distanceFromTargetRight;
+                        rightLockOnTarget = lockOnTarget;
+                    }
+                }
             }
+            if (leftLockOnTarget != null)
+                Debug.Log("Closest alternate to left: " + leftLockOnTarget.NetworkObjectId + ".");
+            if (rightLockOnTarget != null)
+                Debug.Log("Closest alternate to right: " + rightLockOnTarget.NetworkObjectId + ".");
         }
 
         if (nearestLockOnTarget != null)
@@ -235,5 +264,7 @@ public class PlayerCamera : MonoBehaviour
     {
         potentialLockOnTargets.Clear();
         nearestLockOnTarget = null;
+        leftLockOnTarget = null;
+        rightLockOnTarget = null;
     }
 }
