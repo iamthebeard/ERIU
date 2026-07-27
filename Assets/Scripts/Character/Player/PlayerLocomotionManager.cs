@@ -139,6 +139,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (player.playerNetworkManager.isLockedOn.Value
             && player.playerCombatManager.currentLockOnTarget != null
             && !player.playerNetworkManager.isSprinting.Value
+            && !player.isRolling
         )
         {
             // Strafe

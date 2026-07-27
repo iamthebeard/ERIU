@@ -33,6 +33,11 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float lockOnRadius = 20;
     [SerializeField] private float lockOnFieldOfView = 50; // +-, so between -50 and 50
     [SerializeField] private float lockOnTargetFollowSpeed = 0.2f;
+    [SerializeField] private float unlockedCameraHeight = 1.65f;
+    [SerializeField] private float lockedCameraHeight = 2.0f;
+    [SerializeField] private float changeCameraHeightOnLockOnSpeed = 0.1f;
+    private Coroutine cameraLockOnHeightCoroutine;
+
     // private List<CharacterManager> availableLockOnTargets = new List<CharacterManager>(); // I don't think we need this. Just keep track of the closest?
     [SerializeField] public List<CharacterManager> potentialLockOnTargets = new List<CharacterManager>();
     [SerializeField] public CharacterManager nearestLockOnTarget;
@@ -273,6 +278,14 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    public void SetCameraHeight()
+    {
+        if (cameraLockOnHeightCoroutine != null)
+            StopCoroutine(cameraLockOnHeightCoroutine);
+        
+        cameraLockOnHeightCoroutine = StartCoroutine(SetCameraHeightCoroutine());
+    }
+
     public void ClearLockOnTargets()
     {
         potentialLockOnTargets.Clear();
@@ -295,6 +308,56 @@ public class PlayerCamera : MonoBehaviour
             player.playerNetworkManager.isLockedOn.Value = true;
         }
 
+        yield return null;
+    }
+
+    public IEnumerator SetCameraHeightCoroutine()
+    {
+        float duration = 1;
+        float timer = 0;
+
+        Vector3 velocity = Vector3.zero;
+        Vector3 newLockedCameraHeight = new Vector3(cameraPivotTransform.transform.localPosition.x, lockedCameraHeight);
+        Vector3 newUnlockedCameraHeight = new Vector3(cameraPivotTransform.transform.localPosition.x, unlockedCameraHeight);
+
+        Debug.Log("Initial camera position: " + transform.localPosition + "; " + cameraPivotTransform.localPosition + ".");
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+
+            if (player == null) continue;
+            
+            if (player.playerCombatManager.currentLockOnTarget != null)
+            {
+                cameraPivotTransform.transform.localPosition =
+                    Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockedCameraHeight, ref velocity, changeCameraHeightOnLockOnSpeed);
+                cameraPivotTransform.transform.localRotation =
+                    Quaternion.Slerp(cameraPivotTransform.transform.localRotation, Quaternion.Euler(0,0,0), changeCameraHeightOnLockOnSpeed);
+            }
+            else
+            {
+                cameraPivotTransform.transform.localPosition =
+                    Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockedCameraHeight, ref velocity, changeCameraHeightOnLockOnSpeed);
+            }
+
+            yield return null;
+        }
+
+        if (player != null)
+        {
+            if (player.playerCombatManager.currentLockOnTarget != null)
+            {
+                cameraPivotTransform.transform.localPosition = newLockedCameraHeight;
+                cameraPivotTransform.transform.localRotation = Quaternion.Euler(0,0,0);
+            }
+            else
+            {
+                cameraPivotTransform.transform.localPosition = newUnlockedCameraHeight;
+            }
+        }
+
+        Debug.Log("Final camera position: " + transform.localPosition + "; " + cameraPivotTransform.localPosition + ".");
         yield return null;
     }
 }

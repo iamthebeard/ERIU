@@ -291,6 +291,7 @@ public class PlayerInputManager : MonoBehaviour
             {
                 // Disable lock on
                 player.playerNetworkManager.isLockedOn.Value = false;
+                player.playerCombatManager.SetLockOnTarget(null);
                 Debug.Log("Unlocking LockOn");
                 PlayerCamera.instance.ClearLockOnTargets();
                 return;

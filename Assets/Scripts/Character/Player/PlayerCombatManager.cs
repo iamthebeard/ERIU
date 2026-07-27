@@ -47,4 +47,14 @@ public class PlayerCombatManager : CharacterCombatManager
 
         player.playerNetworkManager.currentStamina.Value -= staminaDeducted;
     }
+
+    public override void SetLockOnTarget(CharacterManager newLockOnTarget)
+    {
+        base.SetLockOnTarget(newLockOnTarget);
+
+        if (player.IsOwner)
+        {
+            PlayerCamera.instance.SetCameraHeight();
+        }
+    }
 }

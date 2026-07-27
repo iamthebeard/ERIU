@@ -5000,6 +5000,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7173214289479428151, guid: 4417619c8db4a3e49b79de1a152352e3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449051252571638632, guid: 4417619c8db4a3e49b79de1a152352e3,
+        type: 3}
+      propertyPath: lockOnTargetFollowSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8449051252571638632, guid: 4417619c8db4a3e49b79de1a152352e3,
+        type: 3}
+      propertyPath: changeCameraHeightOnLockOnSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4417619c8db4a3e49b79de1a152352e3, type: 3}
 --- !u!1 &1736177695
