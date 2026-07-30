@@ -31,13 +31,21 @@ MonoBehaviour:
     poise: 15
   lightAttack01Modifier: 1
   lightAttack01PoiseModifier: 1
+  lightAttack02Modifier: 1.25
+  lightAttack02PoiseModifier: 1.25
   heavyAttack01Modifier: 1.4
   heavyAttack01PoiseModifier: 1.5
+  heavyAttack02Modifier: 1.75
+  heavyAttack02PoiseModifier: 1.5
   chargedHeavyAttack01Modifier: 1.6
   chargedHeavyAttack01PoiseModifier: 2
+  chargedHeavyAttack02Modifier: 2.25
+  chargedHeavyAttack02PoiseModifier: 2
   baseStaminaCost: 30
   lightAttack01StaminaCostModifier: 1
+  lightAttack02StaminaCostModifier: 0.75
   heavyAttack01StaminaCostModifier: 1.5
+  heavyAttack02StaminaCostModifier: 1.25
   chargedHeavyAttack01StaminaCostModifier: 2
   rb_Action_OneHanded: {fileID: 11400000, guid: 8083fdb864bd5cd448e0e307134594a7,
     type: 2}

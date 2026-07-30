@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc3471297901ae74ab38e77697231e8e
+guid: 68165fc722d45c64c9b2cbaef724e597
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -62,7 +62,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: OneHand_Up_Attack_B_2 (wind up)
+      name: OneHand_Up_Attack_B_2 (1wind up)
       takeName: OneHand_Up_Attack_B_2
       internalID: -4954764913975991847
       firstFrame: 0
@@ -93,7 +93,7 @@ ModelImporter:
     - serializedVersion: 16
       name: OneHand_Up_Attack_B_2 (hold)
       takeName: OneHand_Up_Attack_B_2
-      internalID: -9039024490857396082
+      internalID: 831616812617095829
       firstFrame: 8
       lastFrame: 16
       wrapMode: 0
@@ -104,8 +104,8 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -122,7 +122,7 @@ ModelImporter:
     - serializedVersion: 16
       name: OneHand_Up_Attack_B_2 (release)
       takeName: OneHand_Up_Attack_B_2
-      internalID: -6120966841267977390
+      internalID: -6688224699226036104
       firstFrame: 16
       lastFrame: 60
       wrapMode: 0
@@ -144,21 +144,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.036386136
         functionName: OpenDamageCollider
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.017286062
+      - time: 0.0536722
         functionName: DrainStaminaBasedOnAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.2084477
+      - time: 0.118683204
         functionName: CloseDamageCollider
         data: 
         objectReferenceParameter: {instanceID: 0}

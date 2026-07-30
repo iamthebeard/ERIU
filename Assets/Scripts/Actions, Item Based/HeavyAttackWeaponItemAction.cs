@@ -7,6 +7,7 @@ public class HeavyAttackWeaponItemAction : WeaponItemAction
 {
 
     [SerializeField] string heavyAttackAnimation = "main_hand_heavy_attack";
+    [SerializeField] string heavyAttack02Animation = "main_hand_heavy_attack_02";
 
     public override void AttemptToPerformAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {
@@ -26,17 +27,33 @@ public class HeavyAttackWeaponItemAction : WeaponItemAction
         {
             return;
         }
-        PerformLightAttack(playerPerformingAction, weaponPerformingAction);
+        PerformHeavyAttack(playerPerformingAction, weaponPerformingAction);
     }
 
-    private void PerformLightAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+    private void PerformHeavyAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {
-        if (playerPerformingAction.playerNetworkManager.isUsingRightHand.Value)
+        Debug.Log("Performing heavy attack");
+        // If we are attacking and have reached the combo window, perform the next combo attack
+        if (playerPerformingAction.playerCombatManager.canComboWithMainHandWeapon && playerPerformingAction.isPerformingAction)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.HeavyAttack01, heavyAttackAnimation, true);
+            playerPerformingAction.playerCombatManager.canComboWithMainHandWeapon = false;
+
+            // Perform the next attack, based on the previous attack
+            if (playerPerformingAction.playerCombatManager.lastAttackAnimationPerformed == heavyAttackAnimation)
+            {
+                Debug.Log("Comboing. Expecting " + heavyAttack02Animation);
+                playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.HeavyAttack02, heavyAttack02Animation, true);
+            }
+            else
+            {
+                // Start the loop over again
+                Debug.Log("Comboing, starting over. Expecting " + heavyAttack02Animation);
+                playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.HeavyAttack01, heavyAttackAnimation, true);
+            }
         }
-        else if (playerPerformingAction.playerNetworkManager.isUsingLeftHand.Value)
+        else if (!playerPerformingAction.isPerformingAction)
         {
+            Debug.Log("Not comboing. Expecting " + heavyAttack02Animation);
             playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.HeavyAttack01, heavyAttackAnimation, true);
         }
     }

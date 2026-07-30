@@ -240,7 +240,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void HandleRBInput ()
     {
-        if (rbInput)
+        if (rbInput && !rtInput)
         {
             rbInput = false; // Only trigger once
 

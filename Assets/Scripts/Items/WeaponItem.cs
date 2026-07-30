@@ -27,8 +27,12 @@ public class WeaponItem : Item
     public float lightAttack02PoiseModifier = 1;
     public float heavyAttack01Modifier = 1.5f;
     public float heavyAttack01PoiseModifier = 1.5f;
+    public float heavyAttack02Modifier = 1.75f;
+    public float heavyAttack02PoiseModifier = 1.5f;
     public float chargedHeavyAttack01Modifier = 2;
     public float chargedHeavyAttack01PoiseModifier = 2;
+    public float chargedHeavyAttack02Modifier = 2.25f;
+    public float chargedHeavyAttack02PoiseModifier = 2;
     // Poise bonus while attacking
     // Poise modifiers, etc.
 
@@ -39,6 +43,7 @@ public class WeaponItem : Item
     public float lightAttack01StaminaCostModifier = 1;
     public float lightAttack02StaminaCostModifier = .75f;
     public float heavyAttack01StaminaCostModifier = 1.5f;
+    public float heavyAttack02StaminaCostModifier = 1.25f;
     public float chargedHeavyAttack01StaminaCostModifier = 2;
     // Modifiers: light attack, heavy, running, etc.
 

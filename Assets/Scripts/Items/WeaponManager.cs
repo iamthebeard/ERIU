@@ -25,8 +25,14 @@ public class WeaponManager : MonoBehaviour
         meleeDamageCollider.heavyAttack01Modifier = weapon.heavyAttack01Modifier;
         meleeDamageCollider.heavyAttack01PoiseModifier = weapon.heavyAttack01PoiseModifier;
 
+        meleeDamageCollider.heavyAttack02Modifier = weapon.heavyAttack02Modifier;
+        meleeDamageCollider.heavyAttack02PoiseModifier = weapon.heavyAttack02PoiseModifier;
+
         meleeDamageCollider.chargedHeavyAttack01Modifier = weapon.chargedHeavyAttack01Modifier;
         meleeDamageCollider.chargedHeavyAttack01PoiseModifier = weapon.chargedHeavyAttack01PoiseModifier;
+
+        meleeDamageCollider.chargedHeavyAttack02Modifier = weapon.chargedHeavyAttack02Modifier;
+        meleeDamageCollider.chargedHeavyAttack02PoiseModifier = weapon.chargedHeavyAttack02PoiseModifier;
         
     }
 }

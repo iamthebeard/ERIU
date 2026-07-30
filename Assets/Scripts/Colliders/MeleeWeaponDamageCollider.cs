@@ -17,8 +17,12 @@ public class MeleeWeaponDamageCollider : DamageCollider
     public float lightAttack02PoiseModifier;
     public float heavyAttack01Modifier;
     public float heavyAttack01PoiseModifier;
+    public float heavyAttack02Modifier;
+    public float heavyAttack02PoiseModifier;
     public float chargedHeavyAttack01Modifier;
     public float chargedHeavyAttack01PoiseModifier;
+    public float chargedHeavyAttack02Modifier;
+    public float chargedHeavyAttack02PoiseModifier;
 
     protected override void Awake()
     {
@@ -87,9 +91,17 @@ public class MeleeWeaponDamageCollider : DamageCollider
                 damageEffect.damage *= heavyAttack01Modifier;
                 damageEffect.damage.poise = damage.poise * heavyAttack01PoiseModifier;
                 break;
+            case AttackType.HeavyAttack02:
+                damageEffect.damage *= heavyAttack02Modifier;
+                damageEffect.damage.poise = damage.poise * heavyAttack02PoiseModifier;
+                break;
             case AttackType.ChargedHeavy01:
                 damageEffect.damage *= chargedHeavyAttack01Modifier;
                 damageEffect.damage.poise = damage.poise * chargedHeavyAttack01PoiseModifier;
+                break;
+            case AttackType.ChargedHeavy02:
+                damageEffect.damage *= chargedHeavyAttack02Modifier;
+                damageEffect.damage.poise = damage.poise * chargedHeavyAttack02PoiseModifier;
                 break;
             default:
                 break;

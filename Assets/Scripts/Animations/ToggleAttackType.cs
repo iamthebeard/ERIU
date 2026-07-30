@@ -15,9 +15,12 @@ public class ToggleAttackType : StateMachineBehaviour
         }
 
         // character.characterCombatManager.currentAttackType = attackType;
-        if (character.characterCombatManager.currentAttackType == AttackType.HeavyAttack01 && character.characterNetworkManager.isChargingAttack.Value)
+        if (character.characterNetworkManager.isChargingAttack.Value)
         {
-            character.characterCombatManager.currentAttackType = AttackType.ChargedHeavy01;
+            if (character.characterCombatManager.currentAttackType == AttackType.HeavyAttack01)
+                character.characterCombatManager.currentAttackType = AttackType.ChargedHeavy01;
+            if (character.characterCombatManager.currentAttackType == AttackType.HeavyAttack02)
+                character.characterCombatManager.currentAttackType = AttackType.ChargedHeavy02;
         }
     }
 
