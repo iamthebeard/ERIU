@@ -41,7 +41,8 @@ public class AICharacterManager : CharacterManager
     {
         base.FixedUpdate();
 
-        ProcessStateMachine();
+        if (IsOwner)
+            ProcessStateMachine();
     }
 
     // constantly tick on the same state

@@ -3578,6 +3578,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLockOnTarget: {fileID: 0}
+  viewableAngle: 0
+  targetDirection: {x: 0, y: 0, z: 0}
   currentAttackType: 0
   lockOnAnchor: {fileID: 5828833727295080444}
   lastAttackAnimationPerformed: 

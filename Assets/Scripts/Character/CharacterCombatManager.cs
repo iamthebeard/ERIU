@@ -9,6 +9,8 @@ public class CharacterCombatManager : NetworkBehaviour
 
     [Header("Current Target")]
     public CharacterManager currentLockOnTarget;
+    public float viewableAngle; // This is really angleToTarget. Would rename, but this is what he calls i.
+    public Vector3 targetDirection;
 
     [Header("Current Weapon")]
     public AttackType currentAttackType;

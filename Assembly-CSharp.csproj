@@ -54,11 +54,13 @@
     <Compile Include="Assets\Scripts\Actions, Item Based\WeaponItemAction.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterStatsManager.cs" />
+    <Compile Include="Assets\Scripts\AI\PursueTargetState.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterLocomotionManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonInput.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldActionManager.cs" />
+    <Compile Include="Assets\Scripts\AI\AIState.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerEquipmentManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerSoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Character\Effects\InstantCharacterEffect.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerLocomotionManager.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetIsJumping.cs" />
     <Compile Include="Assets\Scripts\Character\AI Character\AICharacterManager.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\TitleScreenManager.cs" />
     <Compile Include="Assets\DoubleL\Demo\DemoCameraController.cs" />
     <Compile Include="Assets\Scripts\Items\WeaponModelInstantiationSlot.cs" />
@@ -88,14 +91,17 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldCharacterEffectsManager.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterLocomotionManager.cs" />
     <Compile Include="Assets\PlayerControls.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\3D Models\Others\HealthItem\vAnimateUV.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vComment.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterCombatManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterEquipmentManager.cs" />
     <Compile Include="Assets\Scripts\Actions, Item Based\HeavyAttackWeaponItemAction.cs" />
     <Compile Include="Assets\Scripts\Items\WeaponItem.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonAnimator.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerEffectsManager.cs" />
+    <Compile Include="Assets\Scripts\AI\IdleState.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldSaveGameManager.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\TitleScreenLoadMenuInputManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PlayerUIHUDManager.cs" />
@@ -105,6 +111,7 @@
     <Compile Include="Assets\Scripts\Actions, Item Based\ItemBasedAction.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerCombatManager.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterAnimationManager.cs" />
     <Compile Include="Assets\Scripts\Items\MeleeWeaponItem.cs" />
     <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterCombatManager.cs" />
@@ -121,12 +128,6 @@
     <Compile Include="Assets\Scripts\Damage.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
-    <Compile Include="Assets\Scripts\AI\AIState.cs" />
-    <Compile Include="Assets\Scripts\AI\IdleState.cs" />
-    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterCombatManager.cs" />
-    <Compile Include="Assets\Scripts\AI\PursueTargetState.cs" />
-    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterNetworkManager.cs" />
-    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterLocomotionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
