@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AI/States/Base")]
 public class AIState : ScriptableObject
 {
-    public virtual AIState Tick(AICharacterManager aICharacter)
+    public virtual AIState Tick(AICharacterManager aiCharacter)
     {
-        Debug.Log("AI Tick for " + aICharacter.name + " (" + aICharacter.NetworkObjectId + ")");
+        Debug.Log("AI Tick for " + aiCharacter.name + " (" + aiCharacter.NetworkObjectId + ")");
         // Do logic to find the player
         // If we have found the player
         //  Do logic to determine the next state.

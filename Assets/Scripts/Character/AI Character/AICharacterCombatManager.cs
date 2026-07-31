@@ -66,6 +66,7 @@ public class AICharacterCombatManager : CharacterCombatManager
             {
                 aiCharacter.aiCharacterCombatManager.targetDirection = aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position - transform.position;
                 aiCharacter.aiCharacterCombatManager.viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(transform, aiCharacter.aiCharacterCombatManager.targetDirection);
+                aiCharacter.aiCharacterCombatManager.targetDistance = Vector3.Distance(transform.position, aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position);
             }
             PivotTowardsTarget(aiCharacter);
         }
