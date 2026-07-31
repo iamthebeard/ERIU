@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &961504860179077758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8644167277721158209}
+  - component: {fileID: 3783749567984462653}
+  m_Layer: 6
+  m_Name: NavMesh Agent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8644167277721158209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961504860179077758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8334689683478769049}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &3783749567984462653
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961504860179077758}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1941824555258567249
 GameObject:
   m_ObjectHideFlags: 0
@@ -3076,15 +3130,15 @@ GameObject:
   - component: {fileID: 8334689683478769049}
   - component: {fileID: -1484592153861983281}
   - component: {fileID: 8334689683478640305}
+  - component: {fileID: 7184884133280753230}
   - component: {fileID: 8334689683469206495}
   - component: {fileID: 8334689683495958687}
   - component: {fileID: 8334689683478640307}
   - component: {fileID: 3871176628575276244}
   - component: {fileID: 1363515582622937372}
-  - component: {fileID: 3871176628575276245}
+  - component: {fileID: 2229831680369227952}
   - component: {fileID: 3871176628575276270}
   - component: {fileID: 3871176628575276265}
-  - component: {fileID: 3871176628575276264}
   - component: {fileID: 3871176628575276267}
   - component: {fileID: 3871176628575276266}
   - component: {fileID: 3842782584768231582}
@@ -3114,6 +3168,7 @@ Transform:
   - {fileID: 8334689683478769055}
   - {fileID: 8334689683478769053}
   - {fileID: 8334689683478769051}
+  - {fileID: 8644167277721158209}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 123.394, z: 0}
@@ -3147,7 +3202,12 @@ MonoBehaviour:
   canMove: 1
   characterGroup: 1
   aiCharacterCombatManager: {fileID: 0}
-  currentState: {fileID: 11400000, guid: 4237d1a4bdef30241a679cf88e8a3dfd, type: 2}
+  aiCharacterNetworkManager: {fileID: 0}
+  aiCharacterLocomotionManager: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  currentState: {fileID: 0}
+  idle: {fileID: 11400000, guid: 4237d1a4bdef30241a679cf88e8a3dfd, type: 2}
+  pursueTarget: {fileID: 11400000, guid: 86dc6c5580a354b4ba74b37e54fe1fb9, type: 2}
 --- !u!114 &8334689683478640305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3164,6 +3224,53 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &7184884133280753230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334689683478606329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4102180cc2466964bbc03ce01478011b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkPositionVelocity: {x: 0, y: 0, z: 0}
+  networkPositionSmoothTime: 0.1
+  networkRotation:
+    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
+  networkRotationSmoothTime: 0.1
+  animatorHorizontalParameter:
+    m_InternalValue: 0
+  animatorVerticalParameter:
+    m_InternalValue: 0
+  isSprinting:
+    m_InternalValue: 0
+  isJumping:
+    m_InternalValue: 0
+  isChargingAttack:
+    m_InternalValue: 0
+  isMoving:
+    m_InternalValue: 0
+  vitality:
+    m_InternalValue: 10
+  endurance:
+    m_InternalValue: 10
+  maxHealth:
+    m_InternalValue: 0
+  maxStamina:
+    m_InternalValue: 0
+  currentHealth:
+    m_InternalValue: 0
+  currentStamina:
+    m_InternalValue: 0
+  isLockedOn:
+    m_InternalValue: 0
+  lockOnTargetID:
+    m_InternalValue: 0
 --- !u!95 &8334689683469206495
 Animator:
   serializedVersion: 4
@@ -3177,7 +3284,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 56b7bf34767fb1d4db746c38e5f03b9b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3345,7 +3452,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3871176628575276245
+--- !u!114 &2229831680369227952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3354,7 +3461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8334689683478606329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e798db8cce8544d4380afaa828a9b20b, type: 3}
+  m_Script: {fileID: 11500000, guid: 23793366a7d1c3c42bf8fa7f90118ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravityForce: -9.86
@@ -3407,51 +3514,6 @@ MonoBehaviour:
   hitRightMedium03: 
   onHitAnimations: []
   lastNonRepeatableAnimationPlayed: 
---- !u!114 &3871176628575276264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8334689683478606329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f0d6e259d166c46929d5342e8fd0ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkPosition:
-    m_InternalValue: {x: 0, y: 0, z: 0}
-  networkPositionVelocity: {x: 0, y: 0, z: 0}
-  networkPositionSmoothTime: 0.1
-  networkRotation:
-    m_InternalValue: {x: 0, y: 0, z: 0, w: 1}
-  networkRotationSmoothTime: 0.1
-  animatorHorizontalParameter:
-    m_InternalValue: 0
-  animatorVerticalParameter:
-    m_InternalValue: 0
-  isSprinting:
-    m_InternalValue: 0
-  isJumping:
-    m_InternalValue: 0
-  isChargingAttack:
-    m_InternalValue: 0
-  vitality:
-    m_InternalValue: 10
-  endurance:
-    m_InternalValue: 10
-  maxHealth:
-    m_InternalValue: 0
-  maxStamina:
-    m_InternalValue: 0
-  currentHealth:
-    m_InternalValue: 0
-  currentStamina:
-    m_InternalValue: 0
-  isLockedOn:
-    m_InternalValue: 0
-  lockOnTargetID:
-    m_InternalValue: 0
 --- !u!114 &3871176628575276267
 MonoBehaviour:
   m_ObjectHideFlags: 0

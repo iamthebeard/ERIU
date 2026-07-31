@@ -31,6 +31,8 @@ public class CharacterNetworkManager : NetworkBehaviour
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> isChargingAttack =
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isMoving =
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Base Stats")]
     public NetworkVariable<int> vitality =
@@ -97,6 +99,11 @@ public class CharacterNetworkManager : NetworkBehaviour
     public void OnIsChargingAttackChanged(bool oldValue, bool isChargingAttack)
     {
         character.animator.SetBool("IsChargingAttack", isChargingAttack);
+    }
+
+    public void OnIsMovingChanged(bool oldValue, bool newValue)
+    {
+        character.animator.SetBool("IsMoving", isMoving.Value);
     }
 
     // ******************** RPCs ********************

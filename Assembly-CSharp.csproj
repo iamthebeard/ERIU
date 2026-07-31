@@ -124,6 +124,9 @@
     <Compile Include="Assets\Scripts\AI\AIState.cs" />
     <Compile Include="Assets\Scripts\AI\IdleState.cs" />
     <Compile Include="Assets\Scripts\Character\AI Character\AICharacterCombatManager.cs" />
+    <Compile Include="Assets\Scripts\AI\PursueTargetState.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterNetworkManager.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterLocomotionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

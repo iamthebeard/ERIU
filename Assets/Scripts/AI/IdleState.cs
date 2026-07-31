@@ -12,18 +12,18 @@ public class IdleState : AIState
 
         if (aiCharacter.characterCombatManager.currentLockOnTarget != null)
         {
-            if (Physics.Linecast(
-                aiCharacter.characterCombatManager.lockOnAnchor.position,
-                aiCharacter.characterCombatManager.currentLockOnTarget.characterCombatManager.lockOnAnchor.position,
-                WorldUtilityManager.Instance.GetEnvironmentLayers()
-            ))
-            {
-                aiCharacter.characterCombatManager.SetLockOnTarget(null); // We no longer have line-of-sight to this target.
-                return this;
-            }
+            // if (Physics.Linecast(
+            //     aiCharacter.characterCombatManager.lockOnAnchor.position,
+            //     aiCharacter.characterCombatManager.currentLockOnTarget.characterCombatManager.lockOnAnchor.position,
+            //     WorldUtilityManager.Instance.GetEnvironmentLayers()
+            // ))
+            // {
+            //     aiCharacter.characterCombatManager.SetLockOnTarget(null); // We no longer have line-of-sight to this target.
+            //     return this;
+            // }
             // We have a target, so return the pursue target state
             Debug.Log("Pursuing " + aiCharacter.characterCombatManager.currentLockOnTarget.name + "(" + aiCharacter.characterCombatManager.currentLockOnTarget.NetworkObjectId + ")");
-            return null;
+            return SwitchState(aiCharacter, aiCharacter.pursueTarget);
         }
         else
         {

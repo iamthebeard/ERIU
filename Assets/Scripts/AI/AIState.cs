@@ -15,4 +15,15 @@ public class AIState : ScriptableObject
         //  If we are within attack range, change to attack state.
         return this;
     }
+
+    protected virtual AIState SwitchState(AICharacterManager aiCharacter, AIState newState)
+    {
+        ResetStateFlags(aiCharacter);
+        return newState;
+    }
+
+    protected virtual void ResetStateFlags(AICharacterManager aiCharacter)
+    {
+        
+    }
 }

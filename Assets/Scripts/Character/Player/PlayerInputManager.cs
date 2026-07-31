@@ -187,6 +187,15 @@ public class PlayerInputManager : MonoBehaviour
             }
         }
 
+        if (moveAmount != 0)
+        {
+            player.playerNetworkManager.isMoving.Value = true;
+        }
+        else
+        {
+            player.playerNetworkManager.isMoving.Value = false;
+        }
+
         // This code was in the tutorial up until the "do it yourself" in episode 5
         // // Only animate if a player has been loaded
         // if (player == null) return;
