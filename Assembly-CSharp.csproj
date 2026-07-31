@@ -111,7 +111,7 @@
     <Compile Include="Assets\Scripts\Actions, Item Based\ItemBasedAction.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerCombatManager.cs" />
-    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterAnimationManager.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterAnimatorManager.cs" />
     <Compile Include="Assets\Scripts\Items\MeleeWeaponItem.cs" />
     <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterCombatManager.cs" />

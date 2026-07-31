@@ -3138,7 +3138,7 @@ GameObject:
   - component: {fileID: 1363515582622937372}
   - component: {fileID: 733157769505552620}
   - component: {fileID: 3871176628575276270}
-  - component: {fileID: 3871176628575276265}
+  - component: {fileID: -261043948914756440}
   - component: {fileID: 3871176628575276267}
   - component: {fileID: 3871176628575276266}
   - component: {fileID: 3842782584768231582}
@@ -3487,7 +3487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodSpatterVFX: {fileID: 0}
---- !u!114 &3871176628575276265
+--- !u!114 &-261043948914756440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3496,20 +3496,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8334689683478606329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2453bb417ef84114bb36e2868a564cc9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b2ef64f6b58689448f8c76b540c4d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  hitForwardMedium01: Hit_F_2
-  hitForwardMedium02: Hit_F_1
+  hitForwardMedium01: Hit_F_1
+  hitForwardMedium02: Hit_F_2
   hitForwardMedium03: 
-  hitBackwardMedium01: Hit_F_2
+  hitBackwardMedium01: Hit_F_1
   hitBackwardMedium02: 
   hitBackwardMedium03: 
-  hitLeftMedium01: Hit_F_2
+  hitLeftMedium01: Hit_F_1
   hitLeftMedium02: 
   hitLeftMedium03: 
-  hitRightMedium01: Hit_F_2
+  hitRightMedium01: Hit_F_1
   hitRightMedium02: 
   hitRightMedium03: 
   onHitAnimations: []
