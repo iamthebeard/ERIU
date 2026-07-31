@@ -2036,8 +2036,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3735588607312707933}
-  - component: {fileID: 3735588607312321137}
   - component: {fileID: 3735588607312321138}
+  - component: {fileID: 3735588607312321137}
   - component: {fileID: -4697310233458906598}
   - component: {fileID: 3735588607312321141}
   - component: {fileID: 3735588607312321142}
@@ -2079,6 +2079,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3735588607312321138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3735588607312354621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5264b070677bb6b448a8f95f6049bf66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  animator: {fileID: 0}
+  characterAnimatorManager: {fileID: 0}
+  characterNetworkManager: {fileID: 0}
+  characterEffectsManager: {fileID: 0}
+  characterCombatManager: {fileID: 0}
+  characterSoundFXManager: {fileID: 0}
+  isDead:
+    m_InternalValue: 0
+  isPerformingAction: 0
+  applyRootMotion: 0
+  isRolling: 1
+  isBackstepping: 0
+  isGrounded: 1
+  canRotate: 1
+  canMove: 1
+  characterGroup: 0
+  debugRespawnCharacter: 0
+  debugKillCharacter: 0
+  switchRightWeapon: 0
+  switchLeftWeapon: 0
+  playerLocomotionManager: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
+  playerNetworkManager: {fileID: 0}
+  playerStatsManager: {fileID: 0}
+  playerInventoryManager: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
+  playerCombatManager: {fileID: 0}
 --- !u!114 &3735588607312321137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2118,45 +2158,6 @@ MonoBehaviour:
   sprintingStaminaCost: 10
   dodgeStaminaCost: 25
   jumpStaminaCost: 25
---- !u!114 &3735588607312321138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3735588607312354621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5264b070677bb6b448a8f95f6049bf66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
-  animator: {fileID: 0}
-  characterAnimatorManager: {fileID: 0}
-  characterNetworkManager: {fileID: 0}
-  characterEffectsManager: {fileID: 0}
-  characterCombatManager: {fileID: 0}
-  characterSoundFXManager: {fileID: 0}
-  isDead:
-    m_InternalValue: 0
-  isPerformingAction: 0
-  applyRootMotion: 0
-  isRolling: 1
-  isBackstepping: 0
-  isGrounded: 1
-  canRotate: 1
-  canMove: 1
-  debugRespawnCharacter: 0
-  debugKillCharacter: 0
-  switchRightWeapon: 0
-  switchLeftWeapon: 0
-  playerLocomotionManager: {fileID: 0}
-  playerAnimatorManager: {fileID: 0}
-  playerNetworkManager: {fileID: 0}
-  playerStatsManager: {fileID: 0}
-  playerInventoryManager: {fileID: 0}
-  playerEquipmentManager: {fileID: 0}
-  playerCombatManager: {fileID: 0}
 --- !u!114 &-4697310233458906598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,7 +2243,7 @@ MonoBehaviour:
     m_InternalValue: 0
   isJumping:
     m_InternalValue: 0
-  isLockedOn:
+  isChargingAttack:
     m_InternalValue: 0
   vitality:
     m_InternalValue: 10
@@ -2255,6 +2256,10 @@ MonoBehaviour:
   currentHealth:
     m_InternalValue: 0
   currentStamina:
+    m_InternalValue: 0
+  isLockedOn:
+    m_InternalValue: 0
+  lockOnTargetID:
     m_InternalValue: 0
   characterName:
     m_InternalValue:
@@ -2487,10 +2492,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce9d17ad5d86bd43a0dbee7fa8c4716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTarget: {fileID: 0}
+  currentLockOnTarget: {fileID: 0}
   currentAttackType: 0
   lockOnAnchor: {fileID: 1196149302724848440}
+  lastAttackAnimationPerformed: 
   currentWeaponBeingUsed: {fileID: 0}
+  canComboWithMainHandWeapon: 0
 --- !u!95 &3735588607302840091
 Animator:
   serializedVersion: 4

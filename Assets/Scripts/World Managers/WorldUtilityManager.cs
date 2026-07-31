@@ -31,4 +31,27 @@ public class WorldUtilityManager : MonoBehaviour
     {
         return environmentLayers;
     }
+
+    public bool IsHostileTo(CharacterGroup attackingCharacter, CharacterGroup targetCharacter)
+    {
+        return (attackingCharacter != targetCharacter); // Right now, just as long as they aren't on the same team
+        // Eventually will have a switch for every combination
+        // if (attackingCharacter == CharacterGroup.Friendly)
+        // {
+        //     switch (targetCharacter)
+        //     {
+        //         case CharacterGroup.Friendly:
+        //             //
+        //             break;
+        //         case CharacterGroup.Hostile:
+        //             //
+        //             break;
+        //         // etc.
+        //     }
+        // }
+        // else if (attackingCharacter == CharacterGroup.Hostile)
+        // {
+            
+        // }
+    }
 }

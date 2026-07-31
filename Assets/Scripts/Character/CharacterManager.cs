@@ -30,6 +30,9 @@ public class CharacterManager : NetworkBehaviour
     public bool canRotate = true;
     public bool canMove = true;
 
+    [Header("Team")]
+    public CharacterGroup characterGroup;
+
     protected virtual void Awake()
     {
         DontDestroyOnLoad(this);
@@ -108,6 +111,11 @@ public class CharacterManager : NetworkBehaviour
                 characterNetworkManager.isSprinting.Value
             );
         }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        
     }
 
     protected virtual void LateUpdate()

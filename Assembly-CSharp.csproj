@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Utility\Utility_DestroyAfterTime.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerLocomotionManager.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetIsJumping.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterManager.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\TitleScreenManager.cs" />
     <Compile Include="Assets\DoubleL\Demo\DemoCameraController.cs" />
     <Compile Include="Assets\Scripts\Items\WeaponModelInstantiationSlot.cs" />
@@ -116,9 +117,13 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PlayerUIManager.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonController.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Generic\Utils\vExtensions.cs" />
+    <Compile Include="Assets\Scripts\World Managers\WorldAIManager.cs" />
     <Compile Include="Assets\Scripts\Damage.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
+    <Compile Include="Assets\Scripts\AI\AIState.cs" />
+    <Compile Include="Assets\Scripts\AI\IdleState.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterCombatManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -22,6 +22,12 @@ public enum CharacterSlot
     NoSlot,
 }
 
+public enum CharacterGroup
+{
+    Friendly,
+    Hostile
+}
+
 public enum WeaponModelSlotType
 {
     RightHand,

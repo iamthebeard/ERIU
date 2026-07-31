@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class CharacterCombatManager : NetworkBehaviour
 {
-    CharacterManager character;
+    protected CharacterManager character;
 
     [Header("Current Target")]
     public CharacterManager currentLockOnTarget;
