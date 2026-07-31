@@ -130,6 +130,7 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
     <Compile Include="Assets\Scripts\AI\AICharacterAttackAction.cs" />
     <Compile Include="Assets\Scripts\AI\CombatStanceState.cs" />
+    <Compile Include="Assets\Scripts\AI\AttackState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -10,6 +10,12 @@ public class AICharacterCombatManager : CharacterCombatManager
     [SerializeField] public float detectionRadius = 15;
     [SerializeField] public float detectionFieldOfView = 35;
 
+    [Header("Action Recovery")]
+    public float actionRecoveryTimer = 0;
+
+    [Header("Attack Rotation Speed")]
+    public float attackRotationSpeed = 25;
+
     protected override void Awake()
     {
         base.Awake();
@@ -62,12 +68,6 @@ public class AICharacterCombatManager : CharacterCombatManager
             //  Calculate the angle of the target in respect to the character
             //  Use the calculated angle to determine what "pivot/turn" animation should be played
             //  Play the animation with root motion
-            if (aiCharacter.aiCharacterCombatManager.currentLockOnTarget != null)
-            {
-                aiCharacter.aiCharacterCombatManager.targetDirection = aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position - transform.position;
-                aiCharacter.aiCharacterCombatManager.viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(transform, aiCharacter.aiCharacterCombatManager.targetDirection);
-                aiCharacter.aiCharacterCombatManager.targetDistance = Vector3.Distance(transform.position, aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position);
-            }
             PivotTowardsTarget(aiCharacter);
         }
     }
@@ -94,10 +94,46 @@ public class AICharacterCombatManager : CharacterCombatManager
         // else
         //     aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("OneHand_Up_Run_F_L90_A (one step)", true /*DO NOT apply root motion (option 1)*/);
         // Quaternion toTarget = Quaternion.LookRotation(aiCharacter.aiCharacterCombatManager.targetDirection);
-        // aiCharacter.transform.rotation = Quaternion.Slerp(aiCharacter.transform.rotation, toTarget, Time.deltaTime);
+        // aiCharacter.transform.rotation = Quaternion.Slerp(aiCharacter.transform.rotation, toTarget, Time.deltaTime);        
+    }
 
-        
+    public void RotateTowardsAgent(AICharacterManager aiCharacter)
+    {
+        if (aiCharacter.aiCharacterNetworkManager.isMoving.Value)
+        {
+            aiCharacter.transform.rotation = aiCharacter.navMeshAgent.transform.rotation;
+        }
+    }
 
+    public void RotateTowardsTargetWhileAttacking(AICharacterManager aiCharacter)
+    {
+        if (aiCharacter.aiCharacterCombatManager.currentLockOnTarget == null) return;
+        if (!aiCharacter.isPerformingAction) return; // Maybe flag to attacking only?
         
+        // Check to see if we can rotate (during tracking window)
+        if (!aiCharacter.canRotate) return;
+
+        // Rotate towards target at specified speed during certain frames 
+        Vector3 targetDirection = currentLockOnTarget.transform.position - aiCharacter.transform.position;
+        targetDirection.y = 0;
+        targetDirection.Normalize();
+
+        if (targetDirection == Vector3.zero)
+            targetDirection = aiCharacter.transform.forward;
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        aiCharacter.transform.rotation = Quaternion.Slerp(aiCharacter.transform.rotation, targetRotation, attackRotationSpeed * Time.deltaTime);
+        
+    }
+
+    public void HandleActionRecovery(AICharacterManager aiCharacter)
+    {
+        if (actionRecoveryTimer > 0)
+        {
+            if (!aiCharacter.isPerformingAction)
+            {
+                actionRecoveryTimer -= Time.deltaTime;
+            }
+        }
     }
 }

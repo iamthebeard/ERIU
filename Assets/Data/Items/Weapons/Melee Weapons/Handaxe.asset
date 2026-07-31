@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363f064e9f721384faea07536bb414aa, type: 3}
+  m_Name: Handaxe
+  m_EditorClassIdentifier: 
+  itemName: 
+  itemIcon: {fileID: 0}
+  itemDescription: 
+  itemID: 0
+  weaponModel: {fileID: 0}
+  strReq: 0
+  dexReq: 0
+  intReq: 0
+  faiReq: 0
+  damage:
+    physical: 0
+    magic: 0
+    fire: 0
+    holy: 0
+    lightning: 0
+    poise: 0
+  lightAttack01Modifier: 1
+  lightAttack01PoiseModifier: 1
+  lightAttack02Modifier: 1
+  lightAttack02PoiseModifier: 1
+  heavyAttack01Modifier: 1.5
+  heavyAttack01PoiseModifier: 1.5
+  heavyAttack02Modifier: 1.75
+  heavyAttack02PoiseModifier: 1.5
+  chargedHeavyAttack01Modifier: 2
+  chargedHeavyAttack01PoiseModifier: 2
+  chargedHeavyAttack02Modifier: 2.25
+  chargedHeavyAttack02PoiseModifier: 2
+  baseStaminaCost: 20
+  lightAttack01StaminaCostModifier: 1
+  lightAttack02StaminaCostModifier: 0.75
+  heavyAttack01StaminaCostModifier: 1.5
+  heavyAttack02StaminaCostModifier: 1.25
+  chargedHeavyAttack01StaminaCostModifier: 2
+  rb_Action_OneHanded: {fileID: 0}
+  rt_Action_OneHanded: {fileID: 0}
+  rtCharged_Action_OneHanded: {fileID: 0}
+  xPosition: 0
+  yPosition: 0
+  zPosition: 0
+  xRotation: 0
+  yRotation: 0
+  zRotation: 0
+  xScale: 0
+  yScale: 0
+  zScale: 0

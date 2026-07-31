@@ -18,8 +18,10 @@ public class AICharacterManager : CharacterManager
     [Header("States")]
     [SerializeField] public IdleState idle;
     [SerializeField] public PursueTargetState pursueTarget;
-    // Combat stance
-    // Attack
+    [SerializeField] public CombatStanceState combatStance;
+    [SerializeField] public AttackState attack;
+    
+
 
     protected override void Awake()
     {
@@ -35,6 +37,13 @@ public class AICharacterManager : CharacterManager
         pursueTarget = Instantiate(pursueTarget);
 
         currentState = idle; // Always set initial state to idle
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        aiCharacterCombatManager.HandleActionRecovery(this);
     }
 
     protected override void FixedUpdate()

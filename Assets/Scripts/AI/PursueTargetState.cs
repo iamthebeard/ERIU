@@ -32,6 +32,9 @@ public class PursueTargetState : AIState
             aiCharacter.navMeshAgent.enabled = true;
 
         // If we are within combat range (if so, switch to combat stance state)
+        // if (aiCharacter.aiCharacterCombatManager.targetDistance <= aiCharacter.combatStance.maximumEngagementDistance) // Will cause them to stutter in and out of combat distance if you are moving when they catch up with you
+        if (aiCharacter.aiCharacterCombatManager.targetDistance <= aiCharacter.navMeshAgent.stoppingDistance) // Now there are two things to set on different object. Should I just do (-0.5) or something? Or have an engagementStartDist and engagementEndDist?
+            return SwitchState(aiCharacter, aiCharacter.combatStance);
 
         // If the target is unreachable, and we are far from home, return home
 
@@ -47,6 +50,12 @@ public class PursueTargetState : AIState
 
         // Rotate towards target
         aiCharacter.aiCharacterLocomotionManager.RotateTowardsAgent(aiCharacter);
+
+        // Update distance, etc., to target
+        aiCharacter.aiCharacterCombatManager.targetDirection = aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position - aiCharacter.transform.position;
+        aiCharacter.aiCharacterCombatManager.viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(aiCharacter.transform, aiCharacter.aiCharacterCombatManager.targetDirection);
+        aiCharacter.aiCharacterCombatManager.targetDistance = Vector3.Distance(aiCharacter.transform.position, aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position);
+
         return this;
     }
 }

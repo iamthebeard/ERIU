@@ -25,10 +25,11 @@ public class CombatStanceState : AIState
     [SerializeField] protected bool hasRolledForComboChance = false;
 
     [Header("Engagement Distance")]
-    [SerializeField] protected float maximumEngagementDistance = 5;
+    [SerializeField] public float maximumEngagementDistance = 5;
 
     public override AIState Tick(AICharacterManager aiCharacter)
     {
+        Debug.Log("in combat");
         // return base.Tick(aICharacter);
 
         if (aiCharacter.isPerformingAction) return this;
@@ -36,6 +37,13 @@ public class CombatStanceState : AIState
         
         if (aiCharacter.characterCombatManager.currentLockOnTarget == null)
             return SwitchState(aiCharacter, aiCharacter.idle);
+
+        // Update distance, etc., to target
+        aiCharacter.aiCharacterCombatManager.targetDirection = aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position - aiCharacter.transform.position;
+        aiCharacter.aiCharacterCombatManager.viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(aiCharacter.transform, aiCharacter.aiCharacterCombatManager.targetDirection);
+        aiCharacter.aiCharacterCombatManager.targetDistance = Vector3.Distance(aiCharacter.transform.position, aiCharacter.aiCharacterCombatManager.currentLockOnTarget.transform.position);
+
+        
         if (aiCharacter.characterCombatManager.targetDistance > maximumEngagementDistance)
             return SwitchState(aiCharacter, aiCharacter.pursueTarget);
 
@@ -52,15 +60,20 @@ public class CombatStanceState : AIState
         }
 
         // Rotate to face target
+        aiCharacter.aiCharacterCombatManager.RotateTowardsAgent(aiCharacter);
         
         if (chosenAttack == null)
             GetNewAttack(aiCharacter);
         else
         {
-            // Check recovery timer
-            // Pass chosen attack to attack state
-            // Roll for combo chance
-            // Switch state
+            if (aiCharacter.aiCharacterCombatManager.targetDistance <= chosenAttack.maximumDistance)
+            {
+                // Pass chosen attack to attack state
+                aiCharacter.attack.currentAttack = chosenAttack;
+                // Roll for combo chance
+                // Switch state
+                return SwitchState(aiCharacter, aiCharacter.attack);
+            }
         }
         
         // If we're not attacking, continue to walk towards target
@@ -95,11 +108,13 @@ public class CombatStanceState : AIState
             
             potentialAttacks.Add(potentialAttack);
             totalWeight += potentialAttack.attackWeight;
+            Debug.Log("Potential attack " + potentialAttack.name + ", weight: " + potentialAttack.attackWeight);
         }
 
         if (potentialAttacks.Count <= 0) return; // Probably should do something like change state
 
         int randomWeightValue = Random.Range(1, totalWeight + 1);
+        Debug.Log("Random weight value = " + randomWeightValue + ".");
         int processedWeight = 0;
         for (int i = 0; i < potentialAttacks.Count; i++)
         {
@@ -132,5 +147,6 @@ public class CombatStanceState : AIState
         base.ResetStateFlags(aiCharacter);
 
         hasRolledForComboChance = false;
+        chosenAttack = null;
     }
 }
