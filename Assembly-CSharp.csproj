@@ -133,6 +133,7 @@
     <Compile Include="Assets\Scripts\AI\AttackState.cs" />
     <Compile Include="Assets\Scripts\Colliders\CreatureHandDamageCollider.cs" />
     <Compile Include="Assets\Scripts\Character\AI Character\AIUndeadCombatManager.cs" />
+    <Compile Include="Assets\AICharacterSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

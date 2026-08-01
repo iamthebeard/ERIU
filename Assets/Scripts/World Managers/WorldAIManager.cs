@@ -9,8 +9,9 @@ public class WorldAIManager : MonoBehaviour
     public static WorldAIManager instance { get; private set;}
 
     [Header("Characters")]
-    [SerializeField] GameObject[] aiCharacters;
+    // [SerializeField] GameObject[] aiCharacters; // X Use aiCharacterSpawners instead.
     [SerializeField] List<GameObject> spawnedCharacters;
+    [SerializeField] public List<AICharacterSpawner> aiCharacterSpawners;
 
     [Header("DEBUG")]
     [SerializeField] bool despawnAICharacters = false;
@@ -61,11 +62,15 @@ public class WorldAIManager : MonoBehaviour
 
     private void SpawnAllCharacters()
     {
-        foreach (var character in aiCharacters)
+        foreach (var spawner in aiCharacterSpawners)
         {
-            GameObject instantiatedCharacter = Instantiate(character);
-            instantiatedCharacter.GetComponent<NetworkObject>().Spawn();
-            spawnedCharacters.Add(instantiatedCharacter);
+            // GameObject instantiatedCharacter = Instantiate(character); // X Using character spanwer now.
+            // instantiatedCharacter.GetComponent<NetworkObject>().Spawn();
+            // spawnedCharacters.Add(instantiatedCharacter);
+
+            GameObject spawnedCharacter = spawner.AttemptToSpawnCharacter();
+            if (spawnedCharacter != null)
+                spawnedCharacters.Add(spawnedCharacter);
         }
     }
 
