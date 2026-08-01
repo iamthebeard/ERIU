@@ -3615,6 +3615,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b123f4f9708aa2444bf700fc1cd4ac5b, type: 3}
   - {fileID: 8300000, guid: c150d20f83bc2fd44862c759dcbb3ff1, type: 3}
   - {fileID: 8300000, guid: 2d59b07a84f014e44b8fcc29bb88087f, type: 3}
+  damageGrunts:
+  - {fileID: 8300000, guid: 3b01c3081aa4fcf459e17138f18aee1b, type: 3}
+  - {fileID: 8300000, guid: 206bc61c5b22446439ab8d39b08f119f, type: 3}
+  - {fileID: 8300000, guid: 7c5eb65925cad65418a5f9d0ea4f54aa, type: 3}
+  - {fileID: 8300000, guid: 2a59e5a019df5ec4f9c7e20b61155a5c, type: 3}
+  - {fileID: 8300000, guid: 906447ff0f5e5f143926ed49f6b71e19, type: 3}
+  - {fileID: 8300000, guid: 321e14b7a9584964a870a68a98505e9a, type: 3}
+  - {fileID: 8300000, guid: b69b83e9214c1024c938158cca87647f, type: 3}
+  - {fileID: 8300000, guid: c50efcc189e5c4b4995e28f34142c6a2, type: 3}
+  attackGrunts:
+  - {fileID: 8300000, guid: 2dd6bf582705d424bb8e0d83b01529b3, type: 3}
+  - {fileID: 8300000, guid: 0f857af706589c5408ed35efdffe89f8, type: 3}
+  - {fileID: 8300000, guid: bc5694015a285cc4c8244fcd0a40f4e2, type: 3}
+  - {fileID: 8300000, guid: 37722284e4b5b74409eb01d1ca2bfcc1, type: 3}
+  - {fileID: 8300000, guid: d6e64e201b4c19147bee239d5a1c992e, type: 3}
 --- !u!114 &3871176628575276266
 MonoBehaviour:
   m_ObjectHideFlags: 0

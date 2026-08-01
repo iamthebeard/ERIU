@@ -7,7 +7,9 @@ public class CharacterSoundFXManager : MonoBehaviour
     private AudioSource audioSource;
 
     [Header("Default Sound FX")]
-    public AudioClip[] whooshes;
+    [SerializeField] public AudioClip[] whooshes;
+    [SerializeField] public AudioClip[] damageGrunts;
+    [SerializeField] public AudioClip[] attackGrunts;
 
     protected virtual void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -40,5 +42,13 @@ public class CharacterSoundFXManager : MonoBehaviour
         
         PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(whooshesToPlay));
 
+    }
+
+    public virtual void Grunt(string type = "damage")
+    {
+        if (type == "attack")
+            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(attackGrunts));
+        else
+            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(damageGrunts));
     }
 }

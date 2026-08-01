@@ -231,12 +231,17 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         if (player.playerNetworkManager.isUsingRightHand.Value)
         {
             rightHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
-            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerInventoryManager.currentRightHandWeapon.whooshes));
+            // player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerInventoryManager.currentRightHandWeapon.whooshes));
+            player.characterSoundFXManager.Whoosh(player.playerInventoryManager.currentRightHandWeapon);
+            player.characterSoundFXManager.Grunt("attack");
         }
-        // else if (player.playerNetworkManager.isUsingLeftHand.Value)
-        // {
-        //     leftHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
-        // }
+        else if (player.playerNetworkManager.isUsingLeftHand.Value)
+        {
+            leftHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
+            // player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerInventoryManager.currentLeftHandWeapon.whooshes));
+            player.characterSoundFXManager.Whoosh(player.playerInventoryManager.currentLeftHandWeapon);
+            player.characterSoundFXManager.Grunt("attack");
+        }
 
         // Play whoosh SFX
     }
@@ -246,11 +251,10 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         if (player.playerNetworkManager.isUsingRightHand.Value)
         {
             rightHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
-            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerInventoryManager.currentLeftHandWeapon.whooshes));
         }
-        // else if (player.playerNetworkManager.isUsingLeftHand.Value)
-        // {
-        //     leftHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
-        // }
+        else if (player.playerNetworkManager.isUsingLeftHand.Value)
+        {
+            leftHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        }
     }
 }

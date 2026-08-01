@@ -2095,18 +2095,13 @@ MonoBehaviour:
   animator: {fileID: 0}
   characterAnimatorManager: {fileID: 0}
   characterNetworkManager: {fileID: 0}
+  characterLocomotionManager: {fileID: 0}
   characterEffectsManager: {fileID: 0}
   characterCombatManager: {fileID: 0}
   characterSoundFXManager: {fileID: 0}
   isDead:
     m_InternalValue: 0
   isPerformingAction: 0
-  applyRootMotion: 0
-  isRolling: 1
-  isBackstepping: 0
-  isGrounded: 1
-  canRotate: 1
-  canMove: 1
   characterGroup: 0
   debugRespawnCharacter: 0
   debugKillCharacter: 0
@@ -2131,6 +2126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e66d08f0d441644f9a6dc6e82fa7472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRolling: 0
+  isBackstepping: 0
+  isGrounded: 1
+  canRotate: 1
+  canMove: 1
   gravityForce: -10
   groundLayer:
     serializedVersion: 2
@@ -2202,6 +2202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  applyRootMotion: 0
   hitForwardMedium01: Hit_F_2
   hitForwardMedium02: Hit_F_1
   hitForwardMedium03: 
@@ -2244,6 +2245,8 @@ MonoBehaviour:
   isJumping:
     m_InternalValue: 0
   isChargingAttack:
+    m_InternalValue: 0
+  isMoving:
     m_InternalValue: 0
   vitality:
     m_InternalValue: 10
@@ -2421,6 +2424,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbd781667fa5574da9410605e989e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whooshes: []
+  damageGrunts:
+  - {fileID: 8300000, guid: 3535af1a1308b074890b0370fe7f6769, type: 3}
+  - {fileID: 8300000, guid: 74a5923afc1bde14d8dc1a499e4ff696, type: 3}
+  - {fileID: 8300000, guid: 3ab78f3382a8b1540808cfe9a647c134, type: 3}
+  - {fileID: 8300000, guid: 65caa8f3d0773034cb0db33abb7ecf69, type: 3}
+  - {fileID: 8300000, guid: 6c3bd3ba6a4043244817e2f265acf72f, type: 3}
+  - {fileID: 8300000, guid: f44d02021bbd7c44b9a59897b59f0f66, type: 3}
+  - {fileID: 8300000, guid: faadaa6b1d19e1d4786f40f3aa8193bf, type: 3}
+  - {fileID: 8300000, guid: 610f2592b53697344bc69ba1bf48a107, type: 3}
+  - {fileID: 8300000, guid: db4b4d63ee8982e44b634e6fbbf9f551, type: 3}
+  - {fileID: 8300000, guid: d9cf195de3957e74eab459e91358e137, type: 3}
+  - {fileID: 8300000, guid: d82b7782059d34f449281e93f090e2e9, type: 3}
+  - {fileID: 8300000, guid: 19f8fcc72b52f5b4fa5f859236301a0b, type: 3}
+  - {fileID: 8300000, guid: 1589ece974b2ffd4c8e830943cf56cd7, type: 3}
+  attackGrunts:
+  - {fileID: 8300000, guid: 41ea3a2bcf3b5124b97fc3f7728c726a, type: 3}
+  - {fileID: 8300000, guid: 7d37f122e55258543aa3c32188a8aa25, type: 3}
+  - {fileID: 8300000, guid: 876cc2f9d307aea4989f8e96ca94b9bf, type: 3}
+  - {fileID: 8300000, guid: c7f5d8fcfba61ae41b27d7a23a548d92, type: 3}
+  - {fileID: 8300000, guid: 60ae6d930e0f3d545824c17eecaed2a2, type: 3}
+  - {fileID: 8300000, guid: 337238b99dfa2b24b92dd597768b6d64, type: 3}
 --- !u!114 &-781727131940977839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2493,6 +2518,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLockOnTarget: {fileID: 0}
+  viewableAngle: 0
+  targetDirection: {x: 0, y: 0, z: 0}
+  targetDistance: 0
   currentAttackType: 0
   lockOnAnchor: {fileID: 1196149302724848440}
   lastAttackAnimationPerformed: 

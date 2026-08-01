@@ -103,6 +103,7 @@ public class TakeDamageEffect : InstantCharacterEffect
         AudioClip damageSFX = WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.bladeHitSFX);
 
         character.characterSoundFXManager.PlaySoundFX(damageSFX);
+        character.characterSoundFXManager.Grunt();
     }
 
     private void PlayDirectionalBasedDamageAnimation(CharacterManager character)
