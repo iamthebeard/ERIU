@@ -81,7 +81,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private void HandleGroundedMovement()
     {
         GetHorizontalAndVerticalInputs();
-        if (!player.canMove) return;
+        if (!canMove) return;
 
         // Movement direction is based on camera perspective and inputs
         moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
@@ -119,7 +119,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     // Give the player slight movement control during a jump or a fall to increase the feel of handling
     private void HandleFreeFallMovement()
     {
-        if (!player.isGrounded)
+        if (!isGrounded)
         {
             Vector3 freeFallDirection = PlayerCamera.instance.transform.forward * verticalMovement;
             freeFallDirection += PlayerCamera.instance.transform.right * horizontalMovement;
@@ -133,13 +133,13 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private void HandleRotation()
     {
         if (player.isDead.Value) return;
-        if (!player.canRotate) return;
+        if (!canRotate) return;
 
         targetRotationDirection = Vector3.zero;
         if (player.playerNetworkManager.isLockedOn.Value
             && player.playerCombatManager.currentLockOnTarget != null
             && !player.playerNetworkManager.isSprinting.Value
-            && !player.isRolling
+            && !isRolling
         )
         {
             // Strafe
@@ -184,7 +184,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             player.transform.rotation = playerRotation;
 
             // Perform a roll animation
-            player.isRolling = true;
+            isRolling = true;
             player.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true);
         }
         else
@@ -193,7 +193,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             backstepDirection = -player.transform.forward;
 
             // Perform a backstep animation
-            player.isBackstepping = true;
+            isBackstepping = true;
             player.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true);
         }
 
@@ -247,7 +247,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         if (player.playerNetworkManager.isJumping.Value)
             return;
 
-        if (!player.isGrounded)
+        if (!isGrounded)
             return;
 
         // Play jumping animation (1H or 2H)

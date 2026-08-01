@@ -15,11 +15,11 @@ public class ResetActionFlag : StateMachineBehaviour
         }
         // This is called when the action ends and the state returns to "Empty"
         character.isPerformingAction = false;
-        character.applyRootMotion = false;
-        character.canRotate = true;
-        character.canMove = true;
-        character.isRolling = false;
-        character.isBackstepping = false;
+        character.characterAnimatorManager.applyRootMotion = false;
+        character.characterLocomotionManager.canRotate = true;
+        character.characterLocomotionManager.canMove = true;
+        character.characterLocomotionManager.isRolling = false;
+        character.characterLocomotionManager.isBackstepping = false;
         character.characterAnimatorManager.DisableCanDoCombo();
 
         if (character.IsOwner) // Setting a network variable from an animation state, so check IsOwner

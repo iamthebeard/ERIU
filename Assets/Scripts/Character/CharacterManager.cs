@@ -9,6 +9,7 @@ public class CharacterManager : NetworkBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public CharacterAnimatorManager characterAnimatorManager;
     [HideInInspector] public CharacterNetworkManager characterNetworkManager;
+    [HideInInspector] public CharacterLocomotionManager characterLocomotionManager;
     [HideInInspector] public CharacterEffectsManager characterEffectsManager;
     [HideInInspector] public CharacterCombatManager characterCombatManager;
     [HideInInspector] public CharacterSoundFXManager characterSoundFXManager;
@@ -23,12 +24,7 @@ public class CharacterManager : NetworkBehaviour
 
     [Header("Flags")]
     public bool isPerformingAction = false;
-    public bool applyRootMotion = false;
-    public bool isRolling = false;
-    public bool isBackstepping = false;
-    public bool isGrounded = true;
-    public bool canRotate = true;
-    public bool canMove = true;
+    
 
     [Header("Team")]
     public CharacterGroup characterGroup;
@@ -39,6 +35,7 @@ public class CharacterManager : NetworkBehaviour
 
         characterController = GetComponent<CharacterController>();
         characterNetworkManager = GetComponent<CharacterNetworkManager>();
+        characterLocomotionManager = GetComponent<CharacterLocomotionManager>();
         animator = GetComponent<Animator>();
         characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
         characterEffectsManager = GetComponent<CharacterEffectsManager>();
@@ -74,7 +71,7 @@ public class CharacterManager : NetworkBehaviour
 
     protected virtual void Update()
     {
-        animator.SetBool("IsGrounded", isGrounded);
+        animator.SetBool("IsGrounded", characterLocomotionManager.isGrounded);
 
         // If this character is being controlled from our side,
         //  set the network position and rotation to our position and rotation.

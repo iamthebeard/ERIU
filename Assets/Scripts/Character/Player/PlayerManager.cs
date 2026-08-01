@@ -52,13 +52,13 @@ public class PlayerManager : CharacterManager
         }
         // Handle movement during animations for *ALL* characters
 
-        if (isRolling)
+        if (playerLocomotionManager.isRolling)
         { // I had to add this because my animation doesn't have built in motion
             // Keep moving in the direction we started rolling
             characterController.Move(transform.forward * playerLocomotionManager.rollingSpeed * Time.deltaTime);
             return;
         }
-        if (isBackstepping)
+        if (playerLocomotionManager.isBackstepping)
         { // I had to add this because my animation doesn't have built in motion
             // Keep moving in the direction we started rolling
             characterController.Move((-transform.forward) * playerLocomotionManager.backstepSpeed * Time.deltaTime);

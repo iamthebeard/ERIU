@@ -16,7 +16,7 @@ public class PlayerAnimatorManager : CharacterAnimatorManager
     // ***** Animation Event Calls *****
 
     private void OnAnimatorMove() {
-        if (character.applyRootMotion) {
+        if (character.characterAnimatorManager.applyRootMotion) {
             Vector3 velocity = character.animator.deltaPosition;
             character.characterController.Move(velocity);
             character.transform.rotation *= character.animator.deltaRotation;

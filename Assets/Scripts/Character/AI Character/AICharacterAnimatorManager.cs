@@ -17,7 +17,7 @@ public class AICharacterAnimatorManager : CharacterAnimatorManager
     {
         if (aiCharacter.IsOwner)
         {
-            if (!aiCharacter.isGrounded) return;
+            if (!aiCharacter.aiCharacterLocomotionManager.isGrounded) return;
 
             Vector3 velocity = aiCharacter.animator.deltaPosition;
             aiCharacter.characterController.Move(velocity);
@@ -25,7 +25,7 @@ public class AICharacterAnimatorManager : CharacterAnimatorManager
         }
         else // Client
         {
-            if (!aiCharacter.isGrounded) return;
+            if (!aiCharacter.aiCharacterLocomotionManager.isGrounded) return;
 
             Vector3 velocity = aiCharacter.animator.deltaPosition;
             aiCharacter.characterController.Move(velocity);

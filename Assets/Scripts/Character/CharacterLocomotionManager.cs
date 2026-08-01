@@ -6,6 +6,13 @@ public class CharacterLocomotionManager : MonoBehaviour
 {
     CharacterManager character;
 
+    [Header("Flags")]
+    public bool isRolling = false;
+    public bool isBackstepping = false;
+    public bool isGrounded = true;
+    public bool canRotate = true;
+    public bool canMove = true;
+
     [Header("Ground & Jumping")]
     [SerializeField] protected float gravityForce = -9.86f;
     [SerializeField] LayerMask groundLayer;
@@ -25,7 +32,7 @@ public class CharacterLocomotionManager : MonoBehaviour
     {
         HandleGroundCheck();
 
-        if (character.isGrounded)
+        if (character.characterLocomotionManager.isGrounded)
         {
             // If we are not attempting to jump or move upward
             if (yVelocity.y < 0)
@@ -54,11 +61,16 @@ public class CharacterLocomotionManager : MonoBehaviour
 
     protected void HandleGroundCheck()
     {
-        character.isGrounded = Physics.CheckSphere(character.transform.position, groundCheckSphereRadius, groundLayer);
+        character.characterLocomotionManager.isGrounded = Physics.CheckSphere(character.transform.position, groundCheckSphereRadius, groundLayer);
     }
 
     protected void OnGizmosSelected()
     {
         Gizmos.DrawSphere(character.transform.position, groundCheckSphereRadius);
+    }
+
+    public void EnableCanRotate()
+    {
+        character.characterLocomotionManager.canRotate = true;
     }
 }

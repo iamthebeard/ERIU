@@ -111,7 +111,7 @@ public class AICharacterCombatManager : CharacterCombatManager
         if (!aiCharacter.isPerformingAction) return; // Maybe flag to attacking only?
         
         // Check to see if we can rotate (during tracking window)
-        if (!aiCharacter.canRotate) return;
+        if (!aiCharacter.characterLocomotionManager.canRotate) return;
 
         // Rotate towards target at specified speed during certain frames 
         Vector3 targetDirection = currentLockOnTarget.transform.position - aiCharacter.transform.position;

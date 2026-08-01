@@ -127,9 +127,9 @@ public class CharacterNetworkManager : NetworkBehaviour
 
     // Question: Why can't I just call PlayTargetActionAnimation?
     private void PerformActionAnimationFromServer(string animationID, bool applyRootMotion, bool isRolling, bool isBackstepping) {
-        character.applyRootMotion = applyRootMotion;
-        character.isRolling = isRolling;
-        character.isBackstepping = isBackstepping;
+        character.characterAnimatorManager.applyRootMotion = applyRootMotion;
+        character.characterLocomotionManager.isRolling = isRolling;
+        character.characterLocomotionManager.isBackstepping = isBackstepping;
         character.animator.CrossFade(animationID, 0.2f);
     }
 

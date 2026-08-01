@@ -9,6 +9,8 @@ public class CharacterAnimatorManager : MonoBehaviour
 
     // int horizontal;
     // int vertical;
+    [Header("Flags")]
+    public bool applyRootMotion = false;
 
     [Header("Damage Animations")]
     [SerializeField] public string hitForwardMedium01 = "Hit_F_1";  // "hit_Forward_Medium_01";
@@ -88,23 +90,23 @@ public class CharacterAnimatorManager : MonoBehaviour
         bool canMove = false
     ) {
         Debug.Log("Playing " + targetAnimation + " on " + character.NetworkObjectId + ".");
-        character.applyRootMotion = applyRootMotion;
+        character.characterAnimatorManager.applyRootMotion = applyRootMotion;
         character.animator.CrossFade(targetAnimation, 0.2f);
         // Can be used to stop character from attempting new actions
         // For example, if you get damaged, and begin performing a damage animation,
         //  this flag will turn true if you are stunned.
         //  We can then check for this before attmepting new actions.
         character.isPerformingAction = isPerformingAction;
-        character.canRotate = canRotate;
-        character.canMove = canMove;
+        character.characterLocomotionManager.canRotate = canRotate;
+        character.characterLocomotionManager.canMove = canMove;
 
         // Tell the server/host about this animation action.
         character.characterNetworkManager.NotifyOfActionAnimationServerRpc(
             NetworkManager.Singleton.LocalClientId,
             targetAnimation,
             applyRootMotion,
-            character.isRolling,
-            character.isBackstepping
+            character.characterLocomotionManager.isRolling,
+            character.characterLocomotionManager.isBackstepping
         );
     }
 
@@ -128,19 +130,19 @@ public class CharacterAnimatorManager : MonoBehaviour
         // Tell the network our "isAttacking" flag (for counter damage, etc.)
 
         // Same as PlayTargetActionAnimation
-        character.applyRootMotion = applyRootMotion;
+        character.characterAnimatorManager.applyRootMotion = applyRootMotion;
         character.animator.CrossFade(targetAnimation, 0.2f);
         character.isPerformingAction = isPerformingAction;
-        character.canRotate = canRotate;
-        character.canMove = canMove;
+        character.characterLocomotionManager.canRotate = canRotate;
+        character.characterLocomotionManager.canMove = canMove;
 
         // Tell the server/host about this animation action.
         character.characterNetworkManager.NotifyOfAttackActionAnimationServerRpc(
             NetworkManager.Singleton.LocalClientId,
             targetAnimation,
             applyRootMotion,
-            character.isRolling,
-            character.isBackstepping
+            character.characterLocomotionManager.isRolling,
+            character.characterLocomotionManager.isBackstepping
         );
     }
 

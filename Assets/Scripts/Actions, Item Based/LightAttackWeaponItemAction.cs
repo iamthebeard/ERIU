@@ -23,7 +23,7 @@ public class LightAttackWeaponItemAction : WeaponItemAction
         {
             return;
         }
-        if (!playerPerformingAction.isGrounded)
+        if (!playerPerformingAction.playerLocomotionManager.isGrounded)
         {
             return;
         }
