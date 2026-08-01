@@ -31,15 +31,29 @@ MonoBehaviour:
     poise: 40
   lightAttack01Modifier: 1
   lightAttack01PoiseModifier: 1
+  lightAttack02Modifier: 1
+  lightAttack02PoiseModifier: 1
   heavyAttack01Modifier: 1
   heavyAttack01PoiseModifier: 1
+  heavyAttack02Modifier: 1.75
+  heavyAttack02PoiseModifier: 1.5
   chargedHeavyAttack01Modifier: 1
   chargedHeavyAttack01PoiseModifier: 1
+  chargedHeavyAttack02Modifier: 2.25
+  chargedHeavyAttack02PoiseModifier: 2
   baseStaminaCost: 30
   lightAttack01StaminaCostModifier: 1
+  lightAttack02StaminaCostModifier: 0.75
+  heavyAttack01StaminaCostModifier: 1.5
+  heavyAttack02StaminaCostModifier: 1.25
+  chargedHeavyAttack01StaminaCostModifier: 2
   rb_Action_OneHanded: {fileID: 0}
   rt_Action_OneHanded: {fileID: 0}
   rtCharged_Action_OneHanded: {fileID: 0}
+  whooshes:
+  - {fileID: 8300000, guid: 8486bb35d114d4b40871a8b9bf354eaa, type: 3}
+  - {fileID: 8300000, guid: 4a51e3a06daaaaa4486acd08a612cf55, type: 3}
+  - {fileID: 8300000, guid: 9d5b6b742619def47910491c28ba8b75, type: 3}
   xPosition: 0
   yPosition: 10
   zPosition: 0

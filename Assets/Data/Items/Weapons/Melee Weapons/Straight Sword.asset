@@ -52,6 +52,10 @@ MonoBehaviour:
   rt_Action_OneHanded: {fileID: 11400000, guid: 905e8697935a7f74799933565b59840a,
     type: 2}
   rtCharged_Action_OneHanded: {fileID: 0}
+  whooshes:
+  - {fileID: 8300000, guid: 8486bb35d114d4b40871a8b9bf354eaa, type: 3}
+  - {fileID: 8300000, guid: 4a51e3a06daaaaa4486acd08a612cf55, type: 3}
+  - {fileID: 8300000, guid: 9d5b6b742619def47910491c28ba8b75, type: 3}
   xPosition: 20
   yPosition: 10
   zPosition: 0

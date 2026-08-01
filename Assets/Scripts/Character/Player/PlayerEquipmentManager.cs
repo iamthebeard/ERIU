@@ -231,10 +231,12 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         if (player.playerNetworkManager.isUsingRightHand.Value)
         {
             rightHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
-        } else if (player.playerNetworkManager.isUsingLeftHand.Value)
-        {
-            leftHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerInventoryManager.currentRightHandWeapon.whooshes));
         }
+        // else if (player.playerNetworkManager.isUsingLeftHand.Value)
+        // {
+        //     leftHandWeaponManager.meleeDamageCollider.EnableDamageCollider();
+        // }
 
         // Play whoosh SFX
     }
@@ -244,9 +246,11 @@ public class PlayerEquipmentManager : CharacterEquipmentManager
         if (player.playerNetworkManager.isUsingRightHand.Value)
         {
             rightHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
-        } else if (player.playerNetworkManager.isUsingLeftHand.Value)
-        {
-            leftHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerInventoryManager.currentLeftHandWeapon.whooshes));
         }
+        // else if (player.playerNetworkManager.isUsingLeftHand.Value)
+        // {
+        //     leftHandWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        // }
     }
 }

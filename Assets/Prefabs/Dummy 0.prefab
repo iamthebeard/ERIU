@@ -3269,18 +3269,13 @@ MonoBehaviour:
   animator: {fileID: 0}
   characterAnimatorManager: {fileID: 0}
   characterNetworkManager: {fileID: 0}
+  characterLocomotionManager: {fileID: 0}
   characterEffectsManager: {fileID: 0}
   characterCombatManager: {fileID: 0}
   characterSoundFXManager: {fileID: 0}
   isDead:
     m_InternalValue: 0
   isPerformingAction: 0
-  applyRootMotion: 0
-  isRolling: 0
-  isBackstepping: 0
-  isGrounded: 1
-  canRotate: 1
-  canMove: 1
   characterGroup: 1
   aiCharacterCombatManager: {fileID: 0}
   aiCharacterNetworkManager: {fileID: 0}
@@ -3547,6 +3542,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23793366a7d1c3c42bf8fa7f90118ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRolling: 0
+  isBackstepping: 0
+  isGrounded: 1
+  canRotate: 1
+  canMove: 1
   gravityForce: -9.86
   groundLayer:
     serializedVersion: 2
@@ -3583,6 +3583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  applyRootMotion: 0
   hitForwardMedium01: Hit_F_1
   hitForwardMedium02: Hit_F_2
   hitForwardMedium03: 
@@ -3609,6 +3610,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24438d9bae0e2a6449d56a47d5f8679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whooshes:
+  - {fileID: 8300000, guid: d3e5ab69356c24c4ea6b433bcc58cafa, type: 3}
+  - {fileID: 8300000, guid: b123f4f9708aa2444bf700fc1cd4ac5b, type: 3}
+  - {fileID: 8300000, guid: c150d20f83bc2fd44862c759dcbb3ff1, type: 3}
+  - {fileID: 8300000, guid: 2d59b07a84f014e44b8fcc29bb88087f, type: 3}
 --- !u!114 &3871176628575276266
 MonoBehaviour:
   m_ObjectHideFlags: 0

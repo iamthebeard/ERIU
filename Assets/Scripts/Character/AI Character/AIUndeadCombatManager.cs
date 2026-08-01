@@ -41,6 +41,7 @@ public class AIUndeadCombatManager : AICharacterCombatManager
     public void OpenDamageCollider()
     {
         rightHandDamageCollider.EnableDamageCollider();
+        character.characterSoundFXManager.Whoosh();
         // leftHandDamageCollider.EnableDamageCollider();
     }
 

@@ -56,6 +56,9 @@ public class WeaponItem : Item
     // Ash of war
 
     // SFX
+    [Header("Sound FX")]
+    public AudioClip[] whooshes;
+    
 
     [Header("Transformation to Wield")]
     public float xPosition;

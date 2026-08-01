@@ -6,6 +6,9 @@ public class CharacterSoundFXManager : MonoBehaviour
 {
     private AudioSource audioSource;
 
+    [Header("Default Sound FX")]
+    public AudioClip[] whooshes;
+
     protected virtual void Awake() {
         audioSource = GetComponent<AudioSource>();
     }
@@ -24,5 +27,18 @@ public class CharacterSoundFXManager : MonoBehaviour
     public void PlayRollSoundFX() {
         // audioSource.PlayOneShot(WorldSoundFXManager.instance.rollSFX);
         PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.rollSFX));
+    }
+
+    public void Whoosh(WeaponItem weapon = null)
+    {
+        AudioClip[] whooshesToPlay;
+
+        if (weapon != null && weapon.whooshes != null && weapon.whooshes.Length > 0)
+            whooshesToPlay = weapon.whooshes;
+        else
+            whooshesToPlay = whooshes;
+        
+        PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(whooshesToPlay));
+
     }
 }
