@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Handaxe
   m_EditorClassIdentifier: 
   itemName: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 4693b94dbdc74aa4a900ba733ca60ddb, type: 3}
   itemDescription: 
   itemID: 0
-  weaponModel: {fileID: 0}
+  weaponModel: {fileID: 7525589154881829682, guid: dde60f5758d920b4183e62d7013764de,
+    type: 3}
   strReq: 0
   dexReq: 0
   intReq: 0
@@ -46,8 +47,10 @@ MonoBehaviour:
   heavyAttack01StaminaCostModifier: 1.5
   heavyAttack02StaminaCostModifier: 1.25
   chargedHeavyAttack01StaminaCostModifier: 2
-  rb_Action_OneHanded: {fileID: 0}
-  rt_Action_OneHanded: {fileID: 0}
+  rb_Action_OneHanded: {fileID: 11400000, guid: 8083fdb864bd5cd448e0e307134594a7,
+    type: 2}
+  rt_Action_OneHanded: {fileID: 11400000, guid: 905e8697935a7f74799933565b59840a,
+    type: 2}
   rtCharged_Action_OneHanded: {fileID: 0}
   xPosition: 0
   yPosition: 0

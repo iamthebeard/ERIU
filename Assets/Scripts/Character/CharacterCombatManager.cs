@@ -27,6 +27,11 @@ public class CharacterCombatManager : NetworkBehaviour
         character = GetComponent<CharacterManager>();
     }
 
+    protected virtual void Start()
+    {
+        
+    }
+
     public virtual void SetLockOnTarget(CharacterManager newLockOnTarget)
     {
         if (character.IsOwner)

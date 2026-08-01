@@ -19,4 +19,4 @@ MonoBehaviour:
   recoveryTime: 1.5
   attackableAngle: 35
   minimumDistance: 1
-  maximumDistance: 3
+  maximumDistance: 2
