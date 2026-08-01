@@ -28,6 +28,7 @@ public class AttackState : AIState
         //     return SwitchState(aiCharacter, aiCharacter.pursueTarget);
         
         // Rotate toward target while attacking (tracking)
+        aiCharacter.aiCharacterCombatManager.RotateTowardsTargetWhileAttacking(aiCharacter);
 
         // Set movement values to 0
         aiCharacter.characterAnimatorManager.UpdateAnimatorMovement(0, 0, false);
@@ -43,12 +44,12 @@ public class AttackState : AIState
             }
         }
 
+        if (aiCharacter.isPerformingAction)
+            return this;
+
         if (!hasPerformedAttack)
         {
             if (aiCharacter.aiCharacterCombatManager.actionRecoveryTimer > 0)
-                return this;
-            
-            if (aiCharacter.isPerformingAction)
                 return this;
             
            PerformAttack(aiCharacter);

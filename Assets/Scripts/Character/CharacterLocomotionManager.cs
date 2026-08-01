@@ -73,4 +73,9 @@ public class CharacterLocomotionManager : MonoBehaviour
     {
         character.characterLocomotionManager.canRotate = true;
     }
+
+    public void DisableCanRotate()
+    {
+        character.characterLocomotionManager.canRotate = false;
+    }
 }
