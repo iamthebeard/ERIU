@@ -15,8 +15,8 @@ public class AICharacterSpawner : MonoBehaviour
 
     void Start()
     {
-        WorldAIManager.instance.aiCharacterSpawners.Add(this);
-        
+        WorldAIManager.instance.SpawnCharacter(this);
+
         // We don't want this object active in the scene. It's just a dummy to indicate where a character will spawn.
         gameObject.SetActive(false);
     }

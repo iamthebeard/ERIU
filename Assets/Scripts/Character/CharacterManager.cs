@@ -56,6 +56,7 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager.lockOnTargetID.OnValueChanged += characterNetworkManager.OnLockOnTargetIDChanged;
         characterNetworkManager.isLockedOn.OnValueChanged += characterNetworkManager.OnIsLockedOnChanged;
         characterNetworkManager.isChargingAttack.OnValueChanged += characterNetworkManager.OnIsChargingAttackChanged;
+        characterNetworkManager.OnIsMovingChanged(false, characterNetworkManager.isMoving.Value);
         characterNetworkManager.isMoving.OnValueChanged += characterNetworkManager.OnIsMovingChanged;
     }
 

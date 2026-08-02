@@ -9,9 +9,8 @@ public class WorldAIManager : MonoBehaviour
     public static WorldAIManager instance { get; private set;}
 
     [Header("Characters")]
-    // [SerializeField] GameObject[] aiCharacters; // X Use aiCharacterSpawners instead.
     [SerializeField] List<GameObject> spawnedCharacters;
-    [SerializeField] public List<AICharacterSpawner> aiCharacterSpawners;
+    [SerializeField] List<AICharacterSpawner> aiCharacterSpawners;
 
     [Header("DEBUG")]
     [SerializeField] bool despawnAICharacters = false;
@@ -29,14 +28,6 @@ public class WorldAIManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (NetworkManager.Singleton.IsServer /* || NetworkManager.Singleton.IsHost ?*/)
-        {
-            // Spawn all AI in scene
-            StartCoroutine(WaitForSceneToLoadThenSpawnCharacters());
-        }
-    }
 
     private void Update()
     {
@@ -48,30 +39,18 @@ public class WorldAIManager : MonoBehaviour
         if (respawnAICharacters)
         {
             respawnAICharacters = false;
-            SpawnAllCharacters();
+            foreach (var spawner in aiCharacterSpawners)
+                SpawnCharacter(spawner);
         }
     }
 
-    private IEnumerator WaitForSceneToLoadThenSpawnCharacters()
+    public void SpawnCharacter(AICharacterSpawner spawner)
     {
-        while (!SceneManager.GetActiveScene().isLoaded)
-            yield return null;
-        
-        SpawnAllCharacters();
-    }
-
-    private void SpawnAllCharacters()
-    {
-        foreach (var spawner in aiCharacterSpawners)
-        {
-            // GameObject instantiatedCharacter = Instantiate(character); // X Using character spanwer now.
-            // instantiatedCharacter.GetComponent<NetworkObject>().Spawn();
-            // spawnedCharacters.Add(instantiatedCharacter);
-
-            GameObject spawnedCharacter = spawner.AttemptToSpawnCharacter();
-            if (spawnedCharacter != null)
-                spawnedCharacters.Add(spawnedCharacter);
-        }
+        if (!NetworkManager.Singleton.IsServer) return;
+        aiCharacterSpawners.Add(spawner);
+        GameObject spawnedCharacter = spawner.AttemptToSpawnCharacter();
+        if (spawnedCharacter != null)
+            spawnedCharacters.Add(spawnedCharacter);
     }
 
     private void DespawnAllCharacters()

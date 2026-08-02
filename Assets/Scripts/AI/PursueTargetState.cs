@@ -24,7 +24,7 @@ public class PursueTargetState : AIState
         {
             aiCharacter.characterCombatManager.SetLockOnTarget(null); // We no longer have line-of-sight to this target.
             aiCharacter.navMeshAgent.enabled = false;
-            return aiCharacter.idle;
+            return SwitchState(aiCharacter, aiCharacter.idle);
         }
 
         // Make sure our navmesh agent is active (if not, enable it)
