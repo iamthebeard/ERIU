@@ -3209,7 +3209,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8334689683478769049}
-  - component: {fileID: -1484592153861983281}
+  - component: {fileID: 1683165947008846173}
   - component: {fileID: 8334689683478640305}
   - component: {fileID: 7777894594829971556}
   - component: {fileID: 8334689683469206495}
@@ -3224,7 +3224,7 @@ GameObject:
   - component: {fileID: 3871176628575276266}
   - component: {fileID: 3842782584768231582}
   - component: {fileID: 57318706134785617}
-  - component: {fileID: 9081657113715611630}
+  - component: {fileID: 8515718572262061009}
   m_Layer: 6
   m_Name: Dummy Boss
   m_TagString: Untagged
@@ -3253,7 +3253,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
---- !u!114 &-1484592153861983281
+--- !u!114 &1683165947008846173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3262,7 +3262,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8334689683478606329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8444bc8f8e724754aad4d484ec3ec926, type: 3}
+  m_Script: {fileID: 11500000, guid: f122bb1e3a075054aa7b750acc810513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
@@ -3669,7 +3669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266d4715223978145999417cd2cca942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9081657113715611630
+--- !u!114 &8515718572262061009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3678,7 +3678,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8334689683478606329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2aba1e5ea3e54949815603b6d8fe74e, type: 3}
+  m_Script: {fileID: 11500000, guid: 301d0237a1661dc4ab137b6ea8c33e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentLockOnTarget: {fileID: 0}
@@ -3686,25 +3686,12 @@ MonoBehaviour:
   targetDirection: {x: 0, y: 0, z: 0}
   targetDistance: 0
   currentAttackType: 0
-  lockOnAnchor: {fileID: 5828833727295080444}
+  lockOnAnchor: {fileID: 0}
   lastAttackAnimationPerformed: 
   detectionRadius: 15
   detectionFieldOfView: 35
   actionRecoveryTimer: 0
   attackRotationSpeed: 25
-  rightHandDamageCollider: {fileID: 7731332806249745865}
-  leftHandDamageCollider: {fileID: 0}
-  damage:
-    physical: 50
-    magic: 0
-    fire: 0
-    holy: 0
-    lightning: 0
-    poise: 20
-  overhandAttackDamageModifier: 1.75
-  overhandAttackPoiseDamageModifier: 2.5
-  swipeAttackDamageModifier: 1
-  swipeAttackPoiseDamageModifier: 1
 --- !u!1 &8334689683478606331
 GameObject:
   m_ObjectHideFlags: 0

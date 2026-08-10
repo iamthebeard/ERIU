@@ -52,12 +52,16 @@ public class CharacterManager : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
-        // Targets
+        // Set initial values from save file
+        characterNetworkManager.OnIsMovingChanged(false, characterNetworkManager.isMoving.Value);
+        characterNetworkManager.OnIsActiveChanged(false, characterNetworkManager.isActive.Value);
+
+        // Set up OnChanged events
         characterNetworkManager.lockOnTargetID.OnValueChanged += characterNetworkManager.OnLockOnTargetIDChanged;
         characterNetworkManager.isLockedOn.OnValueChanged += characterNetworkManager.OnIsLockedOnChanged;
         characterNetworkManager.isChargingAttack.OnValueChanged += characterNetworkManager.OnIsChargingAttackChanged;
-        characterNetworkManager.OnIsMovingChanged(false, characterNetworkManager.isMoving.Value);
         characterNetworkManager.isMoving.OnValueChanged += characterNetworkManager.OnIsMovingChanged;
+        characterNetworkManager.isActive.OnValueChanged += characterNetworkManager.OnIsActiveChanged;
     }
 
     public override void OnNetworkDespawn()
@@ -68,6 +72,7 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager.isLockedOn.OnValueChanged -= characterNetworkManager.OnIsLockedOnChanged;
         characterNetworkManager.isChargingAttack.OnValueChanged -= characterNetworkManager.OnIsChargingAttackChanged;
         characterNetworkManager.isMoving.OnValueChanged -= characterNetworkManager.OnIsMovingChanged;
+        characterNetworkManager.isActive.OnValueChanged -= characterNetworkManager.OnIsActiveChanged;
     }
 
     protected virtual void Update()

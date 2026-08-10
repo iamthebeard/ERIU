@@ -33,6 +33,8 @@ public class CharacterNetworkManager : NetworkBehaviour
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> isMoving =
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<bool> isActive = 
+        new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     [Header("Base Stats")]
     public NetworkVariable<int> vitality =
@@ -104,6 +106,11 @@ public class CharacterNetworkManager : NetworkBehaviour
     public void OnIsMovingChanged(bool oldValue, bool newValue)
     {
         character.animator.SetBool("IsMoving", isMoving.Value);
+    }
+
+    public virtual void OnIsActiveChanged(bool oldStatus, bool newStatus)
+    {
+        gameObject.SetActive(newStatus);
     }
 
     // ******************** RPCs ********************
