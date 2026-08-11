@@ -10,6 +10,7 @@ public class CharacterSoundFXManager : MonoBehaviour
     [SerializeField] public AudioClip[] whooshes;
     [SerializeField] public AudioClip[] damageGrunts;
     [SerializeField] public AudioClip[] attackGrunts;
+    [SerializeField] public AudioClip[] footstepsGeneric;
 
     protected virtual void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -17,6 +18,9 @@ public class CharacterSoundFXManager : MonoBehaviour
 
     public void PlaySoundFX(AudioClip soundFX, float volume = 1.0f, bool randomizePitch = true, float pitchRandom = 0.1f)
     {
+        if (soundFX == null) return;
+
+        
         audioSource.PlayOneShot(soundFX, volume);
         audioSource.pitch = 1; // Reset pitch
 
@@ -50,5 +54,15 @@ public class CharacterSoundFXManager : MonoBehaviour
             PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(attackGrunts));
         else
             PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(damageGrunts));
+    }
+
+    public virtual void Footstep(string type = "default")
+    {
+        switch (type)
+        {
+            default:
+                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(footstepsGeneric));
+                break;
+        }
     }
 }
