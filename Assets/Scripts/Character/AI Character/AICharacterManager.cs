@@ -13,13 +13,14 @@ public class AICharacterManager : CharacterManager
     public NavMeshAgent navMeshAgent;
 
     [Header("Current State")]
-    [SerializeField] AIState currentState;
+    [SerializeField] protected AIState currentState;
 
     [Header("States")]
     [SerializeField] public IdleState idle;
     [SerializeField] public PursueTargetState pursueTarget;
     [SerializeField] public CombatStanceState combatStance;
     [SerializeField] public AttackState attack;
+    [SerializeField] public SleepState sleep;
     
 
 
@@ -31,12 +32,25 @@ public class AICharacterManager : CharacterManager
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
         aiCharacterNetworkManager = GetComponent<AICharacterNetworkManager>();
         aiCharacterLocomotionManager = GetComponent<AICharacterLocomotionManager>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
 
         // Immediately make a copy of the ScriptableObjects so we don't modify the originals
+        // Required states
         idle = Instantiate(idle);
         pursueTarget = Instantiate(pursueTarget);
+        combatStance = Instantiate(combatStance);
+        attack = Instantiate(attack);
+        // Optional states (idle requires the other ones, unless there are no attacks)
+        if (sleep != null) sleep = Instantiate(sleep);
 
-        currentState = idle; // Always set initial state to idle
+        if (IsOwner)
+        {
+            currentState = idle; // Always set initial state to idle
+        }
     }
 
     protected override void Update()

@@ -141,6 +141,9 @@
     <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterFootstepMaker.cs" />
+    <Compile Include="Assets\Scripts\AI\SleepState.cs" />
+    <Compile Include="Assets\Scripts\Events\EventTrigger.cs" />
+    <Compile Include="Assets\Scripts\Events\EventTriggerBossFight.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
