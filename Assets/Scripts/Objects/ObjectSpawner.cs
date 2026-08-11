@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class AICharacterSpawner : MonoBehaviour
+public class ObjectSpawner : MonoBehaviour
 {
-    [Header("Character")]
-    [SerializeField] GameObject characterGameObject;
+    [Header("Object")]
+    [SerializeField] GameObject objectPrefab;
     [SerializeField] GameObject instantiatedGameObject;
 
     void Awake()
@@ -15,17 +15,17 @@ public class AICharacterSpawner : MonoBehaviour
 
     void Start()
     {
-        WorldAIManager.instance.SpawnCharacter(this);
+        WorldObjectManager.instance.SpawnObject(this);
 
         // We don't want this object active in the scene. It's just a dummy to indicate where a character will spawn.
         gameObject.SetActive(false);
     }
 
-    public GameObject AttemptToSpawnCharacter()
+    public GameObject AttemptToSpawnObject()
     {
-        if (characterGameObject == null) return null;
+        if (objectPrefab == null) return null;
 
-        instantiatedGameObject = Instantiate(characterGameObject);
+        instantiatedGameObject = Instantiate(objectPrefab);
 
         // We use this model to set the position and rotation of the spawned character in the scene.
         instantiatedGameObject.transform.position = transform.position;
@@ -36,3 +36,4 @@ public class AICharacterSpawner : MonoBehaviour
         return instantiatedGameObject;
     }
 }
+

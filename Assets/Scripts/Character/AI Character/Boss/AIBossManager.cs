@@ -14,6 +14,7 @@ public class AIBossManager : AICharacterManager
     // If the boss has been defeated, disable this game object
     // If the boss has been awakened, 
     [SerializeField] bool hasBeenAwakened;
+    [SerializeField] List<FogWallInteractable> associatedFogWalls;
 
     [Header("DEBUG")]
     [SerializeField] bool awakenBoss = false;
@@ -34,13 +35,34 @@ public class AIBossManager : AICharacterManager
         }
         else
         {
-            hasBeenDefeated = WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened[bossID];
+            hasBeenDefeated = WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated[bossID];
+            hasBeenAwakened = WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened[bossID];
+        }
 
-            if (hasBeenDefeated)
+        associatedFogWalls = new List<FogWallInteractable>();
+
+        // Locate fog wall
+        StartCoroutine(GetFogWallsFromWorldObjectManager());
+
+        if (hasBeenDefeated)
+        {
+            aiCharacterNetworkManager.isActive.Value = false;
+            // If the boss has been defeated, disable fog walls
+            for (int i = 0; i < associatedFogWalls.Count; i++)
             {
-                aiCharacterNetworkManager.isActive.Value = false;
+                associatedFogWalls[i].isActive.Value = false;
             }
         }
+
+        if (hasBeenAwakened && !hasBeenDefeated)
+        {
+            // If the boss has been awakened, enable the fog walls
+            for (int i = 0; i < associatedFogWalls.Count; i++)
+            {
+                associatedFogWalls[i].isActive.Value = true;
+            }
+        }
+
 
 
     }
@@ -57,9 +79,7 @@ public class AIBossManager : AICharacterManager
         if (awakenBoss)
         {
             awakenBoss = false;
-            hasBeenAwakened = true;
-            WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Remove(bossID);
-            WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Add(bossID, true);
+            WakeBoss();
             WorldSaveGameManager.instance.SaveGame();
         }
         if (defeatBoss)
@@ -77,9 +97,26 @@ public class AIBossManager : AICharacterManager
             hasBeenAwakened = false;
             hasBeenDefeated = false;
             gameObject.SetActive(true);
-            WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened[bossID] = false;
-            WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated[bossID] = false;
+            WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Remove(bossID);
+            WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Add(bossID, false);
+            WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Remove(bossID);
+            WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Add(bossID, false);
             WorldSaveGameManager.instance.SaveGame();
+        }
+    }
+
+    private IEnumerator GetFogWallsFromWorldObjectManager()
+    {
+        while (WorldObjectManager.instance.fogWalls.Count == 0)
+            yield return new WaitForEndOfFrame();
+        
+        // Can either share the same ID for the boss and the fog wall, or simply place a fogwall ID variable here to look for it using that.
+        foreach (var fogWall in WorldObjectManager.instance.fogWalls)
+        {
+            if (fogWall.fogWallBossID == bossID)
+            {
+                associatedFogWalls.Add(fogWall);
+            }
         }
     }
 
@@ -113,10 +150,8 @@ public class AIBossManager : AICharacterManager
             }
             else
             {
-                // Otherwise, load the data that already exists on this boss
-                WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Remove(bossID);
+                WakeBoss();
                 WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Remove(bossID);
-                WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Add(bossID, true);
                 WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Add(bossID, true);
             }
             WorldSaveGameManager.instance.SaveGame();
@@ -129,5 +164,29 @@ public class AIBossManager : AICharacterManager
         // Award player with runes and other after-death effecets
 
         // Disable character
+    }
+
+    public void WakeBoss()
+    {
+        hasBeenAwakened = true;
+        WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Remove(bossID);
+        WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Add(bossID, true);
+
+        foreach (var fogWall in associatedFogWalls)
+        {
+            fogWall.isActive.Value = true;
+        }
+    }
+
+    public void DefeatBoss()
+    {
+        hasBeenDefeated = true;
+        WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Remove(bossID);
+        WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Add(bossID, true);
+        
+        foreach (var fogWall in associatedFogWalls)
+        {
+            fogWall.isActive.Value = false;
+        }
     }
 }

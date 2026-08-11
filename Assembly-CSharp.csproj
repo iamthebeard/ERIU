@@ -46,10 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\CharacterController\vThirdPersonMotor.cs" />
+    <Compile Include="Assets\Scripts\Objects\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldSoundFXManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerCamera.cs" />
+    <Compile Include="Assets\Scripts\World Managers\WorldObjectManager.cs" />
     <Compile Include="Assets\Scripts\Colliders\MeleeWeaponDamageCollider.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterInventoryManager.cs" />
+    <Compile Include="Assets\Scripts\Objects\FogWallInteractable.cs" />
     <Compile Include="Assets\Scripts\Game Saving\SaveFileDataWriter.cs" />
     <Compile Include="Assets\Scripts\Actions, Item Based\WeaponItemAction.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterNetworkManager.cs" />
@@ -122,7 +125,7 @@
     <Compile Include="Assets\Scripts\Character\CharacterCombatManager.cs" />
     <Compile Include="Assets\Scripts\Colliders\DamageCollider.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterSoundFXManager.cs" />
-    <Compile Include="Assets\AICharacterSpawner.cs" />
+    <Compile Include="Assets\Scripts\AI\AICharacterSpawner.cs" />
     <Compile Include="Assets\Scripts\SerializableDictionary.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldGameSessionManager.cs" />
