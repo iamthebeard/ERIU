@@ -37,12 +37,14 @@ public class TakeDamageEffect : InstantCharacterEffect
 
     public override void ProcessEffect(CharacterManager character)
     {
-        base.ProcessEffect(character);
-
         if (character.isDead.Value) // If character is dead, do not process any additional damage effects 
             return;
 
-        // Check for invulnerability (TODO)
+        // Check for invulnerability
+        if (character.characterNetworkManager.isInvulnerable.Value)
+            return;
+
+        base.ProcessEffect(character);
 
         // Calculate damage
         CalculateDamage(character);

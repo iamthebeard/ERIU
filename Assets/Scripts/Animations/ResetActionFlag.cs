@@ -25,6 +25,7 @@ public class ResetActionFlag : StateMachineBehaviour
         if (character.IsOwner) // Setting a network variable from an animation state, so check IsOwner
         {
             character.characterNetworkManager.isJumping.Value = false;
+            character.characterNetworkManager.isInvulnerable.Value = false;
         }
     }
 

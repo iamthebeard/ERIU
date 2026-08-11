@@ -50,4 +50,16 @@ public class CharacterCombatManager : NetworkBehaviour
             }
         }
     }
+
+    public void IFramesStart()
+    {
+        if (character.IsOwner)
+            character.characterNetworkManager.isInvulnerable.Value = true;
+    }
+
+    public void IFramesStop()
+    {
+        if (character.IsOwner)
+            character.characterNetworkManager.isInvulnerable.Value = false;
+    }
 }
