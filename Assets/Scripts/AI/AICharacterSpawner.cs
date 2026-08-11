@@ -21,10 +21,8 @@ public class AICharacterSpawner : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public GameObject AttemptToSpawnCharacter()
+    public void AttemptToSpawnCharacter()
     {
-        if (characterPrefab == null) return null;
-
         instantiatedGameObject = Instantiate(characterPrefab);
 
         // We use this model to set the position and rotation of the spawned character in the scene.
@@ -33,6 +31,6 @@ public class AICharacterSpawner : MonoBehaviour
 
         instantiatedGameObject.GetComponent<NetworkObject>().Spawn();
 
-        return instantiatedGameObject;
+        WorldAIManager.instance.AddCharacterToSpawnedCharactersList(instantiatedGameObject.GetComponent<AICharacterManager>());
     }
 }
