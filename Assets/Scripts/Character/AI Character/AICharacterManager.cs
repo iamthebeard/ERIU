@@ -9,6 +9,9 @@ public class AICharacterManager : CharacterManager
     [HideInInspector] public AICharacterNetworkManager aiCharacterNetworkManager;
     [HideInInspector] public AICharacterLocomotionManager aiCharacterLocomotionManager;
 
+    [Header("AI Character Name")]
+    public string aiCharacterName;
+
     [Header("Navigation")]
     public NavMeshAgent navMeshAgent;
 

@@ -16,6 +16,8 @@ public class AIBossManager : AICharacterManager
     // If the boss has been awakened, 
     [SerializeField] public NetworkVariable<bool> hasBeenAwakened = 
         new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    [SerializeField] public NetworkVariable<bool> fightInProgress = 
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     [SerializeField] List<FogWallInteractable> associatedFogWalls;
     [SerializeField] string inactiveAnimation;
     [SerializeField] string awakenAnimation;
@@ -23,6 +25,7 @@ public class AIBossManager : AICharacterManager
     [Header("DEBUG")]
     [SerializeField] bool awakenBoss = false;
     [SerializeField] bool defeatBoss = false;
+    [SerializeField] bool startFight = false;
     [SerializeField] bool resetBoss = false;
     
     protected override void Update()
@@ -35,6 +38,9 @@ public class AIBossManager : AICharacterManager
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+
+        fightInProgress.OnValueChanged += OnFightInProgressChanged;
+        OnFightInProgressChanged(false, fightInProgress.Value);
 
         if (IsOwner)
         {
@@ -90,6 +96,13 @@ public class AIBossManager : AICharacterManager
 
     }
 
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+
+        fightInProgress.OnValueChanged -= OnFightInProgressChanged;
+    }
+
     private void DebugMenu()
     {
         if (awakenBoss)
@@ -142,6 +155,7 @@ public class AIBossManager : AICharacterManager
         {
             characterNetworkManager.currentHealth.Value = 0;
             isDead.Value = true;
+            fightInProgress.Value = false;
 
             // Reset any flags that need to be reset
             // Nothing yet
@@ -202,6 +216,8 @@ public class AIBossManager : AICharacterManager
             {
                 fogWall.isActive.Value = true;
             }
+
+            fightInProgress.Value = true;
         }
     }
 
@@ -217,6 +233,19 @@ public class AIBossManager : AICharacterManager
             {
                 fogWall.isActive.Value = false;
             }
+        }
+    }
+
+    private void OnFightInProgressChanged(bool oldStatus, bool fightNowInProgress)
+    {
+        if (fightNowInProgress)
+        {
+            GameObject bossHealthBar = Instantiate(
+                PlayerUIManager.instance.playerUIHUDManager.bossHealthBarPrefab,
+                PlayerUIManager.instance.playerUIHUDManager.bossHealthBarParent
+            );
+            UI_BossBar bossHPBar = bossHealthBar.GetComponentInChildren<UI_BossBar>();
+            bossHPBar.EnableBossHPBar(this);
         }
     }
 }

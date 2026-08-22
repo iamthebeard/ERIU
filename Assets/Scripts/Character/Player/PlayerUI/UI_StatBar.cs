@@ -37,4 +37,9 @@ public class UI_StatBar : MonoBehaviour
         // Reset the HUD
         PlayerUIManager.instance.playerUIHUDManager.ResetHUD();
     }
+
+    public void RemoveBar(float delay = 0.0f)
+    {
+        Destroy(gameObject, delay);
+    }
 }

@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\Character\Effects\BaseCharacterEffect.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\UIMatchScrollWheelToSelectedButton.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterEffectsManager.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterFootstepMaker.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PopupManager.cs" />
     <Compile Include="Assets\Scripts\Game Saving\UICharacterSaveSlot.cs" />
     <Compile Include="Assets\Invector-3rdPersonController_LITE\Scripts\Camera\vThirdPersonCamera.cs" />
@@ -110,19 +111,23 @@
     <Compile Include="Assets\Scripts\AI\IdleState.cs" />
     <Compile Include="Assets\Scripts\World Managers\WorldSaveGameManager.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\TitleScreenLoadMenuInputManager.cs" />
+    <Compile Include="Assets\Scripts\AI\SleepState.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerUI\PlayerUIHUDManager.cs" />
     <Compile Include="Assets\Scripts\Game Saving\CharacterSaveData.cs" />
     <Compile Include="Assets\Scripts\Animations\ManuallyInvokeJumpVelocity.cs" />
     <Compile Include="Assets\Scripts\Character\Effects\TakeStaminaDamageEffect.cs" />
+    <Compile Include="Assets\Scripts\Events\EventTriggerBossFight.cs" />
     <Compile Include="Assets\Scripts\Character\AI Character\Boss\AIBossCombatManager.cs" />
     <Compile Include="Assets\Scripts\Actions, Item Based\ItemBasedAction.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInventoryManager.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerCombatManager.cs" />
     <Compile Include="Assets\Scripts\Character\AI Character\AICharacterAnimatorManager.cs" />
+    <Compile Include="Assets\Scripts\Character\Player\PlayerUI\UI_BossBar.cs" />
     <Compile Include="Assets\Scripts\Items\MeleeWeaponItem.cs" />
     <Compile Include="Assets\Scripts\Utility\AutoTint.cs" />
     <Compile Include="Assets\Scripts\AI\CombatStanceState.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterCombatManager.cs" />
+    <Compile Include="Assets\Scripts\Events\EventTrigger.cs" />
     <Compile Include="Assets\Scripts\Colliders\DamageCollider.cs" />
     <Compile Include="Assets\Scripts\Character\CharacterSoundFXManager.cs" />
     <Compile Include="Assets\Scripts\AI\AICharacterSpawner.cs" />
@@ -140,10 +145,6 @@
     <Compile Include="Assets\Scripts\Character\AI Character\Boss\AIBossManager.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetActionFlag.cs" />
     <Compile Include="Assets\Scripts\Character\Player\PlayerInputManager.cs" />
-    <Compile Include="Assets\Scripts\Character\CharacterFootstepMaker.cs" />
-    <Compile Include="Assets\Scripts\AI\SleepState.cs" />
-    <Compile Include="Assets\Scripts\Events\EventTrigger.cs" />
-    <Compile Include="Assets\Scripts\Events\EventTriggerBossFight.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1226,13 +1227,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ParrelSync.csproj" />
-    <ProjectReference Include="CFXRRuntime.csproj" />
-    <ProjectReference Include="CFXREditor.csproj" />
     <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj" />
-    <ProjectReference Include="CFXRDemo.csproj" />
-    <ProjectReference Include="KinoBloom.Runtime.csproj" />
+    <ProjectReference Include="CFXREditor.csproj" />
     <ProjectReference Include="CFXR.WelcomeScreen.csproj" />
+    <ProjectReference Include="CFXRRuntime.csproj" />
+    <ProjectReference Include="KinoBloom.Runtime.csproj" />
+    <ProjectReference Include="CFXRDemo.csproj" />
+    <ProjectReference Include="ParrelSync.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>

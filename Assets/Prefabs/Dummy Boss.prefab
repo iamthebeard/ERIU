@@ -3280,6 +3280,7 @@ MonoBehaviour:
   aiCharacterCombatManager: {fileID: 0}
   aiCharacterNetworkManager: {fileID: 0}
   aiCharacterLocomotionManager: {fileID: 0}
+  aiCharacterName: B'Os, the Prototypical
   navMeshAgent: {fileID: 3387350097778058153}
   currentState: {fileID: 0}
   idle: {fileID: 11400000, guid: 4237d1a4bdef30241a679cf88e8a3dfd, type: 2}
@@ -3292,11 +3293,14 @@ MonoBehaviour:
     m_InternalValue: 0
   hasBeenAwakened:
     m_InternalValue: 0
+  fightInProgress:
+    m_InternalValue: 0
   associatedFogWalls: []
   inactiveAnimation: talking
   awakenAnimation: pointing
   awakenBoss: 0
   defeatBoss: 0
+  startFight: 0
   resetBoss: 0
 --- !u!114 &8334689683478640305
 MonoBehaviour:
@@ -3354,11 +3358,11 @@ MonoBehaviour:
   endurance:
     m_InternalValue: 10
   maxHealth:
-    m_InternalValue: 0
+    m_InternalValue: 500
   maxStamina:
-    m_InternalValue: 0
+    m_InternalValue: 100
   currentHealth:
-    m_InternalValue: 0
+    m_InternalValue: 500
   currentStamina:
     m_InternalValue: 0
   isLockedOn:

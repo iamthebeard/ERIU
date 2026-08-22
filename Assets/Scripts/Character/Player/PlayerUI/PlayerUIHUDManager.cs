@@ -9,6 +9,10 @@ public class PlayerUIHUDManager : MonoBehaviour
     [SerializeField] UI_StatBar healthBar;
     [SerializeField] UI_StatBar staminaBar;
 
+    [Header("Boss Health Bars")]
+    public Transform bossHealthBarParent;
+    public GameObject bossHealthBarPrefab;
+
     [Header("Quick Slots")]
     [SerializeField] Image rightWeaponQuickSlotIcon;
     [SerializeField] Image leftWeaponQuickSlotIcon;
