@@ -3298,6 +3298,7 @@ MonoBehaviour:
   associatedFogWalls: []
   inactiveAnimation: talking
   awakenAnimation: pointing
+  defeatedMessage: ENEMY DEFEATED
   awakenBoss: 0
   defeatBoss: 0
   startFight: 0
@@ -3358,11 +3359,11 @@ MonoBehaviour:
   endurance:
     m_InternalValue: 10
   maxHealth:
-    m_InternalValue: 500
+    m_InternalValue: 100
   maxStamina:
     m_InternalValue: 100
   currentHealth:
-    m_InternalValue: 500
+    m_InternalValue: 100
   currentStamina:
     m_InternalValue: 0
   isLockedOn:

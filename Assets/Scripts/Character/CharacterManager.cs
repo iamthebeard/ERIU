@@ -62,6 +62,7 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager.isChargingAttack.OnValueChanged += characterNetworkManager.OnIsChargingAttackChanged;
         characterNetworkManager.isMoving.OnValueChanged += characterNetworkManager.OnIsMovingChanged;
         characterNetworkManager.isActive.OnValueChanged += characterNetworkManager.OnIsActiveChanged;
+        characterNetworkManager.currentHealth.OnValueChanged += characterNetworkManager.CheckHP;
     }
 
     public override void OnNetworkDespawn()
@@ -73,6 +74,7 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager.isChargingAttack.OnValueChanged -= characterNetworkManager.OnIsChargingAttackChanged;
         characterNetworkManager.isMoving.OnValueChanged -= characterNetworkManager.OnIsMovingChanged;
         characterNetworkManager.isActive.OnValueChanged -= characterNetworkManager.OnIsActiveChanged;
+        characterNetworkManager.currentHealth.OnValueChanged -= characterNetworkManager.CheckHP;
     }
 
     protected virtual void Update()

@@ -21,6 +21,7 @@ public class AIBossManager : AICharacterManager
     [SerializeField] List<FogWallInteractable> associatedFogWalls;
     [SerializeField] string inactiveAnimation;
     [SerializeField] string awakenAnimation;
+    public string defeatedMessage = "ENEMY DEFEATED";
 
     [Header("DEBUG")]
     [SerializeField] bool awakenBoss = false;
@@ -151,49 +152,19 @@ public class AIBossManager : AICharacterManager
 
     override public IEnumerator ProcessDeathEvent(bool overrideDeathAnimation = false)
     {
+        PlayerUIManager.instance.popupManager.SendBossDefeatedPopup(defeatedMessage);
         if (IsOwner)
         {
             characterNetworkManager.currentHealth.Value = 0;
             isDead.Value = true;
             fightInProgress.Value = false;
+            DefeatBoss();
 
-            // Reset any flags that need to be reset
-            // Nothing yet
-
-            // If we are not grounded, play aerial death animation.
-
-            if (!overrideDeathAnimation)
-            {
-                // Play regular death animation (or select randomly from the standard set)
-                characterAnimatorManager.PlayTargetActionAnimation("Standing React Death Forward", true);
-                // Would this work better?
-                // animator.CrossFade("Standing React Death Forward", 0.5f);
-            }
-
-            // Save boss status
-            hasBeenDefeated.Value = true;
-            if (!WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.ContainsKey(bossID))
-            {
-                // Add it to the list if it's not already there.
-                WorldSaveGameManager.instance.currentCharacterSaveData.bossesAwakened.Add(bossID, true);
-                WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Add(bossID, true);
-            }
-            else
-            {
-                WakeBoss();
-                WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Remove(bossID);
-                WorldSaveGameManager.instance.currentCharacterSaveData.bossesDefeated.Add(bossID, true);
-            }
+            
             WorldSaveGameManager.instance.SaveGame();
         }
 
-        // Play death SFX (to all players, not just owner)
-
-        yield return new WaitForSeconds(5);
-
-        // Award player with runes and other after-death effecets
-
-        // Disable character
+        return base.ProcessDeathEvent(overrideDeathAnimation);
     }
 
     public void WakeBoss()

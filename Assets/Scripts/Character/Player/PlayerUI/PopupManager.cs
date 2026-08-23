@@ -11,6 +11,14 @@ public class PopupManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI youDiedPopupBackgroundText;
     [SerializeField] TextMeshProUGUI youDiedPopupText;
     [SerializeField] CanvasGroup youDiedPopupCanvasGroup;  // Allows us to set the alpha fade over time
+
+    [Header("BOSS DEFEATED popup")]
+    [SerializeField] GameObject bossDefeatedPopupGameObject;
+    [SerializeField] TextMeshProUGUI bossDefeatedPopupBackgroundText;
+    [SerializeField] TextMeshProUGUI bossDefeatedPopupText;
+    [SerializeField] CanvasGroup bossDefeatedPopupCanvasGroup;  // Allows us to set the alpha fade over time
+
+    [Header("Settings")]
     [SerializeField] private float textStretchSpeed = 0.05f;
     [SerializeField] private float textStretchTimeInSeconds = 8;
     [SerializeField] private float textStretchAmount = 30;//8.32f;
@@ -35,6 +43,21 @@ public class PopupManager : MonoBehaviour
         StartCoroutine(FadePopupOverTime(youDiedPopupCanvasGroup, fadeOutTimeInSeconds, fadeInTimeInSeconds + popupWaitTimeInSeconds));
         // // Deactivate object
         // youDiedPopupGameObject.SetActive(false);
+    }
+
+    public void SendBossDefeatedPopup(string defeatedMessage = "")
+    {
+        Debug.Log("in SendBossDefeatedPopup");
+        if (defeatedMessage != "")
+        {
+            bossDefeatedPopupText.text = defeatedMessage;
+            bossDefeatedPopupBackgroundText.text = defeatedMessage;
+        }
+        bossDefeatedPopupGameObject.SetActive(true);
+        StartCoroutine(StretchPopupTextOverTime(bossDefeatedPopupBackgroundText, textStretchTimeInSeconds, textStretchAmount, textStretchSpeed));
+        bossDefeatedPopupCanvasGroup.alpha = 0.0f;  // Reset to invisible
+        StartCoroutine(FadePopupOverTime(bossDefeatedPopupCanvasGroup, fadeInTimeInSeconds, 0));
+        StartCoroutine(FadePopupOverTime(bossDefeatedPopupCanvasGroup, fadeOutTimeInSeconds, fadeInTimeInSeconds + popupWaitTimeInSeconds));
     }
 
     private IEnumerator StretchPopupTextOverTime(TextMeshProUGUI text, float duration, float stretchAmount, float stretchSpeed)
