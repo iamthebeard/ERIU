@@ -21,7 +21,11 @@ public class AIBossManager : AICharacterManager
     [SerializeField] List<FogWallInteractable> associatedFogWalls;
     [SerializeField] string inactiveAnimation;
     [SerializeField] string awakenAnimation;
+    [SerializeField] string phaseChangeAnimation;
     public string defeatedMessage = "ENEMY DEFEATED";
+
+    [SerializeField] CombatStanceState phase2CombatStance;
+    public float phaseChangeHealthThreshold = 0.5f;
 
     [Header("DEBUG")]
     [SerializeField] bool awakenBoss = false;
@@ -218,5 +222,24 @@ public class AIBossManager : AICharacterManager
             UI_BossBar bossHPBar = bossHealthBar.GetComponentInChildren<UI_BossBar>();
             bossHPBar.EnableBossHPBar(this);
         }
+    }
+
+    public void PhaseShift()
+    {
+        if (isDead.Value)
+            return;
+        StartCoroutine(SwitchPhases());
+    }
+
+    private IEnumerator SwitchPhases()
+    {
+        while (isPerformingAction)
+            yield return new WaitForEndOfFrame();
+
+        combatStance = Instantiate(phase2CombatStance);
+        currentState = combatStance;
+        characterAnimatorManager.PlayTargetActionAnimation(phaseChangeAnimation, true, false, true, false);
+
+        yield return null;
     }
 }

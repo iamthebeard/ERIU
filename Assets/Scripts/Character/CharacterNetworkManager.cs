@@ -67,7 +67,7 @@ public class CharacterNetworkManager : NetworkBehaviour
     }
 
     // ******************** OnChange Callbacks ********************
-    public void CheckHP(int oldValue = 0, int newValue = 0) // Defaults for overloading purposes
+    public virtual void CheckHP(int oldValue = 0, int newValue = 0) // Defaults for overloading purposes
     {
         if (currentHealth.Value <= 0)
         {

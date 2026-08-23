@@ -3298,7 +3298,10 @@ MonoBehaviour:
   associatedFogWalls: []
   inactiveAnimation: talking
   awakenAnimation: pointing
+  phaseChangeAnimation: phase_shift
   defeatedMessage: ENEMY DEFEATED
+  phase2CombatStance: {fileID: 11400000, guid: b527cafb3edf6bf489d41a58e66bff7b, type: 2}
+  phaseChangeHealthThreshold: 0.5
   awakenBoss: 0
   defeatBoss: 0
   startFight: 0

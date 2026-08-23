@@ -76,7 +76,7 @@
     <Compile Include="Assets\Scripts\Character\Player\PlayerLocomotionManager.cs" />
     <Compile Include="Assets\Scripts\Animations\ResetIsJumping.cs" />
     <Compile Include="Assets\Scripts\Character\AI Character\AICharacterManager.cs" />
-    <Compile Include="Assets\Scripts\Character\AI Character\AICharacterNetworkManager.cs" />
+    <Compile Include="Assets\Scripts\Character\AI Character\Boss\BossNetworkManager.cs" />
     <Compile Include="Assets\Scripts\Menu Scene\TitleScreenManager.cs" />
     <Compile Include="Assets\DoubleL\Demo\DemoCameraController.cs" />
     <Compile Include="Assets\Scripts\Items\WeaponModelInstantiationSlot.cs" />

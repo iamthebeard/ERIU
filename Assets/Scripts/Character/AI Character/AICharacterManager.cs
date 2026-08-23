@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class AICharacterManager : CharacterManager
 {
     [HideInInspector] public AICharacterCombatManager aiCharacterCombatManager;
-    [HideInInspector] public AICharacterNetworkManager aiCharacterNetworkManager;
+    [HideInInspector] public CharacterNetworkManager aiCharacterNetworkManager;
     [HideInInspector] public AICharacterLocomotionManager aiCharacterLocomotionManager;
 
     [Header("AI Character Name")]
@@ -33,7 +33,7 @@ public class AICharacterManager : CharacterManager
 
         aiCharacterCombatManager = GetComponent<AICharacterCombatManager>();
         navMeshAgent = GetComponentInChildren<NavMeshAgent>();
-        aiCharacterNetworkManager = GetComponent<AICharacterNetworkManager>();
+        aiCharacterNetworkManager = GetComponent<CharacterNetworkManager>();
         aiCharacterLocomotionManager = GetComponent<AICharacterLocomotionManager>();
     }
 
