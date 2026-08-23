@@ -12,6 +12,15 @@ public class EventTriggerBossFight : EventTrigger
 
         AIBossManager boss = WorldAIManager.instance.GetBossByID(bossID);
         if (boss != null)
+        {
+            boss.aiCharacterNetworkManager.currentHealth.OnValueChanged += OnBossHealthChange;
             boss.WakeBoss();
+        }
+    }
+
+    public void OnBossHealthChange(int oldHealth, int newHealth)
+    {
+        if (newHealth < 0)
+            CloseTrigger();
     }
 }

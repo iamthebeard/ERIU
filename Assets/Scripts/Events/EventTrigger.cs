@@ -8,4 +8,9 @@ public class EventTrigger : MonoBehaviour
     {
         
     }
+
+    protected virtual void CloseTrigger()
+    {
+        Destroy(gameObject);
+    }
 }

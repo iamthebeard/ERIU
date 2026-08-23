@@ -30,6 +30,7 @@ public class UI_BossBar : UI_StatBar
         if (newValue <= 0)
         {
             RemoveBar(2.5f);
+            Destroy(label, 2.5f);
         }
     }
 }

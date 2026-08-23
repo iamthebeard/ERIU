@@ -67,7 +67,7 @@ public class AIBossManager : AICharacterManager
             // Locate fog wall
             StartCoroutine(GetFogWallsFromWorldObjectManager());
 
-            if (hasBeenDefeated.Value)
+            if (hasBeenDefeated.Value || !hasBeenAwakened.Value)
             {
                 aiCharacterNetworkManager.isActive.Value = false;
                 // If the boss has been defeated, disable fog walls
