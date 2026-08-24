@@ -27,6 +27,10 @@ public class AIBossManager : AICharacterManager
     [SerializeField] CombatStanceState phase2CombatStance;
     public float phaseChangeHealthThreshold = 0.5f;
 
+    [Header("Music")]
+    [SerializeField] AudioClip bossIntroClip;
+    [SerializeField] AudioClip bossLoopClip;
+
     [Header("DEBUG")]
     [SerializeField] bool awakenBoss = false;
     [SerializeField] bool defeatBoss = false;
@@ -215,12 +219,18 @@ public class AIBossManager : AICharacterManager
     {
         if (fightNowInProgress)
         {
+            WorldSoundFXManager.instance.PlayBossTrack(bossIntroClip, bossLoopClip);
+
             GameObject bossHealthBar = Instantiate(
                 PlayerUIManager.instance.playerUIHUDManager.bossHealthBarPrefab,
                 PlayerUIManager.instance.playerUIHUDManager.bossHealthBarParent
             );
             UI_BossBar bossHPBar = bossHealthBar.GetComponentInChildren<UI_BossBar>();
             bossHPBar.EnableBossHPBar(this);
+        }
+        else
+        {
+            WorldSoundFXManager.instance.StopBossMusic();
         }
     }
 

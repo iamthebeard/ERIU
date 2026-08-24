@@ -3302,6 +3302,8 @@ MonoBehaviour:
   defeatedMessage: ENEMY DEFEATED
   phase2CombatStance: {fileID: 11400000, guid: b527cafb3edf6bf489d41a58e66bff7b, type: 2}
   phaseChangeHealthThreshold: 0.5
+  bossIntroClip: {fileID: 8300000, guid: c17b43fd9ea7a0848b3fb1af36daa391, type: 3}
+  bossLoopClip: {fileID: 8300000, guid: 1cbf50094e90d3b4596fbc09e2ecf58c, type: 3}
   awakenBoss: 0
   defeatBoss: 0
   startFight: 0
