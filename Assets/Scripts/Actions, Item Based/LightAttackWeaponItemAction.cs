@@ -8,26 +8,37 @@ public class LightAttackWeaponItemAction : WeaponItemAction
 
     [SerializeField] string lightAttackAnimation = "main_hand_light_attack";
     [SerializeField] string lightAttack02Animation = "main_hand_light_attack_02";
+    [SerializeField] string runningAttackAnimation = "main_hand_running_attack"; // Same animations because I don't have any of these
+    [SerializeField] string rollingAttackAnimation = "main_hand_running_attack"; // Same animations because I don't have any of these
+    [SerializeField] string backstepAttackAnimation = "main_hand_running_attack"; // Same animations because I don't have any of these
 
     public override void AttemptToPerformAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {
         base.AttemptToPerformAction(playerPerformingAction, weaponPerformingAction);
 
-        if (!playerPerformingAction.IsOwner)
-        {
-            return;
-        }
+        if (!playerPerformingAction.IsOwner) return;
+        if (playerPerformingAction.playerNetworkManager.currentStamina.Value <= 0) return;
+        if (!playerPerformingAction.playerLocomotionManager.isGrounded) return;
 
-        // Check for stops
-        if (playerPerformingAction.playerNetworkManager.currentStamina.Value <= 0)
+        if (playerPerformingAction.characterNetworkManager.isSprinting.Value)
         {
-            return;
+            // If sprinting, do a run attack
+            PerformRunningAttack(playerPerformingAction, weaponPerformingAction);
         }
-        if (!playerPerformingAction.playerLocomotionManager.isGrounded)
+        else if (playerPerformingAction.playerCombatManager.canDoRollingAttack)
         {
-            return;
+            // If we attack in the canDoRollingAttack window, do a rolling attack
+            PerformRollingAttack(playerPerformingAction, weaponPerformingAction);
         }
-        PerformLightAttack(playerPerformingAction, weaponPerformingAction);
+        else if (playerPerformingAction.playerCombatManager.canDoBackstepAttack)
+        {
+            // If we attack in the canDoRollingAttack window, do a rolling attack
+            PerformBackstepAttack(playerPerformingAction, weaponPerformingAction);
+        }
+        else
+        {
+            PerformLightAttack(playerPerformingAction, weaponPerformingAction);
+        }
     }
 
     private void PerformLightAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
@@ -52,5 +63,25 @@ public class LightAttackWeaponItemAction : WeaponItemAction
         {
             playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.LightAttack01, lightAttackAnimation, true);
         }
+    }
+
+    private void PerformRunningAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+    {
+        if (!playerPerformingAction.isPerformingAction)
+        {
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.RunningAttack01, runningAttackAnimation, true);
+        }
+    }
+
+    private void PerformRollingAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+    {
+        playerPerformingAction.playerCombatManager.DisableCanDoRollingAttack();
+        playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.RollingAttack01, rollingAttackAnimation, true, false, false, false);
+    }
+
+    private void PerformBackstepAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
+    {
+        playerPerformingAction.playerCombatManager.DisableCanDoBackstepAttack();
+        playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.BackstepAttack01, backstepAttackAnimation, true);
     }
 }

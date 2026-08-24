@@ -23,6 +23,12 @@ public class MeleeWeaponDamageCollider : DamageCollider
     public float chargedHeavyAttack01PoiseModifier;
     public float chargedHeavyAttack02Modifier;
     public float chargedHeavyAttack02PoiseModifier;
+    public float runningAttack01Modifier;
+    public float runningAttack01PoiseModifier;
+    public float rollingAttack01Modifier;
+    public float rollingAttack01PoiseModifier;
+    public float backstepAttack01Modifier;
+    public float backstepAttack01PoiseModifier;
 
     protected override void Awake()
     {
@@ -103,6 +109,18 @@ public class MeleeWeaponDamageCollider : DamageCollider
                 damageEffect.damage *= chargedHeavyAttack02Modifier;
                 damageEffect.damage.poise = damage.poise * chargedHeavyAttack02PoiseModifier;
                 break;
+            case AttackType.RunningAttack01:
+                damageEffect.damage *= runningAttack01Modifier;
+                damageEffect.damage.poise = damage.poise * runningAttack01PoiseModifier;
+                break;
+            case AttackType.RollingAttack01:
+                damageEffect.damage *= rollingAttack01Modifier;
+                damageEffect.damage.poise = damage.poise * rollingAttack01PoiseModifier;
+                break;
+            case AttackType.BackstepAttack01:
+                damageEffect.damage *= backstepAttack01Modifier;
+                damageEffect.damage.poise = damage.poise * backstepAttack01PoiseModifier;
+                break;
             default:
                 break;
         }
@@ -137,6 +155,15 @@ public class MeleeWeaponDamageCollider : DamageCollider
             case AttackType.ChargedHeavy01:
             case AttackType.ChargedHeavy02:
                 attackType = "Charged heavy ";
+                break;
+            case AttackType.RunningAttack01:
+                attackType = "Running attack ";
+                break;
+            case AttackType.RollingAttack01:
+                attackType = "Rolling attack ";
+                break;
+            case AttackType.BackstepAttack01:
+                attackType = "Backstep attack ";
                 break;
         }
         Debug.Log( attackType + "weapon strike on character " + damageTarget.NetworkObjectId

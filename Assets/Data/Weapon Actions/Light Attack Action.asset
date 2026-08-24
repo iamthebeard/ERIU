@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionID: 1
   lightAttackAnimation: main_hand_light_attack
+  lightAttack02Animation: main_hand_light_attack_02
+  runningAttackAnimation: main_hand_running_attack

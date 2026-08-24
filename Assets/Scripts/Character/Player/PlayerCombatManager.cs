@@ -56,7 +56,19 @@ public class PlayerCombatManager : CharacterCombatManager
                 break;
             case AttackType.ChargedHeavy01:
                 staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.chargedHeavyAttack01StaminaCostModifier;
+                break; 
+            case AttackType.ChargedHeavy02:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.chargedHeavyAttack02StaminaCostModifier;
                 break;
+            case AttackType.RunningAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.runningAttack01StaminaCostModifier;
+                break;
+            case AttackType.RollingAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.rollingAttack01StaminaCostModifier;
+                break;
+            case AttackType.BackstepAttack01:
+                staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.backstepAttack01StaminaCostModifier;
+                break; 
             default:
                 break;
         }
@@ -73,5 +85,20 @@ public class PlayerCombatManager : CharacterCombatManager
         {
             PlayerCamera.instance.SetCameraHeight();
         }
+    }
+
+    public override void EnableCanDoCombo()
+    {
+        if (player.playerNetworkManager.isUsingRightHand.Value)
+        {
+            player.playerCombatManager.canComboWithMainHandWeapon = true;
+        }
+        // else if -- enable offhand weapon
+    }
+
+    public override void DisableCanDoCombo()
+    {
+        player.playerCombatManager.canComboWithMainHandWeapon = false;
+        // player.playerCombatManager.canComboWithOffHandWeapon = false;
     }
 }

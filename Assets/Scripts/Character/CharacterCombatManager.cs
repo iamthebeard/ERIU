@@ -22,6 +22,10 @@ public class CharacterCombatManager : NetworkBehaviour
     [Header("Last Attack Animation Performed")]
     public string lastAttackAnimationPerformed;
 
+    [Header("Attack Flags")]
+    public bool canDoRollingAttack = false;
+    public bool canDoBackstepAttack = false;
+
     protected virtual void Awake()
     {
         character = GetComponent<CharacterManager>();
@@ -61,5 +65,35 @@ public class CharacterCombatManager : NetworkBehaviour
     {
         if (character.IsOwner)
             character.characterNetworkManager.isInvulnerable.Value = false;
+    }
+
+    public virtual void EnableCanDoCombo()
+    {
+        
+    }
+
+    public virtual void DisableCanDoCombo()
+    {
+        
+    }
+
+    public void EnableCanDoRollingAttack()
+    {
+        canDoRollingAttack = true;
+    }
+
+    public void DisableCanDoRollingAttack()
+    {
+        canDoRollingAttack = false;
+    }
+
+    public void EnableCanDoBackstepAttack()
+    {
+        canDoBackstepAttack = true;
+    }
+
+    public void DisableCanDoBackstepAttack()
+    {
+        canDoBackstepAttack = false;
     }
 }

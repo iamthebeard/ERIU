@@ -118,7 +118,7 @@ public class CharacterAnimatorManager : MonoBehaviour
         bool canRotate = false,
         bool canMove = false
     ) {
-        Debug.Log("Playing " + targetAnimation + " on " + character.NetworkObjectId + ".");
+        Debug.Log("Playing " + attackType.ToString() + " " + targetAnimation + " on " + character.NetworkObjectId + ".");
 
         // New to attacks
         // Keep track of last attack performed (for combos)
@@ -144,15 +144,5 @@ public class CharacterAnimatorManager : MonoBehaviour
             character.characterLocomotionManager.isRolling,
             character.characterLocomotionManager.isBackstepping
         );
-    }
-
-    public virtual void EnableCanDoCombo()
-    {
-        
-    }
-
-    public virtual void DisableCanDoCombo()
-    {
-        
     }
 }
