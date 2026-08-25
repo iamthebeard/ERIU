@@ -49,6 +49,14 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private bool lockOnSwitchRightInput = false;
     private Coroutine lockOnCoroutine;
 
+    [Header("Queued Inputs")]
+    [SerializeField] private float queuedInputAllowedTime = 0.35f;
+    [SerializeField] private float queuedInputTimer = 0;
+    [SerializeField] private bool inputQueueActive = false;
+    [SerializeField] private bool dodgeInputQueued = false;
+    [SerializeField] private bool rbInputQueued = false;
+    [SerializeField] private bool rtInputQueued = false;
+
 
     private void Awake()
     {
@@ -117,6 +125,12 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerActions.LockOn.performed += i => lockOnInput = true;
             playerControls.PlayerActions.SwitchLockOnTargetLeft.performed += i => lockOnSwitchLeftInput = true;
             playerControls.PlayerActions.SwitchLockOnTargetRight.performed += i => lockOnSwitchRightInput = true;
+
+            // Queued Inputs
+            playerControls.PlayerActions.QueueDodge.performed += i => QueueInput(ref dodgeInputQueued);
+            playerControls.PlayerActions.QueueRB.performed += i => QueueInput(ref rbInputQueued);
+            playerControls.PlayerActions.QueueRT.performed += i => QueueInput(ref rtInputQueued);
+
         }
 
         playerControls.Enable();
@@ -165,6 +179,8 @@ public class PlayerInputManager : MonoBehaviour
         HandleCameraMovementInput();
         HandleLockOnInput();
         HandleLockOnSwitchInput();
+
+        HandleAllQueuedInputs();
     }
 
     private void HandleMovementInput()
@@ -393,6 +409,59 @@ public class PlayerInputManager : MonoBehaviour
                 {
                     player.playerCombatManager.SetLockOnTarget(PlayerCamera.instance.rightLockOnTarget);
                 }
+            }
+        }
+    }
+
+    private void QueueInput(ref bool queuedInput)
+    {
+        // Reset all queued inputs so only one can queue at a time
+        dodgeInputQueued = false;
+        rbInputQueued = false;
+        rtInputQueued = false;
+        // We're going to set the right one to true again using the ref.
+
+        if (player == null) return; // Don't queue inputs before the player is spawned
+
+        // Check for UI windows being opened
+
+        if (player.isPerformingAction || player.playerNetworkManager.isJumping.Value)
+        {
+            queuedInput = true;
+
+            // Attempt this new input for X amount of time
+            queuedInputTimer = queuedInputAllowedTime;
+            inputQueueActive = true;
+        }
+    }
+
+    private void HandleAllQueuedInputs()
+    {
+        if (inputQueueActive)
+        {
+            if (queuedInputTimer > 0)
+            {
+                Debug.Log("Queued input - dodge: " + dodgeInputQueued + ", rb: " + rbInputQueued + ", rt: " + rtInputQueued + ".");
+                queuedInputTimer -= Time.deltaTime;
+
+                if (player.isDead.Value) return;
+
+        
+                if (dodgeInputQueued)
+                    dodgeInput = true;
+                if (rbInputQueued)
+                    rbInput = true;
+                if (rtInputQueued)
+                    rtInput = true;
+            }
+            else
+            {
+                inputQueueActive = false;
+                queuedInputTimer = 0;
+
+                dodgeInputQueued = false;
+                rbInputQueued = false;
+                rtInputQueued = false;
             }
         }
     }

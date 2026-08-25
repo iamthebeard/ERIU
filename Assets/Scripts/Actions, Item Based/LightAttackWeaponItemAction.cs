@@ -69,7 +69,7 @@ public class LightAttackWeaponItemAction : WeaponItemAction
     {
         if (!playerPerformingAction.isPerformingAction)
         {
-            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.RunningAttack01, runningAttackAnimation, true);
+            playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.RunningAttack01, runningAttackAnimation, true, false, false, false);
         }
     }
 
@@ -82,6 +82,6 @@ public class LightAttackWeaponItemAction : WeaponItemAction
     private void PerformBackstepAttack(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
     {
         playerPerformingAction.playerCombatManager.DisableCanDoBackstepAttack();
-        playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.BackstepAttack01, backstepAttackAnimation, true);
+        playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(AttackType.BackstepAttack01, backstepAttackAnimation, true, false, false, false);
     }
 }
