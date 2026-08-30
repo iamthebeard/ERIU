@@ -34,6 +34,11 @@ public class PlayerManager : CharacterManager
         playerCombatManager = GetComponent<PlayerCombatManager>();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -80,6 +85,8 @@ public class PlayerManager : CharacterManager
 
     public override void OnNetworkSpawn()
     {
+        if (IsOwner) characterUIManager.hasFloatingHPBar = false; // We don't want to see the floating bar over our own player's head.
+
         base.OnNetworkSpawn();
 
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;

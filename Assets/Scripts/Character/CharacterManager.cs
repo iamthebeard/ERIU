@@ -13,6 +13,7 @@ public class CharacterManager : NetworkBehaviour
     [HideInInspector] public CharacterEffectsManager characterEffectsManager;
     [HideInInspector] public CharacterCombatManager characterCombatManager;
     [HideInInspector] public CharacterSoundFXManager characterSoundFXManager;
+    [HideInInspector] public CharacterUIManager characterUIManager;
 
 
     [Header("Status")]
@@ -41,11 +42,22 @@ public class CharacterManager : NetworkBehaviour
         characterEffectsManager = GetComponent<CharacterEffectsManager>();
         characterCombatManager = GetComponent<CharacterCombatManager>();
         characterSoundFXManager = GetComponent<CharacterSoundFXManager>();
+        characterUIManager = GetComponent<CharacterUIManager>();
     }
 
     protected virtual void Start()
     {
         IgnoreMyOwnColliders();
+    }
+
+    protected virtual void OnEnable()
+    {
+        
+    }
+
+    protected virtual void OnDisable()
+    {
+        
     }
 
     public override void OnNetworkSpawn()
@@ -63,6 +75,12 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager.isMoving.OnValueChanged += characterNetworkManager.OnIsMovingChanged;
         characterNetworkManager.isActive.OnValueChanged += characterNetworkManager.OnIsActiveChanged;
         characterNetworkManager.currentHealth.OnValueChanged += characterNetworkManager.CheckHP;
+
+        if(characterUIManager.hasFloatingHPBar)
+        {
+            characterNetworkManager.currentHealth.OnValueChanged += characterUIManager.OnHPChanged;
+            characterUIManager.OnHPChanged(0, characterNetworkManager.currentHealth.Value);
+        }
     }
 
     public override void OnNetworkDespawn()
@@ -75,6 +93,11 @@ public class CharacterManager : NetworkBehaviour
         characterNetworkManager.isMoving.OnValueChanged -= characterNetworkManager.OnIsMovingChanged;
         characterNetworkManager.isActive.OnValueChanged -= characterNetworkManager.OnIsActiveChanged;
         characterNetworkManager.currentHealth.OnValueChanged -= characterNetworkManager.CheckHP;
+
+        if(characterUIManager.hasFloatingHPBar)
+        {
+            characterNetworkManager.currentHealth.OnValueChanged -= characterUIManager.OnHPChanged;
+        }
     }
 
     protected virtual void Update()

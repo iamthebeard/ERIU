@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UI_StatBar : MonoBehaviour
 {
-    private Slider slider;
-    private RectTransform rectTransform;
+    protected Slider slider;
+    protected RectTransform rectTransform;
     // Secondary bar behind main bar for polish effect (yellow bar that shows how much stamina an action used)
 
     [Header("Bar Options")]
@@ -20,6 +20,8 @@ public class UI_StatBar : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
+    protected virtual void Start(){}
+
     public virtual void SetStat(float newValue) {
         slider.value = newValue;
     }
@@ -27,7 +29,7 @@ public class UI_StatBar : MonoBehaviour
     public virtual void SetMaxStat(int maxValue)
     {
         slider.maxValue = maxValue;
-        SetStat(maxValue);
+        // SetStat(maxValue);
 
         if (scaleBarLengthWithStats)
         {
